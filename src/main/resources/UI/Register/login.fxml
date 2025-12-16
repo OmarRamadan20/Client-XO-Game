@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="com.mycompany.clientxogame.LoginController">
+   <children>
+      <TextField fx:id="enterName" layoutX="137.0" layoutY="118.0" opacity="0.8" prefHeight="32.0" prefWidth="299.0" promptText="Enter Your Name" style="-fx-background-radius: 50;">
+         <padding>
+            <Insets bottom="8.0" top="20.0" />
+         </padding>
+      </TextField>
+      <TextField fx:id="enterPassword" layoutX="137.0" layoutY="174.0" opacity="0.8" prefHeight="23.0" prefWidth="299.0" promptText="Enter Your Password" style="-fx-background-radius: 50;">
+         <padding>
+            <Insets bottom="8.0" top="20.0" />
+         </padding>
+      </TextField>
+      <Button fx:id="btnBack" layoutX="34.0" layoutY="329.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="82.0" style="-fx-background-radius: 10;" text="Back" />
+      <Label layoutX="168.0" layoutY="303.0" text=" Create New Account ? ">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnLogin" layoutX="137.0" layoutY="247.0" mnemonicParsing="false" onAction="#logIn" prefHeight="26.0" prefWidth="286.0" style="-fx-background-radius: 50;" text="Log in">
+         <padding>
+            <Insets bottom="8.0" top="10.0" />
+         </padding>
+      </Button>
+      <Label layoutX="231.0" layoutY="57.0" text="Tic Tac Toe">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="signUpTxt" layoutX="313.0" layoutY="305.0" text="Sign Up" underline="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
