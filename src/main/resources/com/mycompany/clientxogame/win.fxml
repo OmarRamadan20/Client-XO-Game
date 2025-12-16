@@ -20,7 +20,7 @@
       </AnchorPane>
    </bottom>
    <top>
-      <Label contentDisplay="CENTER" prefHeight="18.0" prefWidth="221.0" text="       You Win 🎉" BorderPane.alignment="CENTER">
+      <Label fx:id="result" contentDisplay="CENTER" prefHeight="18.0" prefWidth="221.0" text="Result" BorderPane.alignment="CENTER">
          <font>
             <Font name="Arial Rounded MT Bold" size="27.0" />
          </font>
