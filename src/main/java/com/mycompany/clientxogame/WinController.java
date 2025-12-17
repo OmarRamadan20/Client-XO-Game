@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.media.MediaView;
 
 /**
@@ -25,6 +26,8 @@ public class WinController implements Initializable {
     private Button playAgainButton;
     @FXML
     private MediaView mediaView;
+    @FXML
+    private Label result;
 
     /**
      * Initializes the controller class.
