@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.Icon?>
+<?import java.net.URL?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: DODGERLUE;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.Available_playersController">
+    <stylesheets>
+        <URL value="@/styles/available_players.css" />
+    </stylesheets>
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="274.0" layoutX="51.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" width="513.0" />
+      <Label layoutX="59.0" layoutY="29.0" text="Available Players" textFill="#359aff">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="65.0" layoutX="91.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" width="442.0" />
+      <ImageView fitHeight="54.0" fitWidth="68.0" layoutX="91.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" style="visibility: true;">
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+      </ImageView>
+      <Label fx:id="nameTxt" layoutX="164.0" layoutY="103.0" onDragDetected="#displayName" text="Ahlam" textFill="#f7f7f7">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnInvite" defaultButton="true" layoutX="427.0" layoutY="93.0" mnemonicParsing="false" onAction="#invitePlayer" prefHeight="38.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Invite">
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.5184000134468079" green="0.5957406163215637" blue="0.8100000023841858" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Button>
+      <Button fx:id="btnLogOut" layoutX="51.0" layoutY="349.0" mnemonicParsing="false" onAction="#logOut" prefHeight="38.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="LogOut" />
+      <Button fx:id="btnProfile" layoutX="484.0" layoutY="349.0" mnemonicParsing="false" onAction="#showProfile" prefHeight="38.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Profile" />
+      <Icon fx:id="iconRefresh" content="REFRESH" layoutX="520.0" layoutY="34.0" onDragDetected="#refresh" />
+   </children>
+</AnchorPane>
