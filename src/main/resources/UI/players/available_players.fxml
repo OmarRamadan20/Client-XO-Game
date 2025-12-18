@@ -24,7 +24,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="65.0" layoutX="91.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" width="442.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c1c5c9" height="65.0" layoutX="91.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" width="442.0" />
       <ImageView fitHeight="54.0" fitWidth="68.0" layoutX="91.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" style="visibility: true;">
          <viewport>
             <Rectangle2D />
