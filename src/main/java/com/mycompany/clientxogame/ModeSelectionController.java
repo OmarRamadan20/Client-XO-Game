@@ -35,14 +35,22 @@ public class ModeSelectionController implements Initializable {
     
     @FXML
     private void onActionBtmSingle(ActionEvent event) {
+        
+        NavigateBetweeenScreens.goToSingleMode(event);
     }
 
     @FXML
     private void onActionBtmPlayer(ActionEvent event) {
+        
+                NavigateBetweeenScreens.goToDoubleMode(event);
+
     }
 
     @FXML
     private void onActionOnline(ActionEvent event) {
+    
+                    NavigateBetweeenScreens.goToLogIn(event);
+
     }
 
 }

@@ -56,6 +56,7 @@ public class NavigateBetweeenScreens {
 
     public static void goToDoubleMode(ActionEvent event) {
         changeScene(event, "/UI/players/offline_players.fxml", "Offline Players");
+       //E:\ITI\java\Team4\client\Client-XO-Game\src\main\resources
     }
 
     public static void goToPlay(ActionEvent event) {
@@ -72,6 +73,8 @@ public class NavigateBetweeenScreens {
 
     public static void goToLogIn(ActionEvent event) {
         changeScene(event, "/UI/Register/login.fxml", "Login");
+    
+    //E:\ITI\java\Team4\client\Client-XO-Game\src\main\resources
     }
 
     public static void goToAvailblePlayerAfterLogin(ActionEvent event) {
