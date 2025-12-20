@@ -9,27 +9,18 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 
+import javafx.scene.control.Button;
 /**
  * FXML Controller class
  *
- * @author user
+ * @author amr04
  */
-public class LoginController implements Initializable {
+public class AcceptController implements Initializable {
+
 
     @FXML
-    private TextField enterName;
-    @FXML
-    private TextField enterPassword;
-    @FXML
-    private Button btnBack;
-    @FXML
-    private Button btnLogin;
-    @FXML
-    private Button registerID;
-
+    private Button cancelBtn;
     /**
      * Initializes the controller class.
      */
@@ -37,21 +28,10 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
+    
     @FXML
-    private void logIn(ActionEvent event) {
+    private void onActionCancel(ActionEvent event) {
         NavigateBetweeenScreens.goToAvailablePlayer(event);
     }
 
-    @FXML
-    private void register(ActionEvent event) {
-          NavigateBetweeenScreens.goToRegister(event);
-    }
-
-    @FXML
-    private void actionBtn(ActionEvent event) {
-        NavigateBetweeenScreens.backToModeSelection(event);
-    }
- 
-    
 }

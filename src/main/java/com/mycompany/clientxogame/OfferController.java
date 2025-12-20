@@ -6,15 +6,23 @@ package com.mycompany.clientxogame;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import javafx.scene.control.Button;
 /**
  * FXML Controller class
  *
- * @author user
+ * @author amr04
  */
-public class SignUpController implements Initializable {
+public class OfferController implements Initializable {
 
+
+    @FXML
+    private Button btmOfCourse;
+    @FXML
+    private Button btmTimeAnther;
     /**
      * Initializes the controller class.
      */
@@ -23,4 +31,12 @@ public class SignUpController implements Initializable {
         // TODO
     }    
     
+    @FXML
+    private void onActionOfCourse(ActionEvent event) {
+    }
+
+    @FXML
+    private void onActionTimeAnTher(ActionEvent event) {
+    }
+
 }
