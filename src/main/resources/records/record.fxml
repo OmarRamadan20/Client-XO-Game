@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF- 8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -11,8 +11,8 @@
 <?import javafx.scene.control.Button?>
 
 <StackPane xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.mycompany.clientxogame.RecordController"
-           style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);"> <VBox spacing="20"
+          fx:controller="com.mycompany.clientxogame.RecordController"
+          style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);"> <VBox spacing="20"
           alignment="TOP_CENTER"
           maxWidth="700"
           maxHeight="700"
