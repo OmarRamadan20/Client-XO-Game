@@ -48,7 +48,7 @@ public class Available_playersController implements Initializable {
 
     @FXML
     private void logOut(ActionEvent event) {
-         NavigateBetweeenScreens.goToRegister(event);
+         NavigateBetweeenScreens.goToLogIn(event);
     }
 
     @FXML

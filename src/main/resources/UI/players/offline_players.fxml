@@ -16,8 +16,8 @@
          </image></ImageView>
       <TextField layoutX="207.0" layoutY="103.0" prefHeight="48.0" prefWidth="231.0" promptText="player1_name" style="-fx-background-radius: 50;" />
       <TextField layoutX="207.0" layoutY="227.0" prefHeight="48.0" prefWidth="238.0" promptText="player2_name" style="-fx-background-radius: 50;" />
-      <Button layoutX="80.0" layoutY="320.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="96.0" style="-fx-background-radius: 20;" text="Back" />
-      <Button layoutX="430.0" layoutY="320.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="96.0" style="-fx-background-radius: 20;" text="Let's Play" />
+      <Button fx:id="btnBack" layoutX="80.0" layoutY="320.0" mnemonicParsing="false" onAction="#onActionBack" prefHeight="36.0" prefWidth="96.0" style="-fx-background-radius: 20;" text="Back" />
+      <Button fx:id="btnPlay" layoutX="430.0" layoutY="320.0" mnemonicParsing="false" onAction="#onActionPlay" prefHeight="36.0" prefWidth="96.0" style="-fx-background-radius: 20;" text="Let's Play" />
       <Label layoutX="248.0" layoutY="33.0" text="Tic Tac Toe">
          <font>
             <Font size="21.0" />

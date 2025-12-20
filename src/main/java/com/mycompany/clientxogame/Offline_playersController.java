@@ -6,8 +6,10 @@ package com.mycompany.clientxogame;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 
@@ -15,6 +17,12 @@ public class Offline_playersController implements Initializable {
 
     @FXML
     private ImageView playerAvatar;
+    @FXML
+    private ImageView playerAvatar1;
+    @FXML
+    private Button btnBack;
+    @FXML
+    private Button btnPlay;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -27,5 +35,16 @@ public class Offline_playersController implements Initializable {
      
         Circle clip = new Circle(40, 40, 40);
         playerAvatar.setClip(clip);
+    }
+
+    @FXML
+    private void onActionBack(ActionEvent event) {
+         NavigateBetweeenScreens.backToModeSelection(event);
+    }
+
+    @FXML
+    private void onActionPlay(ActionEvent event) {
+        NavigateBetweeenScreens.goToPlay(event);
+       
     }
 }
