@@ -9,26 +9,24 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 
+import javafx.scene.control.Button;
 /**
  * FXML Controller class
  *
- * @author user
+ * @author amr04
  */
-public class Available_playersController implements Initializable {
+public class LevelSelectionController implements Initializable {
+
 
     @FXML
-    private Label nameTxt;
+    private Button btmُُEasy;
     @FXML
-    private Button btnInvite;
+    private Button btmMeduim;
     @FXML
-    private Button btnLogOut;
+    private Button btmHard;
     @FXML
-    private Button btnProfile;
-
+    private Button btmBack;
     /**
      * Initializes the controller class.
      */
@@ -36,23 +34,29 @@ public class Available_playersController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
+    
     @FXML
-    private void displayName(MouseEvent event) {
-    }
-
-    @FXML
-    private void invitePlayer(ActionEvent event) {
-       NavigateBetweeenScreens.invite(event);
-    }
-
-    @FXML
-    private void logOut(ActionEvent event) {
-         NavigateBetweeenScreens.goToRegister(event);
-    }
-
-    @FXML
-    private void showProfile(ActionEvent event) {
+    private void onActionBtmEasy(ActionEvent event) {
+   
+    NavigateBetweeenScreens.goToEasyLevel(event);
     }
     
+
+    @FXML
+    private void onActionBtmMedium(ActionEvent event) {
+    NavigateBetweeenScreens.goToMeduimLevel(event);
+    }
+
+    @FXML
+    private void onActionHard(ActionEvent event) {
+    NavigateBetweeenScreens.goToHardLevel(event);
+    
+    }
+
+    @FXML
+    private void onActionBack(ActionEvent event) {
+    
+    NavigateBetweeenScreens.backToModeSelection(event);
+    }
+
 }
