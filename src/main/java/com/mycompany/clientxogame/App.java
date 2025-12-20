@@ -11,9 +11,12 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/clientxogame/ModeSelection.fxml"));
+
         //F:\traning\iti\Java\Final Project\ClientXOGame\src\main\resources/
+
         Scene scene = new Scene(root, 700,700);
         primaryStage.setTitle("XO Game");
+         primaryStage.setResizable(false);
 
         primaryStage.setScene(scene);
         primaryStage.show();

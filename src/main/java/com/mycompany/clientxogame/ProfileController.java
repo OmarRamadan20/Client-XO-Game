@@ -10,36 +10,27 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-
-import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 /**
  * FXML Controller class
  *
- * @author Admin
+ * @author Aladawy
  */
-public class RecordController implements Initializable {
-
-    @FXML
-    private Text cell00;
-    @FXML
-    private Text cell01;
-    @FXML
-    private Text cell02;
-    @FXML
-    private Text cell10;
-    @FXML
-    private Text cell11;
-    @FXML
-    private Text cell12;
-    @FXML
-    private Text cell20;
-    @FXML
-    private Text cell21;
-    @FXML
-    private Text cell22;
+public class ProfileController implements Initializable {
 
 
+    @FXML
+    private ImageView ImageId;
+    @FXML
+    private Label LableId;
+    @FXML
+    private Label ScoreId;
+    @FXML
+    private Button BackButtonId;
+    @FXML
+    private Button RecordsButtonId;
     /**
      * Initializes the controller class.
      */
@@ -49,11 +40,11 @@ public class RecordController implements Initializable {
     }    
     
     @FXML
-    private void onStart(ActionEvent event) {
+    private void onBack(ActionEvent event) {
     }
 
     @FXML
-    private void onBack(ActionEvent event) {
+    private void onRecord(ActionEvent event) {
     }
 
 }
