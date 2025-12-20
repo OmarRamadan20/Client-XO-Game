@@ -25,7 +25,7 @@
             </ImageView>
             <HBox prefHeight="274.0" prefWidth="606.0" spacing="100.0">
                <children>
-                  <Button fx:id="btmConcet" mnemonicParsing="false" onAction="#onActionConcet" style="-fx-background-color: #FFC300; -fx-text-fill: #1f3a93; -fx-background-radius: 10; -fx-padding: 10 25; -fx-font-weight: bold;" text="Concet">
+                  <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#onActionCancel" style="-fx-background-color: #FFC300; -fx-text-fill: #1f3a93; -fx-background-radius: 10; -fx-padding: 10 25; -fx-font-weight: bold;" text="Cancel">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>

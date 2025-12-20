@@ -19,7 +19,7 @@
             <Insets bottom="8.0" top="20.0" />
          </padding>
       </TextField>
-      <Button fx:id="btnBack" layoutX="34.0" layoutY="329.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="82.0" style="-fx-background-radius: 10;" text="Back" />
+      <Button fx:id="btnBack" layoutX="34.0" layoutY="329.0" mnemonicParsing="false" onAction="#actionBtn" prefHeight="36.0" prefWidth="82.0" style="-fx-background-radius: 10;" text="Back" />
       <Label layoutX="168.0" layoutY="305.0" text=" Create New Account ? ">
          <font>
             <Font size="14.0" />
@@ -36,6 +36,6 @@
          </font>
       </Label>
  
-      <Button fx:id="IdsignUp" layoutX="310.0" layoutY="302.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: transparent; -fx-text-fill: black; -fx-underline: true;" text="Sign Up" />
+      <Button fx:id="registerID" layoutX="310.0" layoutY="302.0" mnemonicParsing="false" onAction="#register" style="-fx-background-color: transparent; -fx-text-fill: black; -fx-underline: true;" text="Register" />
    </children>
 </AnchorPane>

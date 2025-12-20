@@ -20,7 +20,7 @@ public class AcceptController implements Initializable {
 
 
     @FXML
-    private Button btmConcet;
+    private Button cancelBtn;
     /**
      * Initializes the controller class.
      */
@@ -30,7 +30,8 @@ public class AcceptController implements Initializable {
     }    
     
     @FXML
-    private void onActionConcet(ActionEvent event) {
+    private void onActionCancel(ActionEvent event) {
+        NavigateBetweeenScreens.goToAvailablePlayer(event);
     }
 
 }

@@ -66,18 +66,16 @@ public class NavigateBetweeenScreens {
     public static void backToOfflinePlayer(ActionEvent event) {
         changeScene(event, "/UI/players/offline_players.fxml", "Offline Players");
     }
-
-    public static void goToSignUp(ActionEvent event) {
+        public static void goToRegister(ActionEvent event) {
         changeScene(event, "/UI/Register/signUp.fxml", "Sign Up");
     }
-
     public static void goToLogIn(ActionEvent event) {
         changeScene(event, "/UI/Register/login.fxml", "Login");
     
     //E:\ITI\java\Team4\client\Client-XO-Game\src\main\resources
     }
 
-    public static void goToAvailablePlayerAfterLogin(ActionEvent event) {
+    public static void goToAvailablePlayer(ActionEvent event) {
         changeScene(event,"/UI/players/available_players.fxml", "Available Players");
         //F:\traning\iti\Java\Final Project\ClientXOGame\src\main\resources\
     }

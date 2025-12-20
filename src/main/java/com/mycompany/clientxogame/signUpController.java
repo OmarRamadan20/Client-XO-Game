@@ -42,10 +42,12 @@ public class signUpController implements Initializable {
     
     @FXML
     private void ActionBack(ActionEvent event) {
+         NavigateBetweeenScreens.goToLogIn(event);
     }
 
     @FXML
     private void signUp(ActionEvent event) {
+         NavigateBetweeenScreens.goToAvailablePlayer(event);
     }
 
 }

@@ -10,9 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -30,9 +28,7 @@ public class LoginController implements Initializable {
     @FXML
     private Button btnLogin;
     @FXML
-    private Label signUpTxt;
-    @FXML
-    private Button IdsignUp;
+    private Button registerID;
 
     /**
      * Initializes the controller class.
@@ -44,15 +40,17 @@ public class LoginController implements Initializable {
 
     @FXML
     private void logIn(ActionEvent event) {
-        NavigateBetweeenScreens.goToAvailablePlayerAfterLogin(event);
+        NavigateBetweeenScreens.goToAvailablePlayer(event);
     }
 
-
+    @FXML
+    private void register(ActionEvent event) {
+          NavigateBetweeenScreens.goToRegister(event);
+    }
 
     @FXML
-    private void signUp(ActionEvent event) {
-         NavigateBetweeenScreens.goToSignUp(event);
-
+    private void actionBtn(ActionEvent event) {
+        NavigateBetweeenScreens.backToModeSelection(event);
     }
  
     
