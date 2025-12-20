@@ -6,7 +6,12 @@ package com.mycompany.clientxogame;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -15,6 +20,15 @@ import javafx.fxml.Initializable;
  */
 public class Available_playersController implements Initializable {
 
+    @FXML
+    private Label nameTxt;
+    @FXML
+    private Button btnInvite;
+    @FXML
+    private Button btnLogOut;
+    @FXML
+    private Button btnProfile;
+
     /**
      * Initializes the controller class.
      */
@@ -22,5 +36,21 @@ public class Available_playersController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void displayName(MouseEvent event) {
+    }
+
+    @FXML
+    private void invitePlayer(ActionEvent event) {
+    }
+
+    @FXML
+    private void logOut(ActionEvent event) {
+    }
+
+    @FXML
+    private void showProfile(ActionEvent event) {
+    }
     
 }

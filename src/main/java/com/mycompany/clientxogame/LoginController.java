@@ -41,6 +41,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void logIn(ActionEvent event) {
+        NavigateBetweeenScreens.goToAvailablePlayerAfterLogin(event);
     }
     
 }

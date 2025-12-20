@@ -77,8 +77,9 @@ public class NavigateBetweeenScreens {
     //E:\ITI\java\Team4\client\Client-XO-Game\src\main\resources
     }
 
-    public static void goToAvailblePlayerAfterLogin(ActionEvent event) {
+    public static void goToAvailablePlayerAfterLogin(ActionEvent event) {
         changeScene(event, "/UI/players/available_players.fxml", "Available Players");
+        //F:\traning\iti\Java\Final Project\ClientXOGame\src\main\resources\
     }
 //ui not exist
 
