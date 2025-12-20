@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
-import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -19,9 +18,7 @@ public class XOController implements Initializable {
     @FXML private Text cell20, cell21, cell22;
 
     @FXML private Line winLine;
-    @FXML private Button playAgainBtn;
-    @FXML private Button backBtn;
-    @FXML private VBox endGameBox;
+    @FXML private VBox endGameBox; // أضفت @FXML هنا
 
     private Text[][] cells;
     private String[][] board = new String[3][3];
@@ -77,7 +74,6 @@ public class XOController implements Initializable {
     }
 
     private int checkWin() {
-        
         for (int r = 0; r < 3; r++) {
             if (board[r][0] != null &&
                 board[r][0].equals(board[r][1]) &&
@@ -109,32 +105,24 @@ public class XOController implements Initializable {
 
     private void drawWinLine(int code) {
         winLine.setVisible(true);
-
         switch (code) {
-
             case 0: setLineForRow(0); break;
             case 1: setLineForRow(1); break;
             case 2: setLineForRow(2); break;
-
             case 3: setLineForCol(0); break;
             case 4: setLineForCol(1); break;
             case 5: setLineForCol(2); break;
-
             case 6: setLineForDiag(true); break;
             case 7: setLineForDiag(false); break;
         }
     }
 
     private void setLineForRow(int row) {
-        StackPane start = (StackPane) cells[row][0].getParent();
-        StackPane end = (StackPane) cells[row][2].getParent();
-        setLineBounds(start, end);
+        setLineBounds((StackPane) cells[row][0].getParent(), (StackPane) cells[row][2].getParent());
     }
 
     private void setLineForCol(int col) {
-        StackPane start = (StackPane) cells[0][col].getParent();
-        StackPane end = (StackPane) cells[2][col].getParent();
-        setLineBounds(start, end);
+        setLineBounds((StackPane) cells[0][col].getParent(), (StackPane) cells[2][col].getParent());
     }
 
     private void setLineForDiag(boolean leftToRight) {
@@ -145,7 +133,6 @@ public class XOController implements Initializable {
     }
 
     private void setLineBounds(StackPane start, StackPane end) {
-
         Bounds s = start.localToParent(start.getLayoutBounds());
         Bounds e = end.localToParent(end.getLayoutBounds());
 
@@ -155,7 +142,7 @@ public class XOController implements Initializable {
         winLine.setEndY(e.getMinY() + e.getHeight() / 2);
     }
 
-    @FXML
+    @FXML // أضفت @FXML هنا
     private void onPlayAgain() {
         board = new String[3][3];
         xTurn = true;
