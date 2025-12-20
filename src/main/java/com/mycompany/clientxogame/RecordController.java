@@ -20,6 +20,25 @@ import javafx.scene.text.Text;
  */
 public class RecordController implements Initializable {
 
+    @FXML
+    private Text cell00;
+    @FXML
+    private Text cell01;
+    @FXML
+    private Text cell02;
+    @FXML
+    private Text cell10;
+    @FXML
+    private Text cell11;
+    @FXML
+    private Text cell12;
+    @FXML
+    private Text cell20;
+    @FXML
+    private Text cell21;
+    @FXML
+    private Text cell22;
+
 
     /**
      * Initializes the controller class.
