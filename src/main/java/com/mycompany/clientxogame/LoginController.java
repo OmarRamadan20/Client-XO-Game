@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -42,6 +43,10 @@ public class LoginController implements Initializable {
     @FXML
     private void logIn(ActionEvent event) {
         NavigateBetweeenScreens.goToAvailablePlayerAfterLogin(event);
+    }
+
+    @FXML
+    private void onActionSignUp(MouseEvent event) {
     }
     
 }
