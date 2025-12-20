@@ -10,9 +10,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/clientxogame/ModeSelection.fxml"));
-        Scene scene = new Scene(root, 400, 400);
-        primaryStage.setTitle("Neon XO Game");
+        Parent root = FXMLLoader.load(getClass().getResource("/game/board.fxml"));
+        Scene scene = new Scene(root, 700,700);
+        primaryStage.setTitle("XO Game");
+
         primaryStage.setScene(scene);
         primaryStage.show();
     }
