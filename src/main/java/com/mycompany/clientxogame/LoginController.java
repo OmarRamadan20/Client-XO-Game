@@ -31,6 +31,8 @@ public class LoginController implements Initializable {
     private Button btnLogin;
     @FXML
     private Label signUpTxt;
+    @FXML
+    private Button IdsignUp;
 
     /**
      * Initializes the controller class.
@@ -45,8 +47,13 @@ public class LoginController implements Initializable {
         NavigateBetweeenScreens.goToAvailablePlayerAfterLogin(event);
     }
 
+
+
     @FXML
-    private void onActionSignUp(MouseEvent event) {
+    private void signUp(ActionEvent event) {
+         NavigateBetweeenScreens.goToSignUp(event);
+
     }
+ 
     
 }

@@ -35,10 +35,7 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Label fx:id="signUpTxt" layoutX="313.0" layoutY="305.0" onDragDetected="#onActionSignUp" text="Sign Up" underline="true">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
+ 
+      <Button fx:id="IdsignUp" layoutX="310.0" layoutY="302.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: transparent; -fx-text-fill: black; -fx-underline: true;" text="Sign Up" />
    </children>
 </AnchorPane>
