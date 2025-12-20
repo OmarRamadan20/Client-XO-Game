@@ -14,8 +14,8 @@
            fx:controller="com.mycompany.clientxogame.RecordController"
            style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);"> <VBox spacing="20"
           alignment="TOP_CENTER"
-          maxWidth="420"
-          maxHeight="500"
+          maxWidth="700"
+          maxHeight="700"
           style="
               -fx-background-color: rgba(255, 255, 255, 0.3); 
               -fx-background-radius: 30;
