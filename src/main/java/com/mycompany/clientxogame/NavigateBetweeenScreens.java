@@ -130,4 +130,13 @@ public class NavigateBetweeenScreens {
         changeScene(event, "/game/board.fxml", "XO Game");
     }
 
+    public static void backToShowProfile(ActionEvent event) {
+        changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
+    }
+    
+    public static void goToPlayRecords(ActionEvent event) {
+        changeScene(event, "/records/record.fxml", "Game Record");
+    }
+    
+    
 }
