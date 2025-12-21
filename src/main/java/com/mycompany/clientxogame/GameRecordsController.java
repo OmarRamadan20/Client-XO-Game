@@ -6,7 +6,10 @@ package com.mycompany.clientxogame;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -14,6 +17,11 @@ import javafx.fxml.Initializable;
  * @author Admin
  */
 public class GameRecordsController implements Initializable {
+
+    @FXML
+    private Button backBtn;
+    @FXML
+    private VBox recordsContainer;
 
     /**
      * Initializes the controller class.
