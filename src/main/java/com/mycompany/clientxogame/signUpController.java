@@ -50,8 +50,10 @@ public class signUpController implements Initializable {
 
     @FXML
     private void signUp(ActionEvent event) {
+
         String name = enterName.getText().trim();
         String gmail = enterEmail.getText().trim();
+
         String password = enterPassword.getText();
         String confirmPassword = confirmPass.getText();
         if (name.isEmpty() || gmail.isEmpty() || password.isEmpty()) {
@@ -81,6 +83,7 @@ public class signUpController implements Initializable {
             }
         });
         ServerHandler.getInstance().send(request);
+
 
     }
 
