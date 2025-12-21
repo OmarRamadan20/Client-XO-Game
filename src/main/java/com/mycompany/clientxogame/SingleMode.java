@@ -3,11 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.clientxogame;
+ 
+import javafx.util.Pair;
+ 
+import javafx.util.Pair;
+
+import javafx.util.Pair;
+
+import javafx.util.Pair;
 
 /**
  *
- * @author user
+ * @author amr
  */
+ 
+import javafx.util.Pair;
+
+
+ 
 public class SingleMode {
-    
-}
+ }
+
+ 
