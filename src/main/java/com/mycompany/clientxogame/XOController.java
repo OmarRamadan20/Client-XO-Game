@@ -13,17 +13,26 @@ import javafx.scene.text.Text;
 
 public class XOController implements Initializable {
 
-    @FXML private Text cell00, cell01, cell02;
-    @FXML private Text cell10, cell11, cell12;
-    @FXML private Text cell20, cell21, cell22;
+    @FXML
+    private Text cell00, cell01, cell02;
+    @FXML
+    private Text cell10, cell11, cell12;
+    @FXML
+    private Text cell20, cell21, cell22;
 
     @FXML private Line winLine;
     @FXML private VBox endGameBox;
 
     private Text[][] cells;
-    private String[][] board = new String[3][3];
+    private String[][] board;
     private boolean xTurn = true;
     private boolean gameOver = false;
+    private SingleMode ai = new SingleMode();
+    private String difficulty; 
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -32,7 +41,16 @@ public class XOController implements Initializable {
             {cell10, cell11, cell12},
             {cell20, cell21, cell22}
         };
+        resetBoard();
         setupCells();
+    }
+
+    private void resetBoard() {
+        board = new String[][]{
+            {"", "", ""},
+            {"", "", ""},
+            {"", "", ""}
+        };
     }
 
     private void setupCells() {
@@ -45,75 +63,113 @@ public class XOController implements Initializable {
                 int col = c;
 
                 parent.setOnMouseClicked(e -> {
-                    if (gameOver || !cell.getText().isEmpty()) return;
-
-                    if (xTurn) {
-                        cell.setText("X");
-                        cell.setFill(Color.LIME);
-                        board[row][col] = "X";
-                    } else {
-                        cell.setText("O");
-                        cell.setFill(Color.HOTPINK);
-                        board[row][col] = "O";
+                    if (gameOver || !cell.getText().isEmpty()) {
+                        return;
                     }
 
-                    xTurn = !xTurn;
+                    makeMove(row, col, "X", Color.LIME);
 
                     int win = checkWin();
-                    if (win != -1) {
-                        drawWinLine(win);
-                        gameOver = true;
-                        endGameBox.setVisible(true);
-                    } else if (isBoardFull()) {
-                        gameOver = true;
-                        endGameBox.setVisible(true);
+                    if (win != -1 || isBoardFull()) {
+                        handleGameOver(win);
+                        return;
+                    }
+
+                    int[] aiMove = ai.getMove(board, difficulty);
+                    if (aiMove != null) {
+                        makeMove(aiMove[0], aiMove[1], "O", Color.HOTPINK);
+
+                        win = checkWin();
+                        if (win != -1 || isBoardFull()) {
+                            handleGameOver(win);
+                        }
                     }
                 });
             }
         }
     }
 
+    private void handleGameOver(int winCode) {
+        gameOver = true;
+        if (winCode != -1) {
+            drawWinLine(winCode);
+        }
+        endGameBox.setVisible(true);
+    }
+
+    private void makeMove(int row, int col, String player, Color color) {
+        cells[row][col].setText(player);
+        cells[row][col].setFill(color);
+        board[row][col] = player;
+    }
+
     private int checkWin() {
         for (int r = 0; r < 3; r++) {
-            if (board[r][0] != null &&
-                board[r][0].equals(board[r][1]) &&
-                board[r][1].equals(board[r][2])) return r; 
+            if (!board[r][0].equals("")
+                    && board[r][0].equals(board[r][1])
+                    && board[r][1].equals(board[r][2])) {
+                return r;
+            }
         }
 
         for (int c = 0; c < 3; c++) {
-            if (board[0][c] != null &&
-                board[0][c].equals(board[1][c]) &&
-                board[1][c].equals(board[2][c])) return c + 3; 
+            if (!board[0][c].equals("")
+                    && board[0][c].equals(board[1][c])
+                    && board[1][c].equals(board[2][c])) {
+                return c + 3;
+            }
         }
 
-        if (board[0][0] != null &&
-            board[0][0].equals(board[1][1]) &&
-            board[1][1].equals(board[2][2])) return 6;
-        if (board[0][2] != null &&
-            board[0][2].equals(board[1][1]) &&
-            board[1][1].equals(board[2][0])) return 7;
+        if (!board[0][0].equals("") && board[0][0].equals(board[1][1])
+                && board[1][1].equals(board[2][2])) {
+            return 6;
+        }
+        if (!board[0][2].equals("") && board[0][2].equals(board[1][1])
+                && board[1][1].equals(board[2][0])) {
+            return 7;
+        }
 
         return -1;
     }
 
     private boolean isBoardFull() {
-        for (String[] row : board)
-            for (String cell : row)
-                if (cell == null) return false;
+        for (String[] row : board) {
+            for (String cell : row) {
+                if (cell.equals("")) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
     private void drawWinLine(int code) {
         winLine.setVisible(true);
         switch (code) {
-            case 0: setLineForRow(0); break;
-            case 1: setLineForRow(1); break;
-            case 2: setLineForRow(2); break;
-            case 3: setLineForCol(0); break;
-            case 4: setLineForCol(1); break;
-            case 5: setLineForCol(2); break;
-            case 6: setLineForDiag(true); break;
-            case 7: setLineForDiag(false); break;
+            case 0:
+                setLineForRow(0);
+                break;
+            case 1:
+                setLineForRow(1);
+                break;
+            case 2:
+                setLineForRow(2);
+                break;
+            case 3:
+                setLineForCol(0);
+                break;
+            case 4:
+                setLineForCol(1);
+                break;
+            case 5:
+                setLineForCol(2);
+                break;
+            case 6:
+                setLineForDiag(true);
+                break;
+            case 7:
+                setLineForDiag(false);
+                break;
         }
     }
 
@@ -126,10 +182,11 @@ public class XOController implements Initializable {
     }
 
     private void setLineForDiag(boolean leftToRight) {
-        if (leftToRight)
+        if (leftToRight) {
             setLineBounds((StackPane) cells[0][0].getParent(), (StackPane) cells[2][2].getParent());
-        else
+        } else {
             setLineBounds((StackPane) cells[0][2].getParent(), (StackPane) cells[2][0].getParent());
+        }
     }
 
     private void setLineBounds(StackPane start, StackPane end) {
@@ -142,17 +199,19 @@ public class XOController implements Initializable {
         winLine.setEndY(e.getMinY() + e.getHeight() / 2);
     }
 
-    @FXML // أضفت @FXML هنا
+    @FXML
     private void onPlayAgain() {
-        board = new String[3][3];
+        resetBoard();
         xTurn = true;
         gameOver = false;
         winLine.setVisible(false);
         endGameBox.setVisible(false);
 
-        for (Text[] row : cells)
-            for (Text cell : row)
+        for (Text[] row : cells) {
+            for (Text cell : row) {
                 cell.setText("");
+            }
+        }
     }
 
     @FXML
