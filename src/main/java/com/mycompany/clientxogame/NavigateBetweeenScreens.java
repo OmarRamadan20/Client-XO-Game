@@ -38,6 +38,18 @@ public class NavigateBetweeenScreens {
         changeScene(event, "/com/mycompany/clientxogame/ModeSelection.fxml", "Mode Selection");
     }
 
+    public static void goToEasyLevel(ActionEvent event) {
+        changeScene(event, "/game/double_board.fxml", "XO Easy Level");
+    }
+
+    public static void goToMeduimLevel(ActionEvent event) {
+        changeScene(event, "/game/board.fxml", "XO Meduim Level");
+    }
+
+    public static void goToHardLevel(ActionEvent event) {
+        changeScene(event, "/game/board.fxml", "XO Hard Level");
+    }
+
     public static void backToLevelSelection(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/LevelSelection.fxml", "Level Selection");
     }
