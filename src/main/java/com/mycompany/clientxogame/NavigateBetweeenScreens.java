@@ -82,7 +82,7 @@ public class NavigateBetweeenScreens {
 //ui not exist
 
     public static void goToShowProfile(ActionEvent event) {
-        changeScene(event, "/UI/players/available_players.fxml", "Available Players");
+        changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
     }
 
     public static void logOut(ActionEvent event) {
@@ -110,7 +110,8 @@ public class NavigateBetweeenScreens {
     }
 
     public static void goToShowRecords(ActionEvent event) {
-        changeScene(event, "/com/mycompany/clientxogame/win.fxml", "Win");
+        changeScene(event, "/records/game_record.fxml", "Game Records");
+        //F:\traning\iti\Java\Final Project\ClientXOGame\src\main\resources
     }
 
     public static void winGame(ActionEvent event) {

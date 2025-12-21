@@ -41,10 +41,12 @@ public class ProfileController implements Initializable {
     
     @FXML
     private void onBack(ActionEvent event) {
+        NavigateBetweeenScreens.backFromProfile(event);
     }
 
     @FXML
     private void onRecord(ActionEvent event) {
+        NavigateBetweeenScreens.goToShowRecords(event);
     }
 
 }
