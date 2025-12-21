@@ -47,7 +47,7 @@ public class DoubleBoardController implements Initializable {
             {cell20, cell21, cell22}
         };
         setupCells();    
-       // resetGame(); 
+        resetGame(); 
     }
     private void setupCells() {
         for (int r = 0; r < 3; r++) {
@@ -74,7 +74,7 @@ public class DoubleBoardController implements Initializable {
                     if (winCode != -1) {
                         gameOver = true;
                         updateScore(); 
-                       // drawWinLine(winCode); 
+                        drawWinLine(winCode); 
                     } else if (isBoardFull()) {
                         gameOver = true;
                         System.out.println("Draw!");
@@ -116,7 +116,60 @@ public class DoubleBoardController implements Initializable {
                 if (cell == null) return false;
         return true;
     }
+ private void drawWinLine(int code) {
+        winLine.setVisible(true);
+        switch (code) {
+            case 0: setLineBounds(cells[0][0], cells[0][2]); break;
+            case 1: setLineBounds(cells[1][0], cells[1][2]); break;
+            case 2: setLineBounds(cells[2][0], cells[2][2]); break;
+            case 3: setLineBounds(cells[0][0], cells[2][0]); break;
+            case 4: setLineBounds(cells[0][1], cells[2][1]); break;
+            case 5: setLineBounds(cells[0][2], cells[2][2]); break;
+            case 6: setLineBounds(cells[0][0], cells[2][2]); break;
+            case 7: setLineBounds(cells[0][2], cells[2][0]); break;
+        }
+    }
+    
+   private void setLineBounds(Text startCell, Text endCell) {
+        Bounds startBounds = startCell.localToScene(startCell.getBoundsInLocal());
+        Bounds endBounds = endCell.localToScene(endCell.getBoundsInLocal());
 
+        Pane parent = (Pane) winLine.getParent();
+
+        Point2D startPoint = parent.sceneToLocal(
+            startBounds.getMinX() + startBounds.getWidth()/2,
+            startBounds.getMinY() + startBounds.getHeight()/2
+        );
+
+        Point2D endPoint = parent.sceneToLocal(
+            endBounds.getMinX() + endBounds.getWidth()/2,
+            endBounds.getMinY() + endBounds.getHeight()/2
+        );
+
+        winLine.setStartX(startPoint.getX());
+        winLine.setStartY(startPoint.getY());
+        winLine.setEndX(endPoint.getX());
+        winLine.setEndY(endPoint.getY());
+    }
+
+    @FXML
+    public void resetGame() {
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
+                board[r][c] = null;
+                cells[r][c].setText("");
+            }
+        }
+        xTurn = true;
+        gameOver = false;
+        winLine.setVisible(false);
+    }
+    
+    @FXML
+    private void onBack(ActionEvent event) {
+        System.out.println("Back button clicked!");
+    }
+    
    
    
 }
