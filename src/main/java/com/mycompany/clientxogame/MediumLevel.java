@@ -12,7 +12,7 @@ package com.mycompany.clientxogame;
 
 import java.util.Random;
 
-public class MeduimComputerModeController {
+public class MediumLevel {
 
     private String aiPlayer = "O";
     private String humanPlayer = "X";

@@ -1,34 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.clientxogame;
- 
-import java.util.Random;
-import javafx.util.Pair;
- 
-import javafx.util.Pair;
-
-import javafx.util.Pair;
-
-import javafx.util.Pair;
-
-/**
- *
- * @author amr
- */
- 
-import javafx.util.Pair;
-
-
- 
 
 public class SingleMode {
 
-    
+    private EasyLevel easyAI = new EasyLevel();
+    private MediumLevel mediumAI = new MediumLevel();
+    private HardLevel hardAI = new HardLevel();
 
-     
-     
-    
-
+    public int[] getMove(String[][] board, String difficulty) {
+        if (difficulty.equalsIgnoreCase("Easy")) {
+            return easyAI.getMove(board);
+        } else if (difficulty.equalsIgnoreCase("Medium")) {
+            return mediumAI.getMove(board);
+        } else if (difficulty.equalsIgnoreCase("Hard")) {
+            return hardAI.getMove(board);
+        } else {
+            return easyAI.getMove(board);
+        }
+    }
 }
