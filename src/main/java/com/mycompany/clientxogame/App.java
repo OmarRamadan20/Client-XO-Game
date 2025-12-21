@@ -14,7 +14,7 @@ public class App extends Application {
 
         //F:\traning\iti\Java\Final Project\ClientXOGame\src\main\resources/
 
-        Scene scene = new Scene(root, 700,700);
+        Scene scene = new Scene(root, 650,650);
         primaryStage.setTitle("XO Game");
          primaryStage.setResizable(false);
 

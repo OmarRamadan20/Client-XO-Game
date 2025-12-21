@@ -138,5 +138,8 @@ public class NavigateBetweeenScreens {
         changeScene(event, "/records/record.fxml", "Game Record");
     }
     
+    public static void backToGameRecords(ActionEvent event) {
+        changeScene(event, "/records/gameRecords.fxml", "Game Record");
+    }
     
 }
