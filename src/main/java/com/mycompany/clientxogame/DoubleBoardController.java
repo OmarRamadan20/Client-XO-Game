@@ -46,9 +46,77 @@ public class DoubleBoardController implements Initializable {
             {cell10, cell11, cell12},
             {cell20, cell21, cell22}
         };
-       // setupCells();    
+        setupCells();    
        // resetGame(); 
+    }
+    private void setupCells() {
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
+                StackPane parent = (StackPane) cells[r][c].getParent();
+                final int row = r;
+                final int col = c;
+                parent.setOnMouseClicked(e -> {
+                    if (gameOver || board[row][col] != null) {
+                        return;
+                    }
+
+                    if (xTurn) {
+                        cells[row][col].setText("X");
+                        cells[row][col].setFill(Color.LIME);
+                        board[row][col] = "X";
+                    } else {
+                        cells[row][col].setText("O");
+                        cells[row][col].setFill(Color.HOTPINK);
+                        board[row][col] = "O";
+                    }
+
+                    int winCode = checkWin();
+                    if (winCode != -1) {
+                        gameOver = true;
+                        updateScore(); 
+                       // drawWinLine(winCode); 
+                    } else if (isBoardFull()) {
+                        gameOver = true;
+                        System.out.println("Draw!");
+                    }
+
+                    xTurn = !xTurn; 
+                });
+            }
+        }
     }
 
     
+    private void updateScore() {
+        
+        if (xTurn) { 
+            scoreX++;
+            playerOneScore.setText(String.valueOf(scoreX));
+        } else { 
+            scoreO++;
+            PlayerTwoScore.setText(String.valueOf(scoreO));
+        }
+    }
+
+    private int checkWin() {
+        for (int r = 0; r < 3; r++) {
+            if (board[r][0] != null && board[r][0].equals(board[r][1]) && board[r][1].equals(board[r][2])) return r;
+        }
+        for (int c = 0; c < 3; c++) {
+            if (board[0][c] != null && board[0][c].equals(board[1][c]) && board[1][c].equals(board[2][c])) return c + 3;
+        }
+        if (board[0][0] != null && board[0][0].equals(board[1][1]) && board[1][1].equals(board[2][2])) return 6;
+        if (board[0][2] != null && board[0][2].equals(board[1][1]) && board[1][1].equals(board[2][0])) return 7;
+        return -1;
+    }
+
+    private boolean isBoardFull() {
+        for (String[] row : board)
+            for (String cell : row)
+                if (cell == null) return false;
+        return true;
+    }
+
+   
+   
 }
