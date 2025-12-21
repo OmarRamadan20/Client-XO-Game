@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -49,16 +50,16 @@ public class signUpController implements Initializable {
 
     @FXML
     private void signUp(ActionEvent event) {
-        String name = enterName.getText();
-        String gmail = enterEmail.getText();
+        String name = enterName.getText().trim();
+        String gmail = enterEmail.getText().trim();
         String password = enterPassword.getText();
         String confirmPassword = confirmPass.getText();
         if (name.isEmpty() || gmail.isEmpty() || password.isEmpty()) {
-            System.out.println("Please Fill All Fields");
+            showSimpleMessage( "Please Fill All Fields");
             return;
         }
         if (!password.equals(confirmPassword)) {
-            System.out.println("Passwords do not match");
+            showSimpleMessage("Passwords do not match");
             return;
         }
         JSONObject request = new JSONObject();
@@ -66,24 +67,40 @@ public class signUpController implements Initializable {
         request.put("name", name);
         request.put("gmail", gmail);
         request.put("password", password);
-        ServerHandler.getInstance().setListener(new ServerListener() {
-            @Override
-            public void onMessage(JSONObject msg) {
-                String type = msg.getString("type");
-                if (type.equals("signup")) {
-                    String status = msg.getString("status");
-                    if (status.equals("success")) {
-                        System.out.println("Sign Up Is Sucessfull !");
-                        NavigateBetweeenScreens.goToAvailablePlayer(event);
-                    } else {
-                        System.out.println("Sign Up Is Failes !");
-                    }
+        
+        ServerHandler.getInstance().setListener((JSONObject msg) -> {
+            String type = msg.getString("type");
+            if (type.equals("signup")) {
+                String status = msg.getString("status");
+                if (status.equals("success")) {
+                    showSimpleMessage("Registration successful! Welcome " + name);
+                    NavigateBetweeenScreens.goToAvailablePlayer(event);
+                } else {
+                    showSimpleMessage("This Email is already registered! ");
                 }
             }
-
         });
         ServerHandler.getInstance().send(request);
 
+    }
+
+    private void showSimpleMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setContentText(message);
+
+        alert.setHeaderText(null);
+        alert.setTitle(null);
+
+        alert.getDialogPane().getButtonTypes().add(javafx.scene.control.ButtonType.OK);
+        javafx.scene.Node okButton = alert.getDialogPane().lookupButton(javafx.scene.control.ButtonType.OK);
+        okButton.setVisible(false);
+        javafx.animation.Timeline timeline = new javafx.animation.Timeline(new javafx.animation.KeyFrame(
+                javafx.util.Duration.seconds(2),
+                ae -> alert.close()
+        ));
+        timeline.play();
+
+        alert.show();
     }
 
 }
