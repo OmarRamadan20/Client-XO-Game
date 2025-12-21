@@ -18,7 +18,7 @@ public class XOController implements Initializable {
     @FXML private Text cell20, cell21, cell22;
 
     @FXML private Line winLine;
-    @FXML private VBox endGameBox; // أضفت @FXML هنا
+    @FXML private VBox endGameBox;
 
     private Text[][] cells;
     private String[][] board = new String[3][3];
