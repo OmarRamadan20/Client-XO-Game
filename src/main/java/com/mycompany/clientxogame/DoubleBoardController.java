@@ -9,11 +9,17 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D; 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+
 /**
  * FXML Controller class
  *
@@ -21,43 +27,28 @@ import javafx.scene.text.Text;
  */
 public class DoubleBoardController implements Initializable {
 
-
     @FXML
     private Button BackButtonId;
-    @FXML
-    private Label playerOneScore;
-    @FXML
-    private Text cell00;
-    @FXML
-    private Text cell01;
-    @FXML
-    private Text cell02;
-    @FXML
-    private Text cell10;
-    @FXML
-    private Text cell11;
-    @FXML
-    private Text cell12;
-    @FXML
-    private Text cell20;
-    @FXML
-    private Text cell21;
-    @FXML
-    private Text cell22;
-    @FXML
-    private Label PlayerTwoScore;
-    @FXML
-    private Line winLine;
-    /**
-     * Initializes the controller class.
-     */
+    @FXML private Label playerOneScore, PlayerTwoScore;
+    @FXML private Text cell00, cell01, cell02, cell10, cell11, cell12, cell20, cell21, cell22;
+    @FXML private Line winLine;
+
+    private Text[][] cells;
+    private String[][] board = new String[3][3];
+    private boolean xTurn = true;
+    private boolean gameOver = false;
+     private int scoreX = 0, scoreO = 0;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
-    @FXML
-    private void onBack(ActionEvent event) {
+        cells = new Text[][]{
+            {cell00, cell01, cell02},
+            {cell10, cell11, cell12},
+            {cell20, cell21, cell22}
+        };
+       // setupCells();    
+       // resetGame(); 
     }
 
+    
 }
