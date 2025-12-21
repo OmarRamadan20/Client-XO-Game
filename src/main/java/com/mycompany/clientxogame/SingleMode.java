@@ -4,6 +4,7 @@
  */
 package com.mycompany.clientxogame;
  
+import java.util.Random;
 import javafx.util.Pair;
  
 import javafx.util.Pair;
@@ -21,7 +22,13 @@ import javafx.util.Pair;
 
 
  
-public class SingleMode {
- }
 
- 
+public class SingleMode {
+
+    
+
+     
+     
+    
+
+}
