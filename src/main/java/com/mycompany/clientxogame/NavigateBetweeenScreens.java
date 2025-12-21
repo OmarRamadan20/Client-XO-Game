@@ -39,7 +39,7 @@ public class NavigateBetweeenScreens {
     }
 
     public static void goToEasyLevel(ActionEvent event) {
-        changeScene(event, "/game/board.fxml", "XO Easy Level");
+        changeScene(event, "/game/double_board.fxml", "XO Easy Level");
     }
 
     public static void goToMeduimLevel(ActionEvent event) {
