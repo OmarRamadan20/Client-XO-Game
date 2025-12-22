@@ -118,7 +118,7 @@ public class Available_playersController implements Initializable {
     @FXML
     private void showProfile(ActionEvent event) {
         
-        NavigateBetweeenScreens.goToShowProfile(event);
+    //    NavigateBetweeenScreens.goToShowProfile(event);
     }
 
     @FXML

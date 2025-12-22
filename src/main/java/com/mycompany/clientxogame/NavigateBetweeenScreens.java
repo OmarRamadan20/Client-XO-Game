@@ -72,7 +72,7 @@ public class NavigateBetweeenScreens {
 //ui not exist
 
     public static void goToShowProfile(ActionEvent event) {
-        changeScene(event, "/UI/players/available_players.fxml", "Available Players");
+       // changeScene(event, "/UI/players/available_players.fxml", "Available Players");
     }
 
     public static void logOut(ActionEvent event) {
