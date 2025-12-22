@@ -12,10 +12,10 @@ import org.json.JSONObject;
 
 public class LoginController implements Initializable, ServerListener {
 
-    @FXML
-    private TextField enterEmail;
+   
 
     @FXML
+
     private TextField enterPassword;
 
     @FXML
@@ -25,6 +25,8 @@ public class LoginController implements Initializable, ServerListener {
     private Button btnBack;
     @FXML
     private Button registerID;
+    @FXML
+    private TextField enterEmail;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
