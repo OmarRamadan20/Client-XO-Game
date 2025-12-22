@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -21,17 +20,13 @@ class Player {
     private int score;
 
     public Player() {}
-
     public Player(String name, int score) {
         this.name = name;
         this.score = score;
     }
 
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
     public int getScore() { return score; }
-    public void setScore(int score) { this.score = score; }
 
     @Override
     public String toString() {
@@ -52,23 +47,16 @@ public class Available_playersController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         server = ServerHandler.getInstance();
-
         playersList.setItems(players);
 
+        
         server.setListener(json -> {
-            System.out.println("Received JSON from server: " + json);
             String type = json.optString("type", "");
-
-            Platform.runLater(() -> {
-                switch (type) {
-                    case "getAvailablePlayers":
-                        handleAvailablePlayers(json);
-                        break;
-                    case "logout_response":
-                        handleLogoutResponse(json);
-                        break;
-                }
-            });
+            if ("getAvailablePlayers".equals(type)) {
+                Platform.runLater(() -> handleAvailablePlayers(json));
+            } else if ("logout_response".equals(type)) {
+                Platform.runLater(() -> handleLogoutResponse(json));
+            }
         });
 
         playersList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
@@ -76,13 +64,6 @@ public class Available_playersController implements Initializable {
         });
 
         requestPlayersFromServer();
-    }
-
-    private void requestPlayersFromServer() {
-        JSONObject request = new JSONObject();
-        request.put("type", "getAvailablePlayers");
-        System.out.println("Sending request to server: " + request);
-        server.send(request);
     }
 
     private void handleAvailablePlayers(JSONObject json) {
@@ -110,12 +91,15 @@ public class Available_playersController implements Initializable {
         scoreTxt.setText(String.valueOf(player.getScore()));
     }
 
+    private void requestPlayersFromServer() {
+        JSONObject request = new JSONObject();
+        request.put("type", "getAvailablePlayers");
+        server.send(request);
+    }
+
     @FXML
     private void invitePlayer(ActionEvent event) {
-        Player selected = playersList.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            System.out.println("Invite sent to: " + selected.getName());
-        }
+        // كود الدعوة للعب
     }
 
     @FXML
@@ -124,31 +108,23 @@ public class Available_playersController implements Initializable {
     }
 
     @FXML
+    private void showProfile(ActionEvent event) {
+        NavigateBetweeenScreens.goToShowProfile(event);
+    }
+
+    @FXML
     private void logOut(ActionEvent event) {
-        JSONObject request = new JSONObject();
-        request.put("type", "logout");
-        request.put("gmail", LoggedUser.gmail);
-
         NavigateBetweeenScreens.lastEvent = event;
-
-        server.send(request);
+        server.logout(LoggedUser.gmail);
     }
 
     private void handleLogoutResponse(JSONObject response) {
-        if (response.optString("status").equals("success")) {
-
+        if ("success".equals(response.optString("status"))) {
             LoggedUser.name = null;
             LoggedUser.gmail = null;
             LoggedUser.score = 0;
 
             NavigateBetweeenScreens.goToLogIn(NavigateBetweeenScreens.lastEvent);
-        } else {
-            System.out.println("Logout failed");
         }
-    }
-
-    @FXML
-    private void showProfile(ActionEvent event) {
-        NavigateBetweeenScreens.goToShowProfile(event);
     }
 }
