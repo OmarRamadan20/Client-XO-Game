@@ -9,16 +9,18 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import org.json.JSONObject;
+
 /**
  * FXML Controller class
  *
  * @author amr04
  */
 public class signUpController implements Initializable {
-
 
     @FXML
     private TextField enterName;
@@ -32,22 +34,76 @@ public class signUpController implements Initializable {
     private Button btnBack;
     @FXML
     private Button btnSignUp;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
     @FXML
     private void ActionBack(ActionEvent event) {
-         NavigateBetweeenScreens.goToLogIn(event);
+        NavigateBetweeenScreens.goToLogIn(event);
     }
 
     @FXML
     private void signUp(ActionEvent event) {
-         NavigateBetweeenScreens.goToAvailablePlayer(event);
+
+        String name = enterName.getText().trim();
+        String gmail = enterEmail.getText().trim();
+
+        String password = enterPassword.getText();
+        String confirmPassword = confirmPass.getText();
+        if (name.isEmpty() || gmail.isEmpty() || password.isEmpty()) {
+            showSimpleMessage( "Please Fill All Fields");
+            return;
+        }
+        if (!password.equals(confirmPassword)) {
+            showSimpleMessage("Passwords do not match");
+            return;
+        }
+        JSONObject request = new JSONObject();
+        request.put("type", "signup");
+        request.put("name", name);
+        request.put("gmail", gmail);
+        request.put("password", password);
+        
+        ServerHandler.getInstance().setListener((JSONObject msg) -> {
+            String type = msg.getString("type");
+            if (type.equals("signup")) {
+                String status = msg.getString("status");
+                if (status.equals("success")) {
+                    showSimpleMessage("Registration successful! Welcome " + name);
+                    NavigateBetweeenScreens.goToAvailablePlayer(event);
+                } else {
+                    showSimpleMessage("This Email is already registered! ");
+                }
+            }
+        });
+        ServerHandler.getInstance().send(request);
+
+
+    }
+
+    private void showSimpleMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setContentText(message);
+
+        alert.setHeaderText(null);
+        alert.setTitle(null);
+
+        alert.getDialogPane().getButtonTypes().add(javafx.scene.control.ButtonType.OK);
+        javafx.scene.Node okButton = alert.getDialogPane().lookupButton(javafx.scene.control.ButtonType.OK);
+        okButton.setVisible(false);
+        javafx.animation.Timeline timeline = new javafx.animation.Timeline(new javafx.animation.KeyFrame(
+                javafx.util.Duration.seconds(2),
+                ae -> alert.close()
+        ));
+        timeline.play();
+
+        alert.show();
     }
 
 }
