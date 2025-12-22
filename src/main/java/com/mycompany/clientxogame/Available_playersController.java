@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.util.ResourceBundle;
 
- class Player {
+class Player {
     private String name;
     private int score;
 
@@ -38,6 +38,7 @@ import java.util.ResourceBundle;
         return name + "  -  Score: " + score;
     }
 }
+
 public class Available_playersController implements Initializable {
 
     @FXML private Label nameTxt;
@@ -52,23 +53,36 @@ public class Available_playersController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         server = ServerHandler.getInstance();
 
-         
         playersList.setItems(players);
 
-         server.setListener(json -> {
-            System.out.println("Received JSON from server: " + json);  
+        server.setListener(json -> {
+            System.out.println("Received JSON from server: " + json);
             String type = json.optString("type", "");
 
-            if (type.equals("getAvailablePlayers")) {
-                Platform.runLater(() -> handleAvailablePlayers(json));
-            }
+            Platform.runLater(() -> {
+                switch (type) {
+                    case "getAvailablePlayers":
+                        handleAvailablePlayers(json);
+                        break;
+                    case "logout_response":
+                        handleLogoutResponse(json);
+                        break;
+                }
+            });
         });
 
-         playersList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+        playersList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) updateUI(newVal);
         });
 
-         requestPlayersFromServer();
+        requestPlayersFromServer();
+    }
+
+    private void requestPlayersFromServer() {
+        JSONObject request = new JSONObject();
+        request.put("type", "getAvailablePlayers");
+        System.out.println("Sending request to server: " + request);
+        server.send(request);
     }
 
     private void handleAvailablePlayers(JSONObject json) {
@@ -83,7 +97,7 @@ public class Available_playersController implements Initializable {
                 players.add(new Player(name, score));
             }
 
-             playersList.getSelectionModel().select(0);
+            playersList.getSelectionModel().select(0);
             updateUI(players.get(0));
         } else {
             nameTxt.setText("No players online");
@@ -96,18 +110,12 @@ public class Available_playersController implements Initializable {
         scoreTxt.setText(String.valueOf(player.getScore()));
     }
 
-    private void requestPlayersFromServer() {
-        JSONObject request = new JSONObject();
-        request.put("type", "getAvailablePlayers");
-        System.out.println("Sending request to server: " + request); // Debug
-        server.send(request);
-    }
-
-
-
     @FXML
     private void invitePlayer(ActionEvent event) {
-  
+        Player selected = playersList.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            System.out.println("Invite sent to: " + selected.getName());
+        }
     }
 
     @FXML
@@ -116,13 +124,31 @@ public class Available_playersController implements Initializable {
     }
 
     @FXML
-    private void showProfile(ActionEvent event) {
-        
-    //    NavigateBetweeenScreens.goToShowProfile(event);
+    private void logOut(ActionEvent event) {
+        JSONObject request = new JSONObject();
+        request.put("type", "logout");
+        request.put("gmail", LoggedUser.gmail);
+
+        NavigateBetweeenScreens.lastEvent = event;
+
+        server.send(request);
+    }
+
+    private void handleLogoutResponse(JSONObject response) {
+        if (response.optString("status").equals("success")) {
+
+            LoggedUser.name = null;
+            LoggedUser.gmail = null;
+            LoggedUser.score = 0;
+
+            NavigateBetweeenScreens.goToLogIn(NavigateBetweeenScreens.lastEvent);
+        } else {
+            System.out.println("Logout failed");
+        }
     }
 
     @FXML
-    private void logOut(ActionEvent event) {
-        System.out.println("LogOut clicked");
-     }
+    private void showProfile(ActionEvent event) {
+        NavigateBetweeenScreens.goToShowProfile(event);
+    }
 }
