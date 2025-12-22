@@ -1,55 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="700.0" style="-fx-background-color: DODGERLUE;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.Available_playersController">
-   <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="274.0" layoutX="51.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" width="513.0" />
-      <Label layoutX="59.0" layoutY="29.0" text="Available Players" textFill="#359aff">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c1c5c9" height="65.0" layoutX="91.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" width="442.0" />
-      <ImageView fitHeight="54.0" fitWidth="68.0" layoutX="91.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" style="visibility: true;">
-         <viewport>
-            <Rectangle2D />
-         </viewport>
-      </ImageView>
-      <Label fx:id="nameTxt" layoutX="164.0" layoutY="103.0" onDragDetected="#displayName" text="Ahlam" textFill="#f7f7f7">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnInvite" defaultButton="true" layoutX="427.0" layoutY="93.0" mnemonicParsing="false" onAction="#invitePlayer" prefHeight="38.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Invite">
-         <textFill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.5184000134468079" green="0.5957406163215637" blue="0.8100000023841858" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </textFill>
-      </Button>
-      <Button fx:id="btnLogOut" layoutX="51.0" layoutY="349.0" mnemonicParsing="false" onAction="#logOut" prefHeight="38.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="LogOut" />
-      <Button fx:id="btnProfile" layoutX="484.0" layoutY="349.0" mnemonicParsing="false" onAction="#showProfile" prefHeight="38.0" prefWidth="80.0" style="-fx-background-radius: 20;" text="Profile" />
-   </children>
+<AnchorPane prefHeight="700.0" prefWidth="700.0" style="-fx-background-color: #2c003e;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.Available_playersController">
+
+    <children>
+        <Label layoutX="40.0" layoutY="25.0" style="-fx-text-fill: green;" text="Available Players" textFill="#f20505">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+
+        <Button layoutX="570.0" layoutY="25.0" onAction="#refreshPlayers" prefHeight="35.0" prefWidth="90.0" style="-fx-background-radius: 20; -fx-background-color: green;" text="Refresh" textFill="#1edf27" />
+
+        <Rectangle arcHeight="30.0" arcWidth="30.0" fill="WHITE" height="520.0" layoutX="35.0" layoutY="80.0" stroke="TRANSPARENT" width="630.0" />
+
+        <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f0f2f5" height="70.0" layoutX="55.0" layoutY="100.0" stroke="#cccccc" width="590.0" />
+        
+        <Label fx:id="nameTxt" layoutX="75.0" layoutY="115.0" text="Select a player" textFill="#333333">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="300.0" layoutY="118.0" text="Score:" textFill="#666666" />
+        <Label fx:id="scoreTxt" layoutX="350.0" layoutY="115.0" text="0" textFill="#1e90ff">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+
+        <Button fx:id="btnInvite" layoutX="540.0" layoutY="113.0" onAction="#invitePlayer" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 20; -fx-background-color: #1e90ff;" text="Invite" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Button>
+
+        <ListView fx:id="playersList" layoutX="55.0" layoutY="185.0" prefHeight="390.0" prefWidth="590.0" style="-fx-background-radius: 10; -fx-border-color: #eee;" />
+
+        <HBox alignment="CENTER" layoutX="35.0" layoutY="615.0" prefWidth="630.0" spacing="100.0">
+            <children>
+                <Button onAction="#showProfile" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 25; -fx-background-color: blue;" text="My Profile" textFill="#462424">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#logOut" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 25; -fx-background-color: #ff4757;" text="Logout" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+    </children>
 </AnchorPane>
