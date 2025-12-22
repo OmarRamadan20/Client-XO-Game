@@ -86,8 +86,14 @@ public class signUpController implements Initializable {
             if (type.equals("signup")) {
                 String status = msg.getString("status");
                 if (status.equals("success")) {
-                    showSimpleMessage("Registration successful! Welcome " + name);
-                    NavigateBetweeenScreens.goToAvailablePlayer(event);
+                    javafx.application.Platform.runLater(() -> {
+                        showSimpleMessage("Registration successful! Welcome " + name);
+                        javafx.animation.PauseTransition delay = new javafx.animation.PauseTransition(javafx.util.Duration.seconds(2));
+                        delay.setOnFinished(e -> {
+                            NavigateBetweeenScreens.goToAvailablePlayer(event);
+                        });
+                        delay.play();
+                    });
                 } else {
                     showSimpleMessage("This Email is already registered! ");
                 }
