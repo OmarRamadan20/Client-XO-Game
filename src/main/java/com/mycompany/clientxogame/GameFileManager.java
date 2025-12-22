@@ -43,8 +43,30 @@ public class GameFileManager {
     }
 
     
-    // load method here 
+public static List<Move> load(String fileName) {
+        List<Move> moves = new ArrayList<>();
 
+        try (BufferedReader reader =
+                     new BufferedReader(new FileReader(DIR + "/" + fileName))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] p = line.split(",");
+                moves.add(new Move(
+                        Integer.parseInt(p[0]),
+                        Integer.parseInt(p[1]),
+                        Integer.parseInt(p[2])
+                ));
+            }
+
+            System.out.println("Game loaded: " + fileName);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return moves;
+    }
     
     public static List<String> getAllGames() {
         File folder = new File(DIR);
