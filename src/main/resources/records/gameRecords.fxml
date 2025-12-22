@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="700.0" style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.GameRecordsController">
+   <children>
+     
+
+      <Label layoutX="30.0" layoutY="110.0" text="Games Records" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="22.0" />
+         </font>
+      </Label>
+
+      <Button fx:id="backBtn" layoutX="510.0" layoutY="110.0" onAction="#onActionBack" style="-fx-background-color: #f1c40f; -fx-background-radius: 15; -fx-text-fill: #2c3e50; -fx-font-weight: bold; -fx-padding: 5 20; -fx-cursor: hand;" text="Back" />
+
+      <ScrollPane layoutX="25.0" layoutY="155.0" prefHeight="220.0" prefWidth="550.0" style="-fx-background: transparent; -fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 10;">
+         <content>
+            <VBox fx:id="recordsContainer" spacing="10" style="-fx-padding: 10;">
+               
+                <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="510.0" style="-fx-background-color: #2c003e; -fx-background-radius: 30; -fx-padding: 0 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);">
+                    <children>
+                        <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-font-style: italic;" text="Omar vs Ahmed" textFill="WHITE">
+                            <HBox.margin>
+                                <javafx.geometry.Insets right="200" />
+                            </HBox.margin>
+                        </Label>
+        
+                        <Pane HBox.hgrow="ALWAYS" /> 
+                        <Button fx:id="playIcon" onAction="#playActionRecord" style="-fx-background-color: #f1c40f; -fx-background-radius: 50; -fx-min-width: 35; -fx-min-height: 35; -fx-max-width: 35; -fx-max-height: 35; -fx-cursor: hand;" text="▶" textFill="#2c3e50" />
+                    </children>
+                </HBox>               
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

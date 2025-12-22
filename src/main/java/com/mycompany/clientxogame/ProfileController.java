@@ -48,6 +48,7 @@ public class ProfileController implements Initializable {
     private void onRecord(ActionEvent event) {
        NavigateBetweeenScreens.goToShowRecords(event);
         
+
     }
 
 }

@@ -100,8 +100,9 @@ public class NavigateBetweeenScreens {
     }
 
     public static void goToShowRecords(ActionEvent event) {
-        changeScene(event, "records/game-records.fxml", "Game Records");
-        //C:\Users\Admin\OneDrive\Desktop\XO Game\Client-XO-Game\src\main\
+
+        changeScene(event, "/records/gameRecords.fxml", "Game Records");
+        //F:\traning\iti\Java\Final Project\ClientXOGame\src\main\resources
     }
 
     public static void winGame(ActionEvent event) {
@@ -148,4 +149,16 @@ public class NavigateBetweeenScreens {
     public static void goToHardLevel(ActionEvent event) {
         changeSceneWithDifficulty(event, "/game/board.fxml", "XO Hard Level", "Hard");
     }
+    public static void backToShowProfile(ActionEvent event) {
+        changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
+    }
+    
+    public static void goToPlayRecords(ActionEvent event) {
+        changeScene(event, "/records/record.fxml", "Game Record");
+    }
+    
+    public static void backToGameRecords(ActionEvent event) {
+        changeScene(event, "/records/gameRecords.fxml", "Game Record");
+    }
+    
 }

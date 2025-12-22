@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
+
 /**
  * FXML Controller class
  *
@@ -18,38 +19,38 @@ import javafx.scene.control.Button;
  */
 public class ModeSelectionController implements Initializable {
 
-
     @FXML
     private Button btmSingle;
     @FXML
     private Button btmPlayer;
     @FXML
     private Button btmOline;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
     @FXML
     private void onActionBtmSingle(ActionEvent event) {
-        
+
         NavigateBetweeenScreens.goToSingleMode(event);
     }
 
     @FXML
     private void onActionBtmPlayer(ActionEvent event) {
-        
-                NavigateBetweeenScreens.goToDoubleMode(event);
+
+        NavigateBetweeenScreens.goToDoubleMode(event);
 
     }
 
     @FXML
     private void onActionOnline(ActionEvent event) {
-    
-                    NavigateBetweeenScreens.goToLogIn(event);
+
+        NavigateBetweeenScreens.goToLogIn(event);
 
     }
 
