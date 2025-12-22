@@ -20,8 +20,6 @@ import javafx.scene.control.TextField;
 public class LoginController implements Initializable {
 
     @FXML
-    private TextField enterName;
-    @FXML
     private TextField enterPassword;
     @FXML
     private Button btnBack;
@@ -29,6 +27,8 @@ public class LoginController implements Initializable {
     private Button btnLogin;
     @FXML
     private Button registerID;
+    @FXML
+    private TextField enterEmail;
 
     /**
      * Initializes the controller class.

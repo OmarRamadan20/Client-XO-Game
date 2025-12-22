@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.json.JSONObject;
 
@@ -27,13 +28,13 @@ public class signUpController implements Initializable {
     @FXML
     private TextField enterEmail;
     @FXML
-    private TextField enterPassword;
-    @FXML
-    private TextField confirmPass;
-    @FXML
     private Button btnBack;
     @FXML
     private Button btnSignUp;
+    @FXML
+    private PasswordField passID;
+    @FXML
+    private PasswordField confirmPass;
 
     /**
      * Initializes the controller class.
@@ -54,10 +55,20 @@ public class signUpController implements Initializable {
         String name = enterName.getText().trim();
         String gmail = enterEmail.getText().trim();
 
-        String password = enterPassword.getText();
+        String password = passID.getText();
         String confirmPassword = confirmPass.getText();
         if (name.isEmpty() || gmail.isEmpty() || password.isEmpty()) {
-            showSimpleMessage( "Please Fill All Fields");
+            showSimpleMessage("Please Fill All Fields");
+            return;
+        }
+
+        if (!gmail.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            showSimpleMessage("Invalid Email Format (ex: user@gmail.com)");
+            return;
+        }
+
+        if (password.length() < 8) {
+            showSimpleMessage("Password must be at least 8 characters");
             return;
         }
         if (!password.equals(confirmPassword)) {
@@ -69,7 +80,7 @@ public class signUpController implements Initializable {
         request.put("name", name);
         request.put("gmail", gmail);
         request.put("password", password);
-        
+
         ServerHandler.getInstance().setListener((JSONObject msg) -> {
             String type = msg.getString("type");
             if (type.equals("signup")) {
@@ -83,8 +94,6 @@ public class signUpController implements Initializable {
             }
         });
         ServerHandler.getInstance().send(request);
-
-
     }
 
     private void showSimpleMessage(String message) {
@@ -104,6 +113,10 @@ public class signUpController implements Initializable {
         timeline.play();
 
         alert.show();
+    }
+
+    @FXML
+    private void OnActionPassword(ActionEvent event) {
     }
 
 }
