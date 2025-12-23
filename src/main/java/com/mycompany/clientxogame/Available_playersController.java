@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,21 +18,33 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 class Player {
+
     private String name;
     private int score;
 
-    public Player() {}
+    public Player() {
+    }
 
     public Player(String name, int score) {
         this.name = name;
         this.score = score;
     }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getName() {
+        return name;
+    }
 
-    public int getScore() { return score; }
-    public void setScore(int score) { this.score = score; }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     @Override
     public String toString() {
@@ -41,10 +54,14 @@ class Player {
 
 public class Available_playersController implements Initializable {
 
-    @FXML private Label nameTxt;
-    @FXML private Label scoreTxt;
-    @FXML private ListView<Player> playersList;
-    @FXML private Button btnInvite;
+    @FXML
+    private Label nameTxt;
+    @FXML
+    private Label scoreTxt;
+    @FXML
+    private ListView<Player> playersList;
+    @FXML
+    private Button btnInvite;
 
     private ObservableList<Player> players = FXCollections.observableArrayList();
     private ServerHandler server;
@@ -67,12 +84,25 @@ public class Available_playersController implements Initializable {
                     case "logout_response":
                         handleLogoutResponse(json);
                         break;
+                    case "invite_recieved":
+                        String from = json.getString("from");
+                        
+                        System.out.print(from);
+                        NavigateBetweeenScreens.invite(NavigateBetweeenScreens.lastEvent, from);
+                        break;
+                    case "player_move":
+                        String move = json.getString("move");
+                        System.out.println("player_move moved: " + move);
+
+                        break;
                 }
             });
         });
 
         playersList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) updateUI(newVal);
+            if (newVal != null) {
+                updateUI(newVal);
+            }
         });
 
         requestPlayersFromServer();
@@ -116,6 +146,12 @@ public class Available_playersController implements Initializable {
         if (selected != null) {
             System.out.println("Invite sent to: " + selected.getName());
         }
+        JSONObject request = new JSONObject();
+        request.put("type", "invite");
+        request.put("to", selected.getName());
+        request.put("from", LoggedUser.name);
+        server.send(request);
+
     }
 
     @FXML
@@ -149,6 +185,8 @@ public class Available_playersController implements Initializable {
 
     @FXML
     private void showProfile(ActionEvent event) {
+
         NavigateBetweeenScreens.goToShowProfile(event);
+
     }
 }

@@ -54,6 +54,8 @@ public class RecordController implements Initializable {
 
     @FXML
     private void onBack(ActionEvent event) {
+        NavigateBetweeenScreens.backToGameRecords(event);
+        
     }
 
 }

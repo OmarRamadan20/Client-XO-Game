@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
+import org.json.JSONObject;
+
 /**
  * FXML Controller class
  *
@@ -18,25 +20,44 @@ import javafx.scene.control.Button;
  */
 public class OfferController implements Initializable {
 
+    private String fromPlayer;
 
+    public void setFromPlayer(String fromPlayer) {
+        this.fromPlayer = fromPlayer;
+    }
     @FXML
     private Button btmOfCourse;
     @FXML
     private Button btmTimeAnther;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
     @FXML
     private void onActionOfCourse(ActionEvent event) {
+        JSONObject response = new JSONObject();
+        response.put("type", "invite_response");
+        response.put("status", "accept");
+        response.put("to", fromPlayer);
+        response.put("from", LoggedUser.name);
+        ServerHandler.getInstance().send(response);
+        NavigateBetweeenScreens.goToPlay(event);
     }
 
     @FXML
     private void onActionTimeAnTher(ActionEvent event) {
+        JSONObject response = new JSONObject();
+        response.put("type", "invite_response");
+        response.put("status", "later");
+        response.put("to", fromPlayer);
+        response.put("from", LoggedUser.name);
+        ServerHandler.getInstance().send(response);
+        NavigateBetweeenScreens.goToAvailablePlayer(event);
     }
 
 }
