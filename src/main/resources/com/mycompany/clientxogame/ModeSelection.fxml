@@ -7,33 +7,28 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
       minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0"
-      prefWidth="650.0" spacing="30.0" xmlns="http://javafx.com/javafx/25"
+      prefWidth="650.0" spacing="45.0" xmlns="http://javafx.com/javafx/25"
       style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.ModeSelectionController">
    <children>
-      <Button fx:id="btmSingle" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onActionBtmSingle" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #FFC72C; -fx-background-radius: 50; -fx-padding: 10px 40px; -fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: #000000; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.5, 0, 0); -fx-min-width: 250px; -fx-font-style: italic;" text="Single" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold Italic" size="25.0" />
-         </font>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </Button>
-      <Button fx:id="btmPlayer" alignment="CENTER" contentDisplay="CENTER" layoutX="176.0" layoutY="130.0" mnemonicParsing="false" onAction="#onActionBtmPlayer" prefHeight="49.0" prefWidth="250.0" style="-fx-background-color: #FFC72C; -fx-background-radius: 50; -fx-padding: 10px 40px; -fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: #000000; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.5, 0, 0); -fx-font-style: italic; -fx-min-width: 250px;" text="2 Player" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold Italic" size="25.0" />
-         </font>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </Button>
-      <Button fx:id="btmOline" alignment="CENTER" contentDisplay="CENTER" layoutX="162.0" layoutY="276.0" mnemonicParsing="false" onAction="#onActionOnline" prefHeight="51.0" prefWidth="250.0" style="-fx-background-color: #FFC72C; -fx-background-radius: 50; -fx-padding: 10px 40px; -fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: #000000; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.5, 0, 0); -fx-font-style: italic; -fx-min-width: 250px;" text="Online" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold Italic" size="25.0" />
-         </font>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </Button>
+      
+      <Button fx:id="btmSingle" mnemonicParsing="false" onAction="#onActionBtmSingle" 
+              onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"
+              prefHeight="65.0" prefWidth="300.0" 
+              style="-fx-background-color: #8e44ad; -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26px; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);" 
+              text="Single Player" />
+
+      <Button fx:id="btmPlayer" mnemonicParsing="false" onAction="#onActionBtmPlayer" 
+              onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"
+              prefHeight="65.0" prefWidth="300.0" 
+              style="-fx-background-color: #d81b60; -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26px; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);" 
+              text="Two Players" />
+
+      <Button fx:id="btmOline" mnemonicParsing="false" onAction="#onActionOnline" 
+              onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"
+              prefHeight="65.0" prefWidth="300.0" 
+              style="-fx-background-color: #2980b9; -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26px; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);" 
+              text="Online Mode" />
+
    </children>
 </VBox>

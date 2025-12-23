@@ -53,5 +53,23 @@ public class ModeSelectionController implements Initializable {
         NavigateBetweeenScreens.goToLogIn(event);
 
     }
+    
+    
+    @FXML
+    private void handleMouseEnter(javafx.scene.input.MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setScaleX(1.08);
+        btn.setScaleY(1.08);
+        btn.setOpacity(0.9);
+    }
+
+    @FXML
+    private void handleMouseExit(javafx.scene.input.MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        
+        btn.setScaleX(1.0);
+        btn.setScaleY(1.0);
+        btn.setOpacity(1.0);
+    }
 
 }

@@ -8,35 +8,59 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/25" 
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.LoginController"
+            style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);">
    <children>
-      <TextField fx:id="enterEmail" layoutX="137.0" layoutY="118.0" opacity="0.8" prefHeight="32.0" prefWidth="299.0" promptText="Enter Your Email" style="-fx-background-radius: 50;">
+      <Label layoutY="70.0" text="Tic Tac Toe" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" style="-fx-alignment: center;">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      
+      <TextField fx:id="enterEmail" layoutY="180.0" 
+                 opacity="0.9" prefHeight="55.0" prefWidth="320.0" 
+                 promptText="Enter Your Email" 
+                 style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-font-size: 18px;" 
+                 AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="165.0">
          <padding>
-            <Insets bottom="8.0" top="20.0" />
+            <Insets left="25.0" />
          </padding>
       </TextField>
-      <PasswordField fx:id="enterPassword" layoutX="143.0" layoutY="190.0" prefHeight="46.0" prefWidth="286.0" promptText="Enter Your Password" style="-fx-background-radius: 50;">
+
+      <PasswordField fx:id="enterPassword" layoutY="260.0" 
+                     prefHeight="55.0" prefWidth="320.0" 
+                     promptText="Enter Your Password" 
+                     style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-font-size: 18px;" 
+                     AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="165.0">
          <padding>
-            <Insets bottom="8.0" top="20.0" />
+            <Insets left="25.0" />
          </padding>
       </PasswordField>
-      <Button fx:id="btnBack" layoutX="32.0" layoutY="390.0" mnemonicParsing="false" onAction="#actionBtn" prefHeight="36.0" prefWidth="82.0" style="-fx-background-radius: 10;" text="Back" />
-      <Label layoutX="158.0" layoutY="330.0" text=" Create New Account ? ">
+
+      <Button fx:id="btnLogin" layoutY="360.0" mnemonicParsing="false" 
+              onAction="#logIn" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"
+              prefHeight="60.0" prefWidth="320.0" 
+              style="-fx-background-radius: 50; -fx-background-color: #6c5ce7; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 22px; -fx-font-weight: bold; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);" 
+              text="Log in" 
+              AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="165.0" />
+
+      <Label layoutX="210.0" layoutY="450.0" text="Create New Account ?" textFill="#2d3436">
          <font>
-            <Font size="14.0" />
+            <Font size="16.0" />
          </font>
       </Label>
-      <Button fx:id="btnLogin" layoutX="142.0" layoutY="262.0" mnemonicParsing="false" onAction="#logIn" prefHeight="26.0" prefWidth="286.0" style="-fx-background-radius: 50;" text="Log in">
-         <padding>
-            <Insets bottom="8.0" top="10.0" />
-         </padding>
-      </Button>
-      <Label layoutX="231.0" layoutY="57.0" text="Tic Tac Toe">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Label>
- 
-      <Button fx:id="registerID" layoutX="303.0" layoutY="327.0" mnemonicParsing="false" onAction="#register" style="-fx-background-color: transparent; -fx-text-fill: black; -fx-underline: true;" text="Register" />
+      <Button fx:id="registerID" layoutX="365.0" layoutY="445.0" 
+              mnemonicParsing="false" onAction="#register" 
+              onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"
+              style="-fx-background-color: transparent; -fx-text-fill: #4834d4; -fx-underline: true; -fx-cursor: hand; -fx-font-weight: bold; -fx-font-size: 16px;" 
+              text="Register" />
+
+      <Button fx:id="btnBack" layoutX="30.0" layoutY="570.0" 
+              mnemonicParsing="false" onAction="#actionBtn" 
+              onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"
+              prefHeight="40.0" prefWidth="90.0" 
+              style="-fx-background-radius: 50; -fx-cursor: hand; -fx-background-color: #ffffff; -fx-font-weight: bold;" 
+              text="Back" />
    </children>
 </AnchorPane>
