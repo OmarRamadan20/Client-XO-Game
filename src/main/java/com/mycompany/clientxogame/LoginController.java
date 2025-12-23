@@ -89,9 +89,3 @@ public class LoginController implements Initializable, ServerListener {
 }
 
 
-
-class LoggedUser {
-    public static String name;
-    public static String gmail;
-    public static int score;
-}
