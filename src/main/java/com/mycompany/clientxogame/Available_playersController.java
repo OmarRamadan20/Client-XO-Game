@@ -188,3 +188,4 @@ class LoggedUser {
     public static int score;
 }
 
+
