@@ -109,22 +109,6 @@ public class Available_playersController implements Initializable {
 
     @FXML
     private void showProfile(ActionEvent event) {
-        NavigateBetweeenScreens.goToShowProfile(event);
-    }
-
-    @FXML
-    private void logOut(ActionEvent event) {
-        NavigateBetweeenScreens.lastEvent = event;
-        server.logout(LoggedUser.gmail);
-    }
-
-    private void handleLogoutResponse(JSONObject response) {
-        if ("success".equals(response.optString("status"))) {
-            LoggedUser.name = null;
-            LoggedUser.gmail = null;
-            LoggedUser.score = 0;
-
-            NavigateBetweeenScreens.goToLogIn(NavigateBetweeenScreens.lastEvent);
-        }
+         NavigateBetweeenScreens.goToShowProfile(event);
     }
 }
