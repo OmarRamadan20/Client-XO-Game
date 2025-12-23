@@ -148,15 +148,5 @@ public class NavigateBetweeenScreens {
         }
     }
 
-    public static void goToEasyLevel(ActionEvent event) {
-        changeSceneWithDifficulty(event, "/game/board.fxml", "XO Easy Level", "Easy");
-    }
-
-    public static void goToMeduimLevel(ActionEvent event) {
-        changeSceneWithDifficulty(event, "/game/board.fxml", "XO Medium Level", "Medium");
-    }
-
-    public static void goToHardLevel(ActionEvent event) {
-        changeSceneWithDifficulty(event, "/game/board.fxml", "XO Hard Level", "Hard");
-    }
+   
 }
