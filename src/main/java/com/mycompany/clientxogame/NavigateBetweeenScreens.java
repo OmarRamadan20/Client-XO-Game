@@ -5,6 +5,7 @@
 package com.mycompany.clientxogame;
 
 import java.io.IOException;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -17,9 +18,9 @@ import javafx.stage.Stage;
  * @author user
  */
 public class NavigateBetweeenScreens {
+
     public static ActionEvent lastEvent;
     public static String invitedFrom;
-
 
     private static void changeScene(ActionEvent event, String fxmlFile, String title) {
         try {
@@ -32,7 +33,8 @@ public class NavigateBetweeenScreens {
             System.getLogger(NavigateBetweeenScreens.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
-        private static void changeSceneWithDifficulty(ActionEvent event, String fxmlFile, String title, String difficulty) {
+
+    private static void changeSceneWithDifficulty(ActionEvent event, String fxmlFile, String title, String difficulty) {
         try {
             FXMLLoader loader = new FXMLLoader(NavigateBetweeenScreens.class.getResource(fxmlFile));
             Parent root = loader.load();
@@ -48,7 +50,6 @@ public class NavigateBetweeenScreens {
             ex.printStackTrace();
         }
     }
-
 
     public static void goToSingleMode(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/LevelSelection.fxml", "Level Selection");
@@ -98,11 +99,41 @@ public class NavigateBetweeenScreens {
     public static void logOut(ActionEvent event) {
         changeScene(event, "/UI/Register/signUp.fxml", "Sign Up");
     }
+public static void invite(ActionEvent event, String fromPlayer) {
+    Platform.runLater(() -> {
+        try {
+            invitedFrom = fromPlayer;
+            // تأكدي من المسار الصحيح لملف الـ fxml
+            FXMLLoader loader = new FXMLLoader(NavigateBetweeenScreens.class.getResource("/com/mycompany/clientxogame/offer.fxml"));
+            Parent root = loader.load();
 
-    public static void invite(ActionEvent event,String fromPlayer) {
-        invitedFrom=fromPlayer;
-        changeScene(event, "/com/mycompany/clientxogame/accept.fxml", "Invite To Play");
-    }
+            OfferController controller = loader.getController();
+            controller.setFromPlayer(fromPlayer);
+
+            Stage stage;
+            if (event != null && event.getSource() instanceof Node) {
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            } else {
+                // لو الـ event بـ null (وهو ده اللي بيحصل عند المستقبل)
+                // نجيب النافذة النشطة حالياً
+                stage = (Stage) Stage.getWindows().stream()
+                             .filter(window -> window.isShowing())
+                             .findFirst()
+                             .orElse(null);
+            }
+
+            if (stage != null) {
+                stage.setScene(new Scene(root));
+                stage.setTitle("New Invitation");
+                stage.show();
+            } else {
+                System.out.println("Stage is null, cannot switch to Offer screen");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    });
+}
 
     public static void acceptToPlay(ActionEvent event) {
         changeScene(event, "/game/board.fxml", "XO Game");
@@ -156,14 +187,17 @@ public class NavigateBetweeenScreens {
     public static void backToShowProfile(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
     }
-    
+
     public static void goToPlayRecords(ActionEvent event) {
         changeScene(event, "/records/record.fxml", "Game Record");
     }
-    
+
     public static void backToGameRecords(ActionEvent event) {
         changeScene(event, "/records/gameRecords.fxml", "Game Record");
     }
-    
 
+    public static void goToWaitAccept(ActionEvent event) {
+        lastEvent = event; // حفظ الحدث لاستخدامه عند وصول الرد
+        changeScene(event, "/com/mycompany/clientxogame/accept.fxml", "Waiting for Response");
+    }
 }

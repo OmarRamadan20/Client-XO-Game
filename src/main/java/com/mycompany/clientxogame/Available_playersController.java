@@ -81,11 +81,16 @@ public class Available_playersController implements Initializable {
                     case "logout_response":
                         handleLogoutResponse(json);
                         break;
+                    // داخل ميثود initialize جوه الـ Listener:
+                    // داخل Available_playersController.java
                     case "invite_recieved":
                         String from = json.getString("from");
+                        System.out.println("Invitation received from: " + from); // للتأكد في الـ Console
 
-                        System.out.print(from);
-                        NavigateBetweeenScreens.invite(NavigateBetweeenScreens.lastEvent, from);
+                        // الحل السحري: نمرر null أو lastEvent، والـ Navigate هيتصرف
+                        Platform.runLater(() -> {
+                            NavigateBetweeenScreens.invite(null, from);
+                        });
                         break;
                     case "player_move":
                         String move = json.getString("move");
@@ -94,13 +99,6 @@ public class Available_playersController implements Initializable {
                         break;
                 }
             });
-
-            if ("getAvailablePlayers".equals(type)) {
-                Platform.runLater(() -> handleAvailablePlayers(json));
-            } else if ("logout_response".equals(type)) {
-                Platform.runLater(() -> handleLogoutResponse(json));
-            }
-
         });
 
         playersList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
@@ -145,17 +143,16 @@ public class Available_playersController implements Initializable {
 
     @FXML
     private void invitePlayer(ActionEvent event) {
-
         Player selected = playersList.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            System.out.println("Invite sent to: " + selected.getName());
-        }
-        JSONObject request = new JSONObject();
-        request.put("type", "invite");
-        request.put("to", selected.getName());
-        request.put("from", LoggedUser.name);
-        server.send(request);
+            JSONObject request = new JSONObject();
+            request.put("type", "invite");
+            request.put("to", selected.getName());
+            request.put("from", LoggedUser.name);
+            server.send(request);
 
+            NavigateBetweeenScreens.goToWaitAccept(event);
+        }
     }
 
     private void handleLogoutResponse(JSONObject response) {
@@ -179,6 +176,12 @@ public class Available_playersController implements Initializable {
         NavigateBetweeenScreens.goToShowProfile(event);
 
     }
+
+    @FXML
+    private void logOut(ActionEvent event) {
+        NavigateBetweeenScreens.lastEvent = event;
+        server.logout(LoggedUser.gmail);
+    }
 }
 
 class LoggedUser {
@@ -187,4 +190,3 @@ class LoggedUser {
     public static String gmail;
     public static int score;
 }
-

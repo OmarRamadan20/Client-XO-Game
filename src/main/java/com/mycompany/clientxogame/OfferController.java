@@ -19,33 +19,25 @@ import org.json.JSONObject;
  * @author amr04
  */
 public class OfferController implements Initializable {
-
     private String fromPlayer;
 
     public void setFromPlayer(String fromPlayer) {
         this.fromPlayer = fromPlayer;
     }
-    @FXML
-    private Button btmOfCourse;
-    @FXML
-    private Button btmTimeAnther;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
+    public void initialize(URL url, ResourceBundle rb) {}
 
     @FXML
     private void onActionOfCourse(ActionEvent event) {
         JSONObject response = new JSONObject();
         response.put("type", "invite_response");
         response.put("status", "accept");
-        response.put("to", fromPlayer);
+        response.put("to", fromPlayer); 
         response.put("from", LoggedUser.name);
+        
         ServerHandler.getInstance().send(response);
+        // نوديه لصفحة اللعب فوراً
         NavigateBetweeenScreens.goToPlay(event);
     }
 
@@ -56,8 +48,9 @@ public class OfferController implements Initializable {
         response.put("status", "later");
         response.put("to", fromPlayer);
         response.put("from", LoggedUser.name);
+        
         ServerHandler.getInstance().send(response);
+        // نرجعه لقائمة اللاعبين
         NavigateBetweeenScreens.goToAvailablePlayer(event);
     }
-
 }
