@@ -61,13 +61,14 @@ public void setFromPlayer(String fromPlayer) {
     @FXML
     private void onActionCancel(ActionEvent event) {
 
-    JSONObject response = new JSONObject();
-    response.put("type", "invite_response");
-    response.put("status", "later"); 
+JSONObject response = new JSONObject();
+    response.put("type", "invite_response"); 
+    response.put("status", "later");         
     response.put("to", NavigateBetweeenScreens.invitedFrom); 
     response.put("from", LoggedUser.name);
-    ServerHandler.getInstance().send(response);
     
+    ServerHandler.getInstance().send(response);
+   
     NavigateBetweeenScreens.goToAvailablePlayer(event);
     }
 

@@ -6,6 +6,7 @@ package com.mycompany.clientxogame;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,8 +26,24 @@ public class OfferController implements Initializable {
         this.fromPlayer = fromPlayer;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {}
+   @Override
+public void initialize(URL url, ResourceBundle rb) {
+  
+    ServerHandler.getInstance().setListener(json -> {
+        String type = json.optString("type", "");
+        
+      
+        if (type.equals("invite_status_back")) {
+            String status = json.optString("status", "");
+            if (status.equals("later")) {
+                Platform.runLater(() -> {
+                    
+                    NavigateBetweeenScreens.goToAvailablePlayer(null);
+                });
+            }
+        }
+    });
+}
 
     @FXML
     private void onActionOfCourse(ActionEvent event) {
