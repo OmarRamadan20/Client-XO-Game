@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
+import org.json.JSONObject;
 /**
  * FXML Controller class
  *
@@ -31,6 +32,11 @@ public class AcceptController implements Initializable {
     
     @FXML
     private void onActionCancel(ActionEvent event) {
+        JSONObject request = new JSONObject();
+        request.put("type", "cancel_invite");
+         request.put("to", "cancel_invite");
+          request.put("from",LoggedUser.name );
+        ServerHandler.getInstance().send(request);
         NavigateBetweeenScreens.goToAvailablePlayer(event);
     }
 

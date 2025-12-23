@@ -46,9 +46,7 @@ public class ProfileController implements Initializable {
 
     @FXML
     private void onRecord(ActionEvent event) {
-       NavigateBetweeenScreens.goToShowRecords(event);
-        
-
+        NavigateBetweeenScreens.goToShowRecords(event);
     }
 
 }
