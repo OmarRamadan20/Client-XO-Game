@@ -17,6 +17,8 @@ import javafx.stage.Stage;
  * @author user
  */
 public class NavigateBetweeenScreens {
+    public static ActionEvent lastEvent;
+
 
     private static void changeScene(ActionEvent event, String fxmlFile, String title) {
         try {
@@ -36,18 +38,6 @@ public class NavigateBetweeenScreens {
 
     public static void backToModeSelection(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/ModeSelection.fxml", "Mode Selection");
-    }
-
-    public static void goToEasyLevel(ActionEvent event) {
-        changeScene(event, "/game/double_board.fxml", "XO Easy Level");
-    }
-
-    public static void goToMeduimLevel(ActionEvent event) {
-        changeScene(event, "/game/board.fxml", "XO Meduim Level");
-    }
-
-    public static void goToHardLevel(ActionEvent event) {
-        changeScene(event, "/game/board.fxml", "XO Hard Level");
     }
 
     public static void backToLevelSelection(ActionEvent event) {
@@ -74,14 +64,12 @@ public class NavigateBetweeenScreens {
     public static void goToLogIn(ActionEvent event) {
         changeScene(event, "/UI/Register/login.fxml", "Login");
 
-        //E:\ITI\java\Team4\client\Client-XO-Game\src\main\resources
     }
 
     public static void goToAvailablePlayer(ActionEvent event) {
         changeScene(event, "/UI/players/available_players.fxml", "Available Players");
         //F:\traning\iti\Java\Final Project\ClientXOGame\src\main\resources\
     }
-//ui not exist
 
     public static void goToShowProfile(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
