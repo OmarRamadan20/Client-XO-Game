@@ -37,7 +37,7 @@ public class OfferController implements Initializable {
         response.put("from", LoggedUser.name);
         
         ServerHandler.getInstance().send(response);
-        // نوديه لصفحة اللعب فوراً
+      
         NavigateBetweeenScreens.goToPlay(event);
     }
 
@@ -50,7 +50,7 @@ public class OfferController implements Initializable {
         response.put("from", LoggedUser.name);
         
         ServerHandler.getInstance().send(response);
-        // نرجعه لقائمة اللاعبين
+       
         NavigateBetweeenScreens.goToAvailablePlayer(event);
     }
 }

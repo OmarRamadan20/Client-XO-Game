@@ -81,13 +81,12 @@ public class Available_playersController implements Initializable {
                     case "logout_response":
                         handleLogoutResponse(json);
                         break;
-                    // داخل ميثود initialize جوه الـ Listener:
-                    // داخل Available_playersController.java
+                 
                     case "invite_recieved":
                         String from = json.getString("from");
-                        System.out.println("Invitation received from: " + from); // للتأكد في الـ Console
+                        System.out.println("Invitation received from: " + from); 
 
-                        // الحل السحري: نمرر null أو lastEvent، والـ Navigate هيتصرف
+                        
                         Platform.runLater(() -> {
                             NavigateBetweeenScreens.invite(null, from);
                         });
@@ -141,25 +140,28 @@ public class Available_playersController implements Initializable {
         server.send(request);
     }
 
-    @FXML
-    private void invitePlayer(ActionEvent event) {
-        Player selected = playersList.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            JSONObject request = new JSONObject();
-            request.put("type", "invite");
-            request.put("to", selected.getName());
-            request.put("from", LoggedUser.name);
-            server.send(request);
-
-            NavigateBetweeenScreens.goToWaitAccept(event);
-        }
+@FXML
+private void invitePlayer(ActionEvent event) {
+    Player selected = playersList.getSelectionModel().getSelectedItem();
+    if (selected != null) {
+        JSONObject request = new JSONObject();
+        request.put("type", "invite");
+        request.put("to", selected.getName());
+        request.put("from", LoggedUser.name);
+    
+        NavigateBetweeenScreens.invitedFrom = selected.getName(); 
+        
+        server.send(request);
+        NavigateBetweeenScreens.lastEvent = event;
+        NavigateBetweeenScreens.goToWaitAccept(event);
     }
-
+}
     private void handleLogoutResponse(JSONObject response) {
         if ("success".equals(response.optString("status"))) {
             LoggedUser.name = null;
             LoggedUser.gmail = null;
             LoggedUser.score = 0;
+            
 
             NavigateBetweeenScreens.goToLogIn(NavigateBetweeenScreens.lastEvent);
         }

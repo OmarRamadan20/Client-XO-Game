@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import org.json.JSONObject;
 /**
  * FXML Controller class
@@ -27,6 +28,8 @@ public class AcceptController implements Initializable {
      * Initializes the controller class.
      */
 
+
+
 @Override
 public void initialize(URL url, ResourceBundle rb) {
     ServerHandler.getInstance().setListener(json -> {
@@ -34,17 +37,19 @@ public void initialize(URL url, ResourceBundle rb) {
         if (type.equals("invite_status_back")) {
             String status = json.getString("status");
             Platform.runLater(() -> {
+              
+                Stage currentStage = (Stage) cancelBtn.getScene().getWindow();
+                
                 if ("accept".equals(status)) {
-                  
-                    NavigateBetweeenScreens.goToPlay(NavigateBetweeenScreens.lastEvent);
+
+                    NavigateBetweeenScreens.goToPlay(null);
                 } else {
-                 
-                    NavigateBetweeenScreens.goToAvailablePlayer(NavigateBetweeenScreens.lastEvent);
+                    NavigateBetweeenScreens.goToAvailablePlayer(null);
                 }
             });
         }
     });
-}   
+}
     private String fromPlayer;
 
 public void setFromPlayer(String fromPlayer) {
@@ -55,13 +60,14 @@ public void setFromPlayer(String fromPlayer) {
 
     @FXML
     private void onActionCancel(ActionEvent event) {
- JSONObject response = new JSONObject();
+
+    JSONObject response = new JSONObject();
     response.put("type", "invite_response");
-    response.put("status", "later"); // بنعرف الطرف التاني إننا لغينا
-    response.put("to", NavigateBetweeenScreens.invitedFrom);
+    response.put("status", "later"); 
+    response.put("to", NavigateBetweeenScreens.invitedFrom); 
     response.put("from", LoggedUser.name);
-    
     ServerHandler.getInstance().send(response);
+    
     NavigateBetweeenScreens.goToAvailablePlayer(event);
     }
 
