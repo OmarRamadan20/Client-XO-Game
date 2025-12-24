@@ -62,7 +62,7 @@ public class NavigateBetweeenScreens {
             FXMLLoader loader = new FXMLLoader(NavigateBetweeenScreens.class.getResource(fxmlFile));
             Parent root = loader.load();
 
-            XOController controller = loader.getController();
+            DoubleBoardController controller = loader.getController();
             controller.setDifficulty(difficulty);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -197,15 +197,15 @@ public class NavigateBetweeenScreens {
     }
 
     public static void goToEasyLevel(ActionEvent event) {
-        changeSceneWithDifficulty(event, "/game/board.fxml", "XO Easy Level", "Easy");
+        changeSceneWithDifficulty(event, "/game/double_board.fxml", "XO Easy Level", "Easy");
     }
 
      public static void goToMeduimLevel(ActionEvent event) {
-        changeSceneWithDifficulty(event, "/game/board.fxml", "XO Medium Level", "Medium");
+        changeSceneWithDifficulty(event, "/game/double_board.fxml", "XO Medium Level", "Medium");
     }
 
     public static void goToHardLevel(ActionEvent event) {
-        changeSceneWithDifficulty(event, "/game/board.fxml", "XO Hard Level", "Hard");
+        changeSceneWithDifficulty(event, "/game/double_board.fxml", "XO Hard Level", "Hard");
     }
 
     public static void backToShowProfile(ActionEvent event) {
