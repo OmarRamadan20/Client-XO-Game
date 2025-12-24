@@ -21,34 +21,28 @@ import java.util.List;
  */
 public class GameFileManager {
 
-   private static final String DIR = "game_records";
+private static final String DIR = "game_records";
 
-    static {
-        new File(DIR).mkdirs();
-    }
+static {
+    new File(DIR).mkdirs();
+}
 
-     public static void save(List<Move> moves, String opponentName) {
+public static void save(List<Move> moves, String player1, String player2) {
+     String fileName = "XO_" + player1 + "_vs_" + player2 + ".txt";
+    saveToFile(moves, fileName);
+}
 
-        String time = LocalDateTime.now()
-                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
-
-        String fileName = "XO_" + opponentName + "_" + time + ".txt";
-        saveToFile(moves, fileName);
-    }
-
-     private static void saveToFile(List<Move> moves, String fileName) {
-        try (FileWriter writer = new FileWriter(DIR + "/" + fileName)) {
-
-            for (Move m : moves) {
-                writer.write(m.playerId + "," + m.row + "," + m.col + "\n");
-            }
-
-            System.out.println("Game saved: " + fileName);
-
-        } catch (IOException e) {
-            e.printStackTrace();
+private static void saveToFile(List<Move> moves, String fileName) {
+    try (FileWriter writer = new FileWriter(DIR + "/" + fileName)) { 
+        for (Move m : moves) {
+            writer.write(m.playerId + "," + m.row + "," + m.col + "\n");
         }
-     }
+        System.out.println("Game saved: " + fileName);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
     
 public static List<Move> load(String fileName) {
         List<Move> moves = new ArrayList<>();
@@ -75,10 +69,12 @@ public static List<Move> load(String fileName) {
         return moves;
     }
     
-    public static List<String> getAllGames() {
-        File folder = new File(DIR);
-        String[] files = folder.list((dir, name) -> name.endsWith(".txt"));
-        if (files == null) return new ArrayList<>();
-        return Arrays.asList(files);
-    }
+   public static List<String> getPlayerGames(String playerName) {
+    File folder = new File(DIR);
+    String[] files = folder.list((dir, name) -> name.endsWith(".txt") && name.contains(playerName));
+    if (files == null) return new ArrayList<>();
+    Arrays.sort(files); 
+    return Arrays.asList(files);
+}
+
 }

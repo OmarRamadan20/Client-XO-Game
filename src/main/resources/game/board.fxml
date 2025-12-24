@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<StackPane prefHeight="650" prefWidth="650" style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="com.mycompany.clientxogame.XOController">
+<StackPane prefHeight="650" prefWidth="650" style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.XOController">
 
     <Line fx:id="winLine" stroke="LIME" strokeLineCap="ROUND" strokeWidth="8" visible="false" />
 
@@ -58,7 +58,7 @@
             <Rectangle arcHeight="20" arcWidth="20" fill="#2c003e" height="100" width="100" />
             <Text fx:id="cell22" style="-fx-font-size:60; -fx-fill:cyan;" />
         </StackPane>
-      <Button fx:id="idRecords" mnemonicParsing="false" onAction="#onActionRecode" prefHeight="54.0" prefWidth="184.0" text="Records" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Button fx:id="idRecords" mnemonicParsing="false" onAction="#onActionRecode" prefHeight="54.0" prefWidth="184.0" style="-fx-background-color: blue;" text="Records" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <columnConstraints>
          <ColumnConstraints />
          <ColumnConstraints />

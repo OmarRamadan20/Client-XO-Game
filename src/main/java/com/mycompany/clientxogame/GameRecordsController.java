@@ -5,6 +5,7 @@
 package com.mycompany.clientxogame;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,19 +17,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
- 
 public class GameRecordsController implements Initializable {
 
-    @FXML private Button backBtn;
-    @FXML private Label nameTxt;
-    @FXML private Button btnplayOn;
+    @FXML
+    private Button backBtn;
+    @FXML
+    private Label nameTxt;
+    @FXML
+    private Button btnplayOn;
     @FXML
     private ListView<String> ListFile;
-     private ObservableList<String> filesListData = FXCollections.observableArrayList();
+    private ObservableList<String> filesListData = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        filesListData.addAll(GameFileManager.getAllGames());
+        filesListData.addAll(GameFileManager.getPlayerGames(LoggedUser.name));
         ListFile.setItems(filesListData);
 
         ListFile.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
@@ -47,7 +50,18 @@ public class GameRecordsController implements Initializable {
     private void playOn(ActionEvent event) {
         String selectedFile = ListFile.getSelectionModel().getSelectedItem();
         if (selectedFile != null) {
-             NavigateBetweeenScreens.goToPlayRecords(event,selectedFile);
+            List<Move> moves = GameFileManager.load(selectedFile);
+
+            ObservableList<String> movesData = FXCollections.observableArrayList();
+            for (Move m : moves) {
+                String player = m.playerId == 0 ? "X" : "O";
+                movesData.add(player + " -> Row: " + m.row + ", Col: " + m.col);
+            }
+
+            ListFile.setItems(movesData);
+             
+            nameTxt.setText(selectedFile);
+            NavigateBetweeenScreens.goToPlayRecords(event,selectedFile); 
         }
     }
 
