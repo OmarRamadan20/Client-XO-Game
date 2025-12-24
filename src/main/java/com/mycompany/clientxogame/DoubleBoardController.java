@@ -39,8 +39,13 @@ public class DoubleBoardController implements Initializable {
     private boolean xTurn = true;
     private boolean gameOver = false;
     private int scoreX = 0, scoreO = 0;
-    
+    private SingleMode ai = new SingleMode();
+    private String difficulty; 
     private List<Move> recordedMoves = new ArrayList<>();
+    
+     public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
