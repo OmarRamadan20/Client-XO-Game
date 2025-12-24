@@ -126,8 +126,7 @@ public class NavigateBetweeenScreens {
 
     public static void goToShowRecords(ActionEvent event) {
         changeScene(event, "/records/gameRecords.fxml", "Game Records");
-        //F:\traning\iti\Java\Final Project\ClientXOGame\src\main\resources
-    }
+     }
 
     public static void winGame(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/win.fxml", "Win");
