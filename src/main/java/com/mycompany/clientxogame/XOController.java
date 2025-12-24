@@ -2,6 +2,7 @@ package com.mycompany.clientxogame;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
@@ -10,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import org.json.JSONObject;
 
 public class XOController implements Initializable {
 
@@ -29,6 +31,9 @@ public class XOController implements Initializable {
     private boolean gameOver = false;
     private SingleMode ai = new SingleMode();
     private String difficulty; 
+    private String mySymbol;      
+    private boolean myTurn;       
+    private String opponentName;
 
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
@@ -36,13 +41,45 @@ public class XOController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         cells = new Text[][]{
             {cell00, cell01, cell02},
             {cell10, cell11, cell12},
             {cell20, cell21, cell22}
         };
+
         resetBoard();
+
         setupCells();
+
+    }
+    
+    public void setOnlineMode(String opponent, String symbol, boolean turn) {
+        this.opponentName = opponent;
+        this.mySymbol = symbol;
+        this.myTurn = turn;
+
+        System.out.println("Playing against: " + opponent + " | Symbol: " + symbol + " | My Turn: " + turn);
+
+        ServerHandler.getInstance().setListener(json -> {
+            if (json.optString("type").equals("player_move")) {
+                String move = json.getString("move");
+                int r = Integer.parseInt(move.split(",")[0]);
+                int c = Integer.parseInt(move.split(",")[1]);
+
+                Platform.runLater(() -> {
+                    String opSymbol = mySymbol.equals("X") ? "O" : "X";
+                    Color opColor = opSymbol.equals("X") ? Color.LIME : Color.HOTPINK;
+                    makeMove(r, c, opSymbol, opColor);
+                    this.myTurn = true;
+
+                    int winStatus = checkWin();
+                    if (winStatus != -1 || isBoardFull()) {
+                        handleGameOver(winStatus);
+                    }
+                });
+            }
+        });
     }
 
     private void resetBoard() {
@@ -58,31 +95,31 @@ public class XOController implements Initializable {
             for (int c = 0; c < 3; c++) {
                 Text cell = cells[r][c];
                 StackPane parent = (StackPane) cell.getParent();
-
-                int row = r;
-                int col = c;
+                final int row = r;
+                final int col = c;
 
                 parent.setOnMouseClicked(e -> {
-                    if (gameOver || !cell.getText().isEmpty()) {
+
+                    if (gameOver || !cell.getText().isEmpty() || !myTurn) {
                         return;
                     }
 
-                    makeMove(row, col, "X", Color.LIME);
+                    String colorStr = mySymbol.equals("X") ? "LIME" : "HOTPINK";
+                    makeMove(row, col, mySymbol, Color.valueOf(colorStr));
 
-                    int win = checkWin();
-                    if (win != -1 || isBoardFull()) {
-                        handleGameOver(win);
-                        return;
-                    }
+                    myTurn = false;
 
-                    int[] aiMove = ai.getMove(board, difficulty);
-                    if (aiMove != null) {
-                        makeMove(aiMove[0], aiMove[1], "O", Color.HOTPINK);
+                    JSONObject moveRequest = new JSONObject();
+                    moveRequest.put("type", "move");
+                    moveRequest.put("to", NavigateBetweeenScreens.currentOpponent);
+                    moveRequest.put("from", LoggedUser.name);
+                    moveRequest.put("move", row + "," + col);
 
-                        win = checkWin();
-                        if (win != -1 || isBoardFull()) {
-                            handleGameOver(win);
-                        }
+                    ServerHandler.getInstance().send(moveRequest);
+
+                    int winStatus = checkWin();
+                    if (winStatus != -1 || isBoardFull()) {
+                        handleGameOver(winStatus);
                     }
                 });
             }

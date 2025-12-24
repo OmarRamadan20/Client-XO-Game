@@ -47,8 +47,7 @@ public class GameRecordsController implements Initializable {
     private void playOn(ActionEvent event) {
         String selectedFile = ListFile.getSelectionModel().getSelectedItem();
         if (selectedFile != null) {
-            // هنا نرسل اسم الملف للـ RecordController
-            NavigateBetweeenScreens.goToPlayRecords(event);
+             NavigateBetweeenScreens.goToPlayRecords(event,selectedFile);
         }
     }
 

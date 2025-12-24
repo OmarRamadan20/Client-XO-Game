@@ -83,11 +83,11 @@ public class DoubleBoardController implements Initializable {
                         gameOver = true;
                         updateScore();
                         drawWinLine(winCode);
-                        GameFileManager.save(recordedMoves);
+                        GameFileManager.save(recordedMoves,"الخصم");
                     } else if (isBoardFull()) {
                         gameOver = true;
                         System.out.println("Draw!");
-                        GameFileManager.save(recordedMoves);
+                        GameFileManager.save(recordedMoves,"الخصم");
                     }
                     
                     xTurn = !xTurn;

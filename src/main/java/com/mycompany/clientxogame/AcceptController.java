@@ -6,11 +6,13 @@ package com.mycompany.clientxogame;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import org.json.JSONObject;
 /**
  * FXML Controller class
@@ -25,19 +27,53 @@ public class AcceptController implements Initializable {
     /**
      * Initializes the controller class.
      */
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+        ServerHandler.getInstance().setListener(json -> {
+            String type = json.optString("type", "");
+            if (type.equals("invite_status_back")) {
+                String status = json.getString("status");
+                Platform.runLater(() -> {
+
+                    Stage currentStage = (Stage) cancelBtn.getScene().getWindow();
+
+                    if ("accept".equals(status)) {
+
+                        NavigateBetweeenScreens.mySymbol = "X";
+                        NavigateBetweeenScreens.isMyTurn = true;
+                        NavigateBetweeenScreens.currentOpponent = NavigateBetweeenScreens.invitedFrom;
+
+                        NavigateBetweeenScreens.goToPlay(null);
+                    } else {
+                        NavigateBetweeenScreens.goToAvailablePlayer(null);
+                    }
+                });
+            }
+        });
+    }
+    private String fromPlayer;
+
+public void setFromPlayer(String fromPlayer) {
+    this.fromPlayer = fromPlayer;
+}
+
+
+
     @FXML
     private void onActionCancel(ActionEvent event) {
-        JSONObject request = new JSONObject();
-        request.put("type", "cancel_invite");
-         request.put("to", "cancel_invite");
-          request.put("from",LoggedUser.name );
-        ServerHandler.getInstance().send(request);
-        NavigateBetweeenScreens.goToAvailablePlayer(event);
+
+JSONObject response = new JSONObject();
+    response.put("type", "invite_response"); 
+    response.put("status", "later");         
+    response.put("to", NavigateBetweeenScreens.invitedFrom); 
+    response.put("from", LoggedUser.name);
+    
+    ServerHandler.getInstance().send(response);
+   
+    NavigateBetweeenScreens.goToAvailablePlayer(event);
     }
 
 }
