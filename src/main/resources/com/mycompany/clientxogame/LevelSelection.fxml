@@ -1,62 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" spacing="30.0"
-      xmlns="http://javafx.com/javafx/25"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.mycompany.clientxogame.LevelSelectionController"
-      style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);">
-
+<AnchorPane prefHeight="650.0" prefWidth="650.0" style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.LevelSelectionController">
    <children>
-      <Button fx:id="btmُُEasy" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onActionBtmEasy" prefHeight="50.0" prefWidth="250.0"
-              style="-fx-background-color: #A569FF; -fx-background-radius: 50; -fx-padding: 10px 40px; -fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.5, 0, 0); -fx-font-style: italic; -fx-min-width: 250px;"
-              text="Easy" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold Italic" size="25.0"/>
-         </font>
-         <opaqueInsets>
-            <Insets/>
-         </opaqueInsets>
-      </Button>
+      <Button fx:id="btmEasy" layoutX="175.0" layoutY="160.0" mnemonicParsing="false" onAction="#onActionBtmEasy" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="65.0" prefWidth="300.0" style="-fx-background-color: #2ecc71; -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26px; -fx-font-style: italic; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5); -fx-cursor: hand;" text="Easy" />
 
-      <Button fx:id="btmMeduim" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onActionBtmMedium" prefHeight="50.0" prefWidth="250.0"
-              style="-fx-background-color: #A569FF; -fx-background-radius: 50; -fx-padding: 10px 40px; -fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.5, 0, 0); -fx-font-style: italic; -fx-min-width: 250px;"
-              text="Medium" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold Italic" size="25.0"/>
-         </font>
-         <opaqueInsets>
-            <Insets/>
-         </opaqueInsets>
-      </Button>
+      <Button fx:id="btmMeduim" layoutX="175.0" layoutY="270.0" mnemonicParsing="false" onAction="#onActionBtmMedium" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="65.0" prefWidth="300.0" style="-fx-background-color: #f1c40f; -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26px; -fx-font-style: italic; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5); -fx-cursor: hand;" text="Medium" />
 
-      <Button fx:id="btmHard" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onActionHard" prefHeight="50.0" prefWidth="250.0"
-              style="-fx-background-color: #A569FF; -fx-background-radius: 50; -fx-padding: 10px 40px; -fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.5, 0, 0); -fx-font-style: italic; -fx-min-width: 250px;"
-              text="Hard" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold Italic" size="25.0"/>
-         </font>
-         <opaqueInsets>
-            <Insets/>
-         </opaqueInsets>
-      </Button>
+      <Button fx:id="btmHard" layoutX="175.0" layoutY="380.0" mnemonicParsing="false" onAction="#onActionHard" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="65.0" prefWidth="300.0" style="-fx-background-color: #e74c3c; -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26px; -fx-font-style: italic; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5); -fx-cursor: hand;" text="Hard" />
 
-      <Button fx:id="btmBack" alignment="CENTER" contentDisplay="CENTER" minWidth="135.0" mnemonicParsing="false" onAction="#onActionBack" prefHeight="52.0" prefWidth="150.0"
-              style="-fx-background-color: #A569FF; -fx-background-radius: 50; -fx-padding: 10px 40px; -fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.5, 0, 0); -fx-font-style: italic; -fx-min-width: 150px;"
-              text="Back" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold Italic" size="25.0"/>
-         </font>
-         <opaqueInsets>
-            <Insets/>
-         </opaqueInsets>
-         <VBox.margin>
-            <Insets right="300.0" top="20.0"/>
-         </VBox.margin>
-      </Button>
+      <Button fx:id="btmBack" layoutX="35.0" layoutY="560.0" mnemonicParsing="false" onAction="#onActionBack" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #A569FF; -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 22px; -fx-font-style: italic; -fx-cursor: hand;" text="Back" />
    </children>
-</VBox>
+</AnchorPane>
