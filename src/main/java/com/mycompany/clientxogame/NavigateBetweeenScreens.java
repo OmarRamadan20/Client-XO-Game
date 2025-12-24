@@ -21,8 +21,8 @@ public class NavigateBetweeenScreens {
 
     public static ActionEvent lastEvent;
     public static String invitedFrom;
-    public static String mySymbol;      
-    public static boolean isMyTurn;     
+    public static String mySymbol;
+    public static boolean isMyTurn;
     public static String currentOpponent;
 
     private static void changeScene(ActionEvent event, String fxmlFile, String title) {
@@ -91,7 +91,6 @@ public class NavigateBetweeenScreens {
         //E:\ITI\java\Team4\client\Client-XO-Game\src\main\resources
     }
 
-
     public static void backToOfflinePlayer(ActionEvent event) {
         changeScene(event, "/UI/players/offline_players.fxml", "Offline Players");
     }
@@ -114,8 +113,7 @@ public class NavigateBetweeenScreens {
 
     public static void goToShowProfile(ActionEvent event) {
 
-       // changeScene(event, "/UI/players/available_players.fxml", "Available Players");
-
+        // changeScene(event, "/UI/players/available_players.fxml", "Available Players");
         changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
 
     }
@@ -200,7 +198,7 @@ public class NavigateBetweeenScreens {
         changeSceneWithDifficulty(event, "/game/double_board.fxml", "XO Easy Level", "Easy");
     }
 
-     public static void goToMeduimLevel(ActionEvent event) {
+    public static void goToMeduimLevel(ActionEvent event) {
         changeSceneWithDifficulty(event, "/game/double_board.fxml", "XO Medium Level", "Medium");
     }
 
@@ -224,7 +222,7 @@ public class NavigateBetweeenScreens {
         lastEvent = event;
         changeScene(event, "/com/mycompany/clientxogame/accept.fxml", "Waiting for Response");
     }
-    
+
     public static void goToPlay(ActionEvent event) {
         Platform.runLater(() -> {
             try {
@@ -250,5 +248,24 @@ public class NavigateBetweeenScreens {
                 ex.printStackTrace();
             }
         });
+    }
+
+    public static void goToTwoPlayersMode(ActionEvent event, String name1, String name2) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    NavigateBetweeenScreens.class.getResource("/game/two_players_board.fxml")
+            );
+            Parent root = loader.load();
+
+            Two_players_boardController controller = loader.getController();
+            controller.setPlayersNames(name1, name2);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

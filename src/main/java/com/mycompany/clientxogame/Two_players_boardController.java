@@ -1,67 +1,84 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
+ */
 package com.mycompany.clientxogame;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
+import javafx.scene.layout.Pane;
 
-public class DoubleBoardController implements Initializable {
+/**
+ * FXML Controller class
+ *
+ * @author Aladawy
+ */
+public class Two_players_boardController implements Initializable {
 
     @FXML
     private Button BackButtonId;
-
     @FXML
-    private Label playerOneScore, PlayerTwoScore;
-
+    private Label playerOneScore;
     @FXML
-    private Text cell00, cell01, cell02,
-            cell10, cell11, cell12,
-            cell20, cell21, cell22;
-
+    private Text cell00;
+    @FXML
+    private Text cell01;
+    @FXML
+    private Text cell02;
+    @FXML
+    private Text cell10;
+    @FXML
+    private Text cell11;
+    @FXML
+    private Text cell12;
+    @FXML
+    private Text cell20;
+    @FXML
+    private Text cell21;
+    @FXML
+    private Text cell22;
+    @FXML
+    private Label PlayerTwoScore;
     @FXML
     private Line winLine;
 
     private Text[][] cells;
-
-    
-    private String[][] board = {
-            {"", "", ""},
-            {"", "", ""},
-            {"", "", ""}
-    };
-
+    private String[][] board = new String[3][3];
     private boolean xTurn = true;
     private boolean gameOver = false;
     private int scoreX = 0, scoreO = 0;
-    private SingleMode ai = new SingleMode();
-    private String difficulty = "Easy"; 
-    
+    private String player1;
+    private String player2;
+    @FXML
+    private Label playerOneName;
+    @FXML
+    private Label playerTwoName;
 
-    public void setDifficulty(String difficulty) {
-        if (difficulty != null && !difficulty.isEmpty()) {
-            this.difficulty = difficulty;
-        }
+    public void setPlayersNames(String name1, String name2) {
+        this.player1 = name1;
+        this.player2 = name2;
+
+        playerOneName.setText(name1);
+        playerTwoName.setText(name2);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cells = new Text[][]{
-                {cell00, cell01, cell02},
-                {cell10, cell11, cell12},
-                {cell20, cell21, cell22}
+            {cell00, cell01, cell02},
+            {cell10, cell11, cell12},
+            {cell20, cell21, cell22}
         };
         setupCells();
         resetGame();
@@ -75,77 +92,53 @@ public class DoubleBoardController implements Initializable {
                 final int col = c;
 
                 parent.setOnMouseClicked(e -> {
-                    if (gameOver || !xTurn || !board[row][col].isEmpty()) {
+                    if (gameOver || board[row][col] != null) {
                         return;
                     }
 
-                    makePlayerMove(row, col);
-
-                    
-                    if (!gameOver) {
-                        Platform.runLater(this::makeAIMove);
+                    if (xTurn) {
+                        cells[row][col].setText("X");
+                        cells[row][col].setFill(Color.LIME);
+                        board[row][col] = "X";
+                    } else {
+                        cells[row][col].setText("O");
+                        cells[row][col].setFill(Color.HOTPINK);
+                        board[row][col] = "O";
                     }
+
+                    int currentPlayerId = xTurn ? 1 : 2;
+
+                    int winCode = checkWin();
+                    if (winCode != -1) {
+                        gameOver = true;
+                        updateScore();
+                        drawWinLine(winCode);
+
+                    } else if (isBoardFull()) {
+                        gameOver = true;
+                        System.out.println("Draw!");
+
+                    }
+
+                    xTurn = !xTurn;
                 });
             }
         }
     }
 
-    private void makePlayerMove(int row, int col) {
-        cells[row][col].setText("X");
-        cells[row][col].setFill(Color.LIME);
-        board[row][col] = "X";
-       
-
-        int winCode = checkWin();
-        if (winCode != -1) {
-            gameOver = true;
+    private void updateScore() {
+        if (xTurn) {
             scoreX++;
             playerOneScore.setText(String.valueOf(scoreX));
-            drawWinLine(winCode);
-          
-        } else if (isBoardFull()) {
-            gameOver = true;
-           
         } else {
-            xTurn = false; 
-        }
-    }
-
-    private void makeAIMove() {
-        
-        if (difficulty == null || difficulty.isEmpty()) {
-            difficulty = "Easy";
-        }
-
-        int[] move = ai.getMove(board, difficulty);
-        int row = move[0];
-        int col = move[1];
-
-        if (board[row][col].isEmpty()) {
-            cells[row][col].setText("O");
-            cells[row][col].setFill(Color.HOTPINK);
-            board[row][col] = "O";
-           
-
-            int winCode = checkWin();
-            if (winCode != -1) {
-                gameOver = true;
-                scoreO++;
-                PlayerTwoScore.setText(String.valueOf(scoreO));
-                drawWinLine(winCode);
-              
-            } else if (isBoardFull()) {
-                gameOver = true;
-               
-            } else {
-                xTurn = true; 
-            }
+            scoreO++;
+            PlayerTwoScore.setText(String.valueOf(scoreO));
         }
     }
 
     private int checkWin() {
         for (int r = 0; r < 3; r++) {
-            if (!board[r][0].isEmpty()
+            if (board[r][0] != null
                     && board[r][0].equals(board[r][1])
                     && board[r][1].equals(board[r][2])) {
                 return r;
@@ -153,20 +146,20 @@ public class DoubleBoardController implements Initializable {
         }
 
         for (int c = 0; c < 3; c++) {
-            if (!board[0][c].isEmpty()
+            if (board[0][c] != null
                     && board[0][c].equals(board[1][c])
                     && board[1][c].equals(board[2][c])) {
                 return c + 3;
             }
         }
 
-        if (!board[0][0].isEmpty()
+        if (board[0][0] != null
                 && board[0][0].equals(board[1][1])
                 && board[1][1].equals(board[2][2])) {
             return 6;
         }
 
-        if (!board[0][2].isEmpty()
+        if (board[0][2] != null
                 && board[0][2].equals(board[1][1])
                 && board[1][1].equals(board[2][0])) {
             return 7;
@@ -178,7 +171,7 @@ public class DoubleBoardController implements Initializable {
     private boolean isBoardFull() {
         for (String[] row : board) {
             for (String cell : row) {
-                if (cell.isEmpty()) {
+                if (cell == null) {
                     return false;
                 }
             }
@@ -188,33 +181,32 @@ public class DoubleBoardController implements Initializable {
 
     private void drawWinLine(int code) {
         winLine.setVisible(true);
-       switch (code) {
-    case 0:
-        setLineBounds(cells[0][0], cells[0][2]);
-        break;
-    case 1:
-        setLineBounds(cells[1][0], cells[1][2]);
-        break;
-    case 2:
-        setLineBounds(cells[2][0], cells[2][2]);
-        break;
-    case 3:
-        setLineBounds(cells[0][0], cells[2][0]);
-        break;
-    case 4:
-        setLineBounds(cells[0][1], cells[2][1]);
-        break;
-    case 5:
-        setLineBounds(cells[0][2], cells[2][2]);
-        break;
-    case 6:
-        setLineBounds(cells[0][0], cells[2][2]);
-        break;
-    case 7:
-        setLineBounds(cells[0][2], cells[2][0]);
-        break;
-}
-
+        switch (code) {
+            case 0:
+                setLineBounds(cells[0][0], cells[0][2]);
+                break;
+            case 1:
+                setLineBounds(cells[1][0], cells[1][2]);
+                break;
+            case 2:
+                setLineBounds(cells[2][0], cells[2][2]);
+                break;
+            case 3:
+                setLineBounds(cells[0][0], cells[2][0]);
+                break;
+            case 4:
+                setLineBounds(cells[0][1], cells[2][1]);
+                break;
+            case 5:
+                setLineBounds(cells[0][2], cells[2][2]);
+                break;
+            case 6:
+                setLineBounds(cells[0][0], cells[2][2]);
+                break;
+            case 7:
+                setLineBounds(cells[0][2], cells[2][0]);
+                break;
+        }
     }
 
     private void setLineBounds(Text startCell, Text endCell) {
@@ -239,22 +231,21 @@ public class DoubleBoardController implements Initializable {
         winLine.setEndY(endPoint.getY());
     }
 
-    @FXML
     public void resetGame() {
         for (int r = 0; r < 3; r++) {
             for (int c = 0; c < 3; c++) {
-                board[r][c] = "";
+                board[r][c] = null;
                 cells[r][c].setText("");
             }
         }
         xTurn = true;
         gameOver = false;
         winLine.setVisible(false);
-       
+
     }
 
     @FXML
     private void onBack(ActionEvent event) {
-        NavigateBetweeenScreens.backToLevelSelection(event);
+        System.out.println("Back button clicked!");
     }
 }
