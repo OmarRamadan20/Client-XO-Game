@@ -48,7 +48,7 @@ public class DoubleBoardController implements Initializable {
     private int scoreX = 0, scoreO = 0;
     private SingleMode ai = new SingleMode();
     private String difficulty = "Easy"; 
-    private List<Move> recordedMoves = new ArrayList<>();
+    
 
     public void setDifficulty(String difficulty) {
         if (difficulty != null && !difficulty.isEmpty()) {
@@ -94,7 +94,7 @@ public class DoubleBoardController implements Initializable {
         cells[row][col].setText("X");
         cells[row][col].setFill(Color.LIME);
         board[row][col] = "X";
-        recordedMoves.add(new Move(1, row, col));
+       
 
         int winCode = checkWin();
         if (winCode != -1) {
@@ -102,10 +102,10 @@ public class DoubleBoardController implements Initializable {
             scoreX++;
             playerOneScore.setText(String.valueOf(scoreX));
             drawWinLine(winCode);
-            GameFileManager.save(recordedMoves);
+          
         } else if (isBoardFull()) {
             gameOver = true;
-            GameFileManager.save(recordedMoves);
+           
         } else {
             xTurn = false; 
         }
@@ -125,7 +125,7 @@ public class DoubleBoardController implements Initializable {
             cells[row][col].setText("O");
             cells[row][col].setFill(Color.HOTPINK);
             board[row][col] = "O";
-            recordedMoves.add(new Move(2, row, col));
+           
 
             int winCode = checkWin();
             if (winCode != -1) {
@@ -133,10 +133,10 @@ public class DoubleBoardController implements Initializable {
                 scoreO++;
                 PlayerTwoScore.setText(String.valueOf(scoreO));
                 drawWinLine(winCode);
-                GameFileManager.save(recordedMoves);
+              
             } else if (isBoardFull()) {
                 gameOver = true;
-                GameFileManager.save(recordedMoves);
+               
             } else {
                 xTurn = true; 
             }
@@ -250,7 +250,7 @@ public class DoubleBoardController implements Initializable {
         xTurn = true;
         gameOver = false;
         winLine.setVisible(false);
-        recordedMoves.clear();
+       
     }
 
     @FXML
