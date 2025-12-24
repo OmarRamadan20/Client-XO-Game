@@ -21,6 +21,9 @@ public class NavigateBetweeenScreens {
 
     public static ActionEvent lastEvent;
     public static String invitedFrom;
+    public static String mySymbol;      
+    public static boolean isMyTurn;     
+    public static String currentOpponent;
 
     private static void changeScene(ActionEvent event, String fxmlFile, String title) {
         Platform.runLater(() -> {
@@ -88,10 +91,6 @@ public class NavigateBetweeenScreens {
         //E:\ITI\java\Team4\client\Client-XO-Game\src\main\resources
     }
 
-    public static void goToPlay(ActionEvent event) {
-
-        changeScene(event, "/game/board.fxml", "Tic Tac Toe - Online");
-    }
 
     public static void backToOfflinePlayer(ActionEvent event) {
         changeScene(event, "/UI/players/offline_players.fxml", "Offline Players");
@@ -220,5 +219,32 @@ public class NavigateBetweeenScreens {
     public static void goToWaitAccept(ActionEvent event) {
         lastEvent = event;
         changeScene(event, "/com/mycompany/clientxogame/accept.fxml", "Waiting for Response");
+    }
+    
+    public static void goToPlay(ActionEvent event) {
+        Platform.runLater(() -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(NavigateBetweeenScreens.class.getResource("/game/board.fxml"));
+                Parent root = loader.load();
+
+                XOController controller = loader.getController();
+                controller.setOnlineMode(currentOpponent, mySymbol, isMyTurn);
+
+                Stage stage = null;
+                if (event != null && event.getSource() instanceof Node) {
+                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                } else {
+                    stage = (Stage) Stage.getWindows().stream().filter(w -> w.isShowing()).findFirst().orElse(null);
+                }
+
+                if (stage != null) {
+                    stage.setScene(new Scene(root));
+                    stage.setTitle("Tic Tac Toe - Online vs " + currentOpponent);
+                    stage.show();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
     }
 }

@@ -30,6 +30,11 @@ public class OfferController implements Initializable {
 
     @FXML
     private void onActionOfCourse(ActionEvent event) {
+        
+        NavigateBetweeenScreens.mySymbol = "O";
+        NavigateBetweeenScreens.isMyTurn = false;
+        NavigateBetweeenScreens.currentOpponent = fromPlayer;
+        
         JSONObject response = new JSONObject();
         response.put("type", "invite_response");
         response.put("status", "accept");
