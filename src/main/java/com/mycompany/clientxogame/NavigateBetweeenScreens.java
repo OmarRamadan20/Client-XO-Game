@@ -201,7 +201,7 @@ public class NavigateBetweeenScreens {
     }
 
      public static void goToMeduimLevel(ActionEvent event) {
-        changeSceneWithDifficulty(event, "/game/board.fxml", "XO Medium Level", "Medium");
+        changeSceneWithDifficulty(event, "/game/double_board.fxml", "XO Medium Level", "Medium");
     }
 
     public static void goToHardLevel(ActionEvent event) {
