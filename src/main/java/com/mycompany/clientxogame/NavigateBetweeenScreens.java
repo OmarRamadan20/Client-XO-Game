@@ -252,7 +252,7 @@ public class NavigateBetweeenScreens {
         });
     }
     
-     public static void goToTwoPlayersMode(ActionEvent event) {
+     public static void goToTwoPlayersMode(ActionEvent event,String n1 , String n2) {
         lastEvent = event;
         changeScene(event, "/game/two_players_board.fxml", "Waiting for Response");
     }
