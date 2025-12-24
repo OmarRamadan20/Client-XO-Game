@@ -30,26 +30,30 @@ public class AcceptController implements Initializable {
 
 
 
-@Override
-public void initialize(URL url, ResourceBundle rb) {
-    ServerHandler.getInstance().setListener(json -> {
-        String type = json.optString("type", "");
-        if (type.equals("invite_status_back")) {
-            String status = json.getString("status");
-            Platform.runLater(() -> {
-              
-                Stage currentStage = (Stage) cancelBtn.getScene().getWindow();
-                
-                if ("accept".equals(status)) {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        ServerHandler.getInstance().setListener(json -> {
+            String type = json.optString("type", "");
+            if (type.equals("invite_status_back")) {
+                String status = json.getString("status");
+                Platform.runLater(() -> {
 
-                    NavigateBetweeenScreens.goToPlay(null);
-                } else {
-                    NavigateBetweeenScreens.goToAvailablePlayer(null);
-                }
-            });
-        }
-    });
-}
+                    Stage currentStage = (Stage) cancelBtn.getScene().getWindow();
+
+                    if ("accept".equals(status)) {
+
+                        NavigateBetweeenScreens.mySymbol = "X";
+                        NavigateBetweeenScreens.isMyTurn = true;
+                        NavigateBetweeenScreens.currentOpponent = NavigateBetweeenScreens.invitedFrom;
+
+                        NavigateBetweeenScreens.goToPlay(null);
+                    } else {
+                        NavigateBetweeenScreens.goToAvailablePlayer(null);
+                    }
+                });
+            }
+        });
+    }
     private String fromPlayer;
 
 public void setFromPlayer(String fromPlayer) {
