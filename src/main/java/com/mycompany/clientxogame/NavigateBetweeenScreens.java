@@ -251,4 +251,9 @@ public class NavigateBetweeenScreens {
             }
         });
     }
+    
+     public static void goToTwoPlayersMode(ActionEvent event) {
+        lastEvent = event;
+        changeScene(event, "/game/two_players_board.fxml", "Waiting for Response");
+    }
 }
