@@ -58,6 +58,23 @@ public class Two_players_boardController implements Initializable {
     private boolean xTurn = true;
     private boolean gameOver = false;
     private int scoreX = 0, scoreO = 0;
+    private String player1;
+private String player2;
+    @FXML
+    private Label playerOneName;
+    @FXML
+    private Label playerTwoName;
+
+
+public void setPlayersNames(String name1, String name2) {
+    this.player1 = name1;
+    this.player2 = name2;
+
+    playerOneName.setText(name1);
+    playerTwoName.setText(name2);
+}
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
       cells = new Text[][]{
@@ -217,7 +234,6 @@ public class Two_players_boardController implements Initializable {
         winLine.setEndY(endPoint.getY());
     }
 
-    @FXML
     public void resetGame() {
         for (int r = 0; r < 3; r++) {
             for (int c = 0; c < 3; c++) {

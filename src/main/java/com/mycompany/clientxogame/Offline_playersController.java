@@ -47,8 +47,8 @@ public class Offline_playersController implements Initializable {
 
     @FXML
     private void onActionPlay(ActionEvent event) {
-        String name1 = player1Name.getText();
-        String name2 = player2Name.getText();
+       String name1 = player1Name.getText().trim();
+    String name2 = player2Name.getText().trim();
 
         NavigateBetweeenScreens.goToTwoPlayersMode(event, name1, name2);
 

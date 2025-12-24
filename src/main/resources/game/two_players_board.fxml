@@ -16,7 +16,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <StackPane prefHeight="600" prefWidth="800" style="-fx-background-color: linear-gradient(from 0% 0% to 0% 100%,#f8c6dc 0%,#d8c4ff 45%, #b6f0ff 100%);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.Two_players_boardController">
 
     <BorderPane>
@@ -32,7 +31,7 @@
 
                 <VBox alignment="CENTER" spacing="10">
                     <ImageView fitHeight="90" fitWidth="90" />
-                    <Label text="Player1" textFill="#2c003e">
+                    <Label fx:id="playerOneName" text="Player1" textFill="#2c003e">
                         <font><Font size="20" /></font>
                     </Label>
                     <Label fx:id="playerOneScore" text="0" textFill="#2c003e">
@@ -98,7 +97,7 @@
 
                 <VBox alignment="CENTER" spacing="10">
                     <ImageView fitHeight="90" fitWidth="90" />
-                    <Label text="Player2" textFill="#2c003e">
+                    <Label fx:id="playerTwoName" text="Player2" textFill="#2c003e">
                         <font><Font size="20" /></font>
                     </Label>
                     <Label fx:id="PlayerTwoScore" text="0" textFill="#2c003e">
@@ -122,4 +121,3 @@
     <Line fx:id="winLine" stroke="#ff4081" strokeLineCap="ROUND" strokeWidth="8" visible="false" />
 
 </StackPane>
-
