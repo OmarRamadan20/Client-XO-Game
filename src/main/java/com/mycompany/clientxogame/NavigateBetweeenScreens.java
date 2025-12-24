@@ -205,7 +205,7 @@ public class NavigateBetweeenScreens {
     }
 
     public static void goToHardLevel(ActionEvent event) {
-        changeSceneWithDifficulty(event, "/game/board.fxml", "XO Hard Level", "Hard");
+        changeSceneWithDifficulty(event, "/game/double_board.fxml", "XO Hard Level", "Hard");
     }
 
     public static void backToShowProfile(ActionEvent event) {
