@@ -192,8 +192,3 @@ class LoggedUser {
     public static String gmail;
     public static int score;
 }
-<<<<<<< HEAD
-
-
-=======
->>>>>>> ServerHandler
