@@ -1,11 +1,15 @@
 package com.mycompany.clientxogame;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
+import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -34,6 +38,12 @@ public class XOController implements Initializable {
     private String mySymbol;      
     private boolean myTurn;       
     private String opponentName;
+    @FXML
+    private Button idRecords;
+ 
+    
+    private List<Move> moves = new ArrayList<>();
+   boolean isRecord = false;
 
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
@@ -132,12 +142,19 @@ public class XOController implements Initializable {
             drawWinLine(winCode);
         }
         endGameBox.setVisible(true);
+       
+ if(isRecord)
+     GameFileManager.save(moves, LoggedUser.name, opponentName);
+
+        
     }
 
     private void makeMove(int row, int col, String player, Color color) {
         cells[row][col].setText(player);
         cells[row][col].setFill(color);
         board[row][col] = player;
+         int playerId = player.equals("X") ? 0 : 1;
+         moves.add(new Move(playerId, row, col));
     }
 
     private int checkWin() {
@@ -254,5 +271,11 @@ public class XOController implements Initializable {
     @FXML
     private void onBack() {
         System.exit(0);
+    }
+
+    @FXML
+    private void onActionRecode(ActionEvent event) {
+ 
+        isRecord =true;
     }
 }

@@ -36,7 +36,9 @@ public class ProfileController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+    LableId.setText(LoggedUser.name);
+    ScoreId.setText(String.valueOf(LoggedUser.score));
+
     }    
     
     @FXML

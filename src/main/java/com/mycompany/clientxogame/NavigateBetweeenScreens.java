@@ -73,6 +73,26 @@ public class NavigateBetweeenScreens {
             ex.printStackTrace();
         }
     }
+    
+ 
+private static void changeScenePlayRecords(ActionEvent event, String fxml, String file) {
+    try {
+        FXMLLoader loader = new FXMLLoader(NavigateBetweeenScreens.class.getResource(fxml));
+        Parent root = loader.load();
+
+         RecordController controller = loader.getController();
+        controller.setFile(file);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+    
 
     public static void goToSingleMode(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/LevelSelection.fxml", "Level Selection");
@@ -175,8 +195,7 @@ public class NavigateBetweeenScreens {
 
     public static void goToShowRecords(ActionEvent event) {
         changeScene(event, "/records/gameRecords.fxml", "Game Records");
-        //F:\traning\iti\Java\Final Project\ClientXOGame\src\main\resources
-    }
+     }
 
     public static void winGame(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/win.fxml", "Win");
@@ -210,8 +229,8 @@ public class NavigateBetweeenScreens {
         changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
     }
 
-    public static void goToPlayRecords(ActionEvent event) {
-        changeScene(event, "/records/record.fxml", "Game Record");
+    public static void goToPlayRecords(ActionEvent event,String file) {
+        changeScenePlayRecords(event, "/records/record.fxml",file);
     }
 
     public static void backToGameRecords(ActionEvent event) {
