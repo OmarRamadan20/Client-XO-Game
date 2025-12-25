@@ -117,7 +117,11 @@ public class Available_playersController implements Initializable {
             for (int i = 0; i < jsonPlayers.length(); i++) {
                 JSONObject obj = jsonPlayers.getJSONObject(i);
                 String name = obj.optString("name", "Unknown");
-                int score = obj.optInt("score", 0);
+                String gmail = obj.optString("gmail", "error");
+                 int score = obj.optInt("score", 0);
+            if (name.equals(LoggedUser.name)) {
+                continue;
+            }
                 players.add(new Player(name, score));
             }
 
@@ -175,20 +179,15 @@ private void invitePlayer(ActionEvent event) {
     @FXML
     private void showProfile(ActionEvent event) {
 
+      
         NavigateBetweeenScreens.goToShowProfile(event);
 
     }
-
+ 
     @FXML
     private void logOut(ActionEvent event) {
         NavigateBetweeenScreens.lastEvent = event;
         server.logout(LoggedUser.gmail);
     }
 }
-
-class LoggedUser {
-
-    public static String name;
-    public static String gmail;
-    public static int score;
-}
+ 

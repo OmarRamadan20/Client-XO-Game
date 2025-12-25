@@ -22,8 +22,8 @@ public class NavigateBetweeenScreens {
 
     public static ActionEvent lastEvent;
     public static String invitedFrom;
-    public static String mySymbol;      
-    public static boolean isMyTurn;     
+    public static String mySymbol;
+    public static boolean isMyTurn;
     public static String currentOpponent;
 
     private static void changeScene(ActionEvent event, String fxmlFile, String title) {
@@ -63,7 +63,7 @@ public class NavigateBetweeenScreens {
             FXMLLoader loader = new FXMLLoader(NavigateBetweeenScreens.class.getResource(fxmlFile));
             Parent root = loader.load();
 
-            XOController controller = loader.getController();
+            DoubleBoardController controller = loader.getController();
             controller.setDifficulty(difficulty);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -74,6 +74,26 @@ public class NavigateBetweeenScreens {
             ex.printStackTrace();
         }
     }
+    
+ 
+private static void changeScenePlayRecords(ActionEvent event, String fxml, String file) {
+    try {
+        FXMLLoader loader = new FXMLLoader(NavigateBetweeenScreens.class.getResource(fxml));
+        Parent root = loader.load();
+
+         RecordController controller = loader.getController();
+        controller.setFile(file);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+    
 
     public static void goToSingleMode(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/LevelSelection.fxml", "Level Selection");
@@ -92,7 +112,6 @@ public class NavigateBetweeenScreens {
         //E:\ITI\java\Team4\client\Client-XO-Game\src\main\resources
     }
 
-
     public static void backToOfflinePlayer(ActionEvent event) {
         changeScene(event, "/UI/players/offline_players.fxml", "Offline Players");
     }
@@ -104,15 +123,18 @@ public class NavigateBetweeenScreens {
     public static void goToLogIn(ActionEvent event) {
         changeScene(event, "/UI/Register/login.fxml", "Login");
 
+        //E:\ITI\java\Team4\client\Client-XO-Game\src\main\resources
     }
 
     public static void goToAvailablePlayer(ActionEvent event) {
         changeScene(event, "/UI/players/available_players.fxml", "Available Players");
         //F:\traning\iti\Java\Final Project\ClientXOGame\src\main\resources\
     }
+//ui not exist
 
     public static void goToShowProfile(ActionEvent event) {
 
+        // changeScene(event, "/UI/players/available_players.fxml", "Available Players");
         changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
 
     }
@@ -174,8 +196,7 @@ public class NavigateBetweeenScreens {
 
     public static void goToShowRecords(ActionEvent event) {
         changeScene(event, "/records/gameRecords.fxml", "Game Records");
-        //F:\traning\iti\Java\Final Project\ClientXOGame\src\main\resources
-    }
+     }
 
     public static void winGame(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/win.fxml", "Win");
@@ -194,23 +215,23 @@ public class NavigateBetweeenScreens {
     }
 
     public static void goToEasyLevel(ActionEvent event) {
-        changeSceneWithDifficulty(event, "/game/board.fxml", "XO Easy Level", "Easy");
+        changeSceneWithDifficulty(event, "/game/double_board.fxml", "XO Easy Level", "Easy");
     }
 
     public static void goToMeduimLevel(ActionEvent event) {
-        changeSceneWithDifficulty(event, "/game/board.fxml", "XO Medium Level", "Medium");
+        changeSceneWithDifficulty(event, "/game/double_board.fxml", "XO Medium Level", "Medium");
     }
 
     public static void goToHardLevel(ActionEvent event) {
-        changeSceneWithDifficulty(event, "/game/board.fxml", "XO Hard Level", "Hard");
+        changeSceneWithDifficulty(event, "/game/double_board.fxml", "XO Hard Level", "Hard");
     }
 
     public static void backToShowProfile(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
     }
 
-    public static void goToPlayRecords(ActionEvent event) {
-        changeScene(event, "/records/record.fxml", "Game Record");
+    public static void goToPlayRecords(ActionEvent event,String file) {
+        changeScenePlayRecords(event, "/records/record.fxml",file);
     }
 
     public static void backToGameRecords(ActionEvent event) {
@@ -221,7 +242,7 @@ public class NavigateBetweeenScreens {
         lastEvent = event;
         changeScene(event, "/com/mycompany/clientxogame/accept.fxml", "Waiting for Response");
     }
-    
+
     public static void goToPlay(ActionEvent event) {
         Platform.runLater(() -> {
             try {
@@ -247,5 +268,24 @@ public class NavigateBetweeenScreens {
                 ex.printStackTrace();
             }
         });
+    }
+
+    public static void goToTwoPlayersMode(ActionEvent event, String name1, String name2) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    NavigateBetweeenScreens.class.getResource("/game/two_players_board.fxml")
+            );
+            Parent root = loader.load();
+
+            Two_players_boardController controller = loader.getController();
+            controller.setPlayersNames(name1, name2);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -108,4 +108,11 @@ public class Offline_playersController implements Initializable {
         btn.setOpacity(1.0);
     }
 
+       String name1 = player1Name.getText().trim();
+    String name2 = player2Name.getText().trim();
+
+        NavigateBetweeenScreens.goToTwoPlayersMode(event, name1, name2);
+
+    }
+
 }
