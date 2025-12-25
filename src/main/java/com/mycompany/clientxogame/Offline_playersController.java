@@ -108,4 +108,5 @@ public class Offline_playersController implements Initializable {
         btn.setOpacity(1.0);
     }
 
+
 }

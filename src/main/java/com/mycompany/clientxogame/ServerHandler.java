@@ -30,7 +30,7 @@ public class ServerHandler extends Thread {
     @Override
     public void run() {
         try {
-            socket = new Socket("127.0.0.1", 5555);
+            socket = new Socket("10.178.240.79", 5555);
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new PrintWriter(socket.getOutputStream(), true);
 
