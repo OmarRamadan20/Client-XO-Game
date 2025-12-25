@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import static javafx.stage.Window.getWindows;
 
 /**
  *
@@ -36,7 +37,7 @@ public class NavigateBetweeenScreens {
                 }
 
                 if (stage == null) {
-                    for (javafx.stage.Window window : javafx.stage.Window.getWindows()) {
+                    for (javafx.stage.Window window : getWindows()) {
                         if (window instanceof Stage && window.isShowing()) {
                             stage = (Stage) window;
                             break;

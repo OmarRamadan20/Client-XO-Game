@@ -16,7 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Duration;
+import static javafx.util.Duration.seconds;
 import org.json.JSONObject;
 
 /**
@@ -58,7 +58,7 @@ public class OfferController implements Initializable {
         });
     }
     private void startCountdown() {
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        timeline = new Timeline(new KeyFrame(seconds(1), event -> {
             secondsRemaining--;
             timeId.setText(String.valueOf(secondsRemaining));
 
