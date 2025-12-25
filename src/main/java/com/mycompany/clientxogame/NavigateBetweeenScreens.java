@@ -134,11 +134,22 @@ private static void changeScenePlayRecords(ActionEvent event, String fxml, Strin
 
     public static void goToShowProfile(ActionEvent event) {
 
-       // changeScene(event, "/UI/players/available_players.fxml", "Available Players");
-
+ 
         changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
 
     }
+    
+    public static void goToShowHistory(ActionEvent event) {
+
+        changeScene(event, "/records/gameHistory.fxml", "Profile");
+     }
+
+     public static void backToShowHistory(ActionEvent event) {
+
+        changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
+     }
+    
+    
 
     public static void logOut(ActionEvent event) {
         changeScene(event, "/UI/Register/signUp.fxml", "Sign Up");

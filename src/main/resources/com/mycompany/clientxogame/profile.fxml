@@ -11,7 +11,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.ProfileController">
 
     
-    <VBox alignment="CENTER" layoutX="150" layoutY="20" prefHeight="360" prefWidth="300" spacing="15" style="-fx-background-radius: 40; -fx-padding: 25;">
+    <VBox alignment="CENTER" layoutX="60.0" layoutY="20" prefHeight="360" prefWidth="470.0" spacing="15" style="-fx-background-radius: 40; -fx-padding: 25;">
 
        
         <ImageView fx:id="ImageId" fitHeight="120" fitWidth="120" preserveRatio="true">
@@ -33,6 +33,7 @@
             <Button fx:id="BackButtonId" onAction="#onBack" style="-fx-background-radius: 20; -fx-font-weight: bold; -fx-pref-width: 100;" text="Back" />
 
             <Button fx:id="RecordsButtonId" onAction="#onRecord" style="-fx-background-radius: 20; -fx-font-weight: bold; -fx-pref-width: 100;" text="Records" />
+         <Button fx:id="history" onAction="#onHistory" style="-fx-background-radius: 20; -fx-font-weight: bold; -fx-pref-width: 100;" text="history" />
         </HBox>
 
     </VBox>

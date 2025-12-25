@@ -31,6 +31,8 @@ public class ProfileController implements Initializable {
     private Button BackButtonId;
     @FXML
     private Button RecordsButtonId;
+    @FXML
+    private Button history;
     /**
      * Initializes the controller class.
      */
@@ -49,6 +51,12 @@ public class ProfileController implements Initializable {
     @FXML
     private void onRecord(ActionEvent event) {
         NavigateBetweeenScreens.goToShowRecords(event);
+    }
+
+    @FXML
+    private void onHistory(ActionEvent event) {
+   NavigateBetweeenScreens.goToShowHistory(event);
+    
     }
 
 }
