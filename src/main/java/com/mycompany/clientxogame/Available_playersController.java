@@ -21,13 +21,23 @@ class Player {
 
     private String name;
     private int score;
+    private String gmail;
 
     public Player() {
     }
 
-    public Player(String name, int score) {
+    public String getGmail() {
+        return gmail;
+    }
+
+    public void setGmail(String gmail) {
+        this.gmail = gmail;
+    }
+
+    public Player(String name, int score,String gmail) {
         this.name = name;
         this.score = score;
+        this.gmail = gmail;
     }
 
     public String getName() {
@@ -110,7 +120,7 @@ public class Available_playersController implements Initializable {
         requestPlayersFromServer();
     }
 
-    private void handleAvailablePlayers(JSONObject json) {
+ private void handleAvailablePlayers(JSONObject json) {
         JSONArray jsonPlayers = json.optJSONArray("players");
         players.clear();
 
@@ -118,20 +128,31 @@ public class Available_playersController implements Initializable {
             for (int i = 0; i < jsonPlayers.length(); i++) {
                 JSONObject obj = jsonPlayers.getJSONObject(i);
                 String name = obj.optString("name", "Unknown");
-                String gmail = obj.optString("gmail", "error");
-                 int score = obj.optInt("score", 0);
-            if (name.equals(LoggedUser.name)) {
-                continue;
-            }
-                players.add(new Player(name, score));
+                String gmail = obj.optString("gmail");
+                int score = obj.optInt("score", 0);
+
+                if (name.equals(LoggedUser.name)) {
+                    continue;
+                }
+
+                players.add(new Player(name, score,gmail));
             }
 
-            playersList.getSelectionModel().select(0);
-            updateUI(players.get(0));
+            if (!players.isEmpty()) {
+                playersList.getSelectionModel().select(0);
+                updateUI(players.get(0));
+            } else {
+                showNoPlayers();
+            }
+
         } else {
-            nameTxt.setText("No players online");
-            scoreTxt.setText("");
+            showNoPlayers();
         }
+    }
+
+    private void showNoPlayers() {
+        nameTxt.setText("No players online");
+        scoreTxt.setText("");
     }
 
     private void updateUI(Player player) {
@@ -155,7 +176,9 @@ private void invitePlayer(ActionEvent event) {
         request.put("from", LoggedUser.name);
     
         NavigateBetweeenScreens.invitedFrom = selected.getName(); 
-        
+         Opponent.gmail = selected.getGmail();
+         Opponent.name = selected.getName();
+         Opponent.score =selected.getScore();
         server.send(request);
         NavigateBetweeenScreens.lastEvent = event;
         NavigateBetweeenScreens.goToWaitAccept(event);
