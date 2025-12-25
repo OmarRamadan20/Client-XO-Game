@@ -6,58 +6,69 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="650.0"
+<AnchorPane prefHeight="650.0" prefWidth="700.0" 
             style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" 
-            xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.Available_playersController">
+            xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.mycompany.clientxogame.Available_playersController">
 
    <children>
-      <Label layoutX="40.0" layoutY="25.0" style="-fx-text-fill: #A569FF; -fx-font-style: italic;" text="Available Players">
+      <Label layoutX="40.0" layoutY="25.0" style="-fx-text-fill: #8e44ad; -fx-font-style: italic;" text="Available Players">
          <font>
             <Font name="System Bold Italic" size="30.0" />
          </font>
       </Label>
 
-      <Button layoutX="540.0" layoutY="25.0" onAction="#refreshPlayers" prefHeight="40.0" prefWidth="120.0" 
-              style="-fx-background-color: #A569FF; -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" text="Refresh" />
+      <Button layoutX="520.0" layoutY="25.0" onAction="#refreshPlayers" 
+              onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
+              onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
+              prefHeight="40.0" prefWidth="130.0" 
+              style="-fx-background-color: linear-gradient(to bottom, #A569FF, #8e44ad); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 3); -fx-cursor: hand;" text="Refresh" />
 
       <Rectangle arcHeight="40.0" arcWidth="40.0" fill="WHITE" height="520.0" layoutX="35.0" layoutY="80.0" opacity="0.6" stroke="TRANSPARENT" width="630.0" />
 
-      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="WHITE" height="80.0" layoutX="55.0" layoutY="100.0" stroke="#A569FF" strokeWidth="2.0" width="590.0" />
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="WHITE" height="85.0" layoutX="55.0" layoutY="100.0" stroke="#A569FF" strokeWidth="2.0" width="590.0" />
       
       <Label fx:id="nameTxt" layoutX="85.0" layoutY="125.0" text="Select a player" textFill="#5a2d91">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="System Bold" size="22.0" />
          </font>
       </Label>
 
-      <Label layoutX="310.0" layoutY="128.0" text="Score:" textFill="#666666">
+      <Label layoutX="310.0" layoutY="130.0" text="Score:" textFill="#666666">
          <font>
-            <Font size="16.0" />
+            <Font size="18.0" />
          </font></Label>
-      <Label fx:id="scoreTxt" layoutX="365.0" layoutY="125.0" text="0" textFill="#A569FF">
+      <Label fx:id="scoreTxt" layoutX="370.0" layoutY="125.0" text="0" textFill="#A569FF">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="System Bold" size="22.0" />
          </font>
       </Label>
 
-      <Button fx:id="btnInvite" layoutX="520.0" layoutY="115.0" onAction="#invitePlayer" prefHeight="45.0" prefWidth="110.0" 
-              style="-fx-background-color: #A569FF; -fx-background-radius: 50; -fx-text-fill: WHITE; -fx-font-weight: bold; -fx-font-style: italic; -fx-font-size: 16px;" text="Invite">
-      </Button>
+      <Button fx:id="btnInvite" layoutX="510.0" layoutY="115.0" onAction="#invitePlayer" 
+              onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
+              onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
+              prefHeight="50.0" prefWidth="120.0" 
+              style="-fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60); -fx-background-radius: 50; -fx-text-fill: WHITE; -fx-font-weight: bold; -fx-font-style: italic; -fx-font-size: 18px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 4); -fx-cursor: hand;" text="Invite" />
 
-      <ListView fx:id="playersList" layoutX="55.0" layoutY="200.0" prefHeight="375.0" prefWidth="590.0" 
-                style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #A569FF; -fx-background-color: white;" />
+      <ListView fx:id="playersList" layoutX="55.0" layoutY="205.0" prefHeight="350.0" prefWidth="590.0" 
+                style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #A569FF; -fx-background-color: white; -fx-padding: 10;" />
 
-      <HBox alignment="CENTER" layoutX="35.0" layoutY="580.0" prefWidth="630.0" spacing="80.0">
+      <HBox alignment="CENTER" layoutX="35.0" layoutY="565.0" prefWidth="630.0" spacing="60.0">
          <children>
-            <Button onAction="#showProfile" prefHeight="55.0" prefWidth="180.0" 
-                    style="-fx-background-color: #A569FF; -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-style: italic; -fx-font-size: 18px;" text="My Profile" />
+            <Button onAction="#showProfile" 
+                    onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
+                    onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
+                    prefHeight="55.0" prefWidth="190.0" 
+                    style="-fx-background-color: linear-gradient(to bottom, #A569FF, #8e44ad); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-style: italic; -fx-font-size: 18px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 8, 0, 0, 5); -fx-cursor: hand;" text="My Profile" />
             
-            <Button onAction="#logOut" prefHeight="55.0" prefWidth="180.0" 
-                    style="-fx-background-color: #ff4b5c; -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-style: italic; -fx-font-size: 18px;" text="Logout" />
+            <Button onAction="#logOut" 
+                    onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
+                    onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
+                    prefHeight="55.0" prefWidth="190.0" 
+                    style="-fx-background-color: linear-gradient(to bottom, #ff5f6d, #ff4b2b); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-style: italic; -fx-font-size: 18px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 8, 0, 0, 5); -fx-cursor: hand;" text="Logout" />
          </children>
       </HBox>
    </children>
