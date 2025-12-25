@@ -1,5 +1,6 @@
 package com.mycompany.clientxogame;
 
+import static com.mycompany.clientxogame.ServerHandler.getInstance;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -26,25 +28,38 @@ public class XOController implements Initializable {
     @FXML
     private Text cell20, cell21, cell22;
 
-    @FXML private Line winLine;
-    @FXML private VBox endGameBox;
+    @FXML
+    private Line winLine;
+    @FXML
+    private VBox endGameBox;
 
     private Text[][] cells;
     private String[][] board;
     private boolean xTurn = true;
     private boolean gameOver = false;
     private SingleMode ai = new SingleMode();
-    private String difficulty; 
-    private String mySymbol;      
-    private boolean myTurn;       
+    private String difficulty;
+    private String mySymbol;
+    private boolean myTurn;
     private String opponentName;
     @FXML
     private Button idRecords;
- 
-    
-    private List<Move> moves = new ArrayList<>();
-   boolean isRecord = false;
 
+    private List<Move> moves = new ArrayList<>();
+    boolean isRecord = false;
+    @FXML
+    private Label Playerone;
+    @FXML
+    private Label playerOneScore;
+    @FXML
+    private Label Playertwo;
+    @FXML
+    private Label PlayerTwoScore;
+
+    char operant = '+';
+
+    int scoreX = 0;
+        int scoreO = 0;
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
@@ -63,11 +78,13 @@ public class XOController implements Initializable {
         setupCells();
 
     }
-    
+
     public void setOnlineMode(String opponent, String symbol, boolean turn) {
         this.opponentName = opponent;
         this.mySymbol = symbol;
         this.myTurn = turn;
+        Playerone.setText(this.opponentName);
+        Playertwo.setText(LoggedUser.name);
 
         System.out.println("Playing against: " + opponent + " | Symbol: " + symbol + " | My Turn: " + turn);
 
@@ -136,25 +153,102 @@ public class XOController implements Initializable {
         }
     }
 
+    String winnerSymbol = " ";
+
     private void handleGameOver(int winCode) {
         gameOver = true;
+
         if (winCode != -1) {
             drawWinLine(winCode);
-        }
-        endGameBox.setVisible(true);
-       
- if(isRecord)
-     GameFileManager.save(moves, LoggedUser.name, opponentName);
 
+            winnerSymbol = "";
+            if (winCode >= 0 && winCode <= 2) {
+                winnerSymbol = board[winCode][0];
+            } else if (winCode >= 3 && winCode <= 5) {
+                int col = winCode - 3;
+                winnerSymbol = board[0][col];
+            } else if (winCode == 6) {
+                winnerSymbol = board[0][0];
+            } else if (winCode == 7) {
+                winnerSymbol = board[0][2];
+            }
+
+            if (!myTurn) {
+                System.out.println("You Win!");
+            } else {
+                System.out.println("You Lose!");
+            }
+
+        } else {
+            System.out.println("Draw");
+            winnerSymbol = "";
+        }
+
+        endGameBox.setVisible(true);
+
+        handleInsertGameResult();
+
+        if (isRecord) {
+            GameFileManager.save(moves, LoggedUser.name, opponentName);
+        }
         
+        updateScore();
+    }
+    private void updateScore() {
+        if (xTurn) {
+            scoreX++;
+            playerOneScore.setText(String.valueOf(scoreX));
+        } else {
+            scoreO++;
+            PlayerTwoScore.setText(String.valueOf(scoreO));
+        }
+    }
+    
+    
+    
+
+    private void handleInsertGameResult() {
+        JSONObject request = new JSONObject();
+        request.put("type", "game_result");
+        request.put("gmail1", LoggedUser.gmail);
+        request.put("gmail2", Opponent.gmail);
+        request.put("gmailWin", determineWinnerGmail());
+
+        ServerHandler.getInstance().send(request);
+    }
+
+    private String determineWinnerGmail() {
+        if (winnerSymbol.equals(mySymbol)) {
+            return LoggedUser.gmail;
+        } else if (!winnerSymbol.equals("")) {
+            return Opponent.gmail;
+        }
+        return "";
+    }
+
+    private void handleGetScore(JSONObject response) {
+
+        String type = response.getString("type");
+
+        if (type.equals("getScore_response")) {
+
+            String status = response.getString("status");
+
+            if (status.equals("success")) {
+                LoggedUser.score = response.getInt("score");
+                System.out.println("Score = " + LoggedUser.score);
+            } else {
+                System.out.println("Error: " + response.getString("message"));
+            }
+        }
     }
 
     private void makeMove(int row, int col, String player, Color color) {
         cells[row][col].setText(player);
         cells[row][col].setFill(color);
         board[row][col] = player;
-         int playerId = player.equals("X") ? 0 : 1;
-         moves.add(new Move(playerId, row, col));
+        int playerId = player.equals("X") ? 0 : 1;
+        moves.add(new Move(playerId, row, col));
     }
 
     private int checkWin() {
@@ -275,7 +369,7 @@ public class XOController implements Initializable {
 
     @FXML
     private void onActionRecode(ActionEvent event) {
- 
-        isRecord =true;
+
+        isRecord = true;
     }
 }

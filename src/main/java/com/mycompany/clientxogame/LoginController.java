@@ -45,7 +45,7 @@ public class LoginController implements Initializable, ServerListener {
         request.put("type", "login");
         request.put("gmail", gmail);
         request.put("password", password);
-
+//------commint function  isPlayerAlreadyLoggedIn ==========================
         ServerHandler.getInstance().send(request);
     }
 
