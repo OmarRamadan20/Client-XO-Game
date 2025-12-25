@@ -29,6 +29,7 @@
                   <Button fx:id="btmTimeAnther" layoutX="190.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionTimeAnTher" style="-fx-background-color: #FFC300; -fx-text-fill: #1f3a93; -fx-background-radius: 10; -fx-padding: 10 25; -fx-font-weight: bold;" text="time anther" />
                </children>
             </HBox>
+            <Label fx:id="timeId" onDragDetected="#onActionTimeLine" text="10" />
          </children>
       </VBox>
    </children>

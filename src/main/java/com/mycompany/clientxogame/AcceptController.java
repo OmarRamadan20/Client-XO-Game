@@ -6,13 +6,17 @@ package com.mycompany.clientxogame;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import static javafx.util.Duration.seconds;
 import org.json.JSONObject;
 /**
  * FXML Controller class
@@ -24,34 +28,62 @@ public class AcceptController implements Initializable {
 
     @FXML
     private Button cancelBtn;
+    @FXML
+    private Label timeId;
     /**
      * Initializes the controller class.
      */
+    private Timeline timeline;
+    private int secondsRemaining = 10;
 
 
 
-    @Override
+@Override
     public void initialize(URL url, ResourceBundle rb) {
+  
+       startCountdown();
+
+      
         ServerHandler.getInstance().setListener(json -> {
             String type = json.optString("type", "");
             if (type.equals("invite_status_back")) {
+                
+             
+                if (timeline != null) timeline.stop();
+
                 String status = json.getString("status");
                 Platform.runLater(() -> {
-
-                    Stage currentStage = (Stage) cancelBtn.getScene().getWindow();
-
                     if ("accept".equals(status)) {
-
                         NavigateBetweeenScreens.mySymbol = "X";
                         NavigateBetweeenScreens.isMyTurn = true;
                         NavigateBetweeenScreens.currentOpponent = NavigateBetweeenScreens.invitedFrom;
-
                         NavigateBetweeenScreens.goToPlay(null);
                     } else {
                         NavigateBetweeenScreens.goToAvailablePlayer(null);
                     }
                 });
             }
+        });
+    }
+    private void startCountdown() {
+        timeline = new Timeline(new KeyFrame(seconds(1), event -> {
+            secondsRemaining--;
+            timeId.setText(String.valueOf(secondsRemaining)); 
+
+            if (secondsRemaining <= 0) {
+                timeline.stop();
+                handleTimeout();
+            }
+        }));
+        timeline.setCycleCount(10); 
+        timeline.play();
+    }
+
+    private void handleTimeout() {
+        Platform.runLater(() -> {
+            System.out.println("Invitation expired.");
+           
+            NavigateBetweeenScreens.goToAvailablePlayer(null);
         });
     }
     private String fromPlayer;
@@ -64,6 +96,7 @@ public void setFromPlayer(String fromPlayer) {
 
     @FXML
     private void onActionCancel(ActionEvent event) {
+        if (timeline != null) timeline.stop();
 
 JSONObject response = new JSONObject();
     response.put("type", "invite_response"); 
@@ -74,6 +107,10 @@ JSONObject response = new JSONObject();
     ServerHandler.getInstance().send(response);
    
     NavigateBetweeenScreens.goToAvailablePlayer(event);
+    }
+
+    @FXML
+    private void onActionTimeLine(MouseEvent event) {
     }
 
 }

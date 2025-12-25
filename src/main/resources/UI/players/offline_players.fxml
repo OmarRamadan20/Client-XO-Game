@@ -41,7 +41,7 @@
 
 
         <!-- Player 1 Name -->
-        <TextField fx:id="player1Name" layoutX="250.0" layoutY="175.0" prefHeight="50.0" prefWidth="300.0" promptText="Enter Player 1 Name" style="-fx-background-radius: 50;                           -fx-border-color: #A569FF;                           -fx-border-radius: 50;                           -fx-padding: 10 20;                           -fx-font-size: 16px;" />
+        <TextField fx:id="player1Name" layoutX="250.0" layoutY="175.0" onAction="#onActionEnterNameplayer1" prefHeight="50.0" prefWidth="300.0" promptText="Enter Player 1 Name" style="-fx-background-radius: 50;                           -fx-border-color: #A569FF;                           -fx-border-radius: 50;                           -fx-padding: 10 20;                           -fx-font-size: 16px;" />
 
                           <StackPane layoutX="75.0" layoutY="315.0" prefHeight="130.0" prefWidth="130.0">
 
@@ -60,8 +60,7 @@
 
 
 
-        <!-- Player 2 Name -->
-        <TextField fx:id="player2Name" layoutX="250.0" layoutY="355.0" prefHeight="50.0" prefWidth="300.0" promptText="Enter Player 2 Name" style="-fx-background-radius: 50;                           -fx-border-color: #A569FF;                           -fx-border-radius: 50;                           -fx-padding: 10 20;                           -fx-font-size: 16px;" />
+        <TextField fx:id="player2Name" layoutX="250.0" layoutY="355.0" onAction="#onActionEnterPlayer2" prefHeight="50.0" prefWidth="300.0" promptText="Enter Player 2 Name" style="-fx-background-radius: 50;                           -fx-border-color: #A569FF;                           -fx-border-radius: 50;                           -fx-padding: 10 20;                           -fx-font-size: 16px;" />
 
         <!-- Back Button -->
         <Button fx:id="btnBack" layoutX="80.0" layoutY="550.0" onAction="#onActionBack" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #A569FF;                        -fx-background-radius: 50;                        -fx-text-fill: white;                        -fx-font-size: 25px;                        -fx-font-weight: bold;                        -fx-font-style: italic;                        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.5, 0, 0);" text="Back" />
