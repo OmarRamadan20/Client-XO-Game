@@ -1,55 +1,51 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.mycompany.clientxogame;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
+import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.input.MouseEvent;
-import static javafx.util.Duration.seconds;
+import javafx.util.Duration;
 import org.json.JSONObject;
 
-/**
- * FXML Controller class
- *
- * @author amr04
- */
 public class OfferController implements Initializable {
+
     private String fromPlayer;
+
     @FXML
     private Button btmOfCourse;
     @FXML
     private Button btmTimeAnther;
     @FXML
     private Label timeId;
+    @FXML
+    private ProgressIndicator timerIndicator;
+
     private Timeline timeline;
     private int secondsRemaining = 10;
 
     public void setFromPlayer(String fromPlayer) {
         this.fromPlayer = fromPlayer;
     }
-@Override
+
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
-        startCountdown();
+        startTimer();
 
         ServerHandler.getInstance().setListener(json -> {
             String type = json.optString("type", "");
             if (type.equals("invite_status_back")) {
                 String status = json.optString("status", "");
                 if (status.equals("later")) {
-                    
-                    if (timeline != null) timeline.stop();
+                    stopTimeline();
                     Platform.runLater(() -> {
                         NavigateBetweeenScreens.goToAvailablePlayer(null);
                     });
@@ -57,61 +53,51 @@ public class OfferController implements Initializable {
             }
         });
     }
-    private void startCountdown() {
-        timeline = new Timeline(new KeyFrame(seconds(1), event -> {
+
+    private void startTimer() {
+        if (timeline != null) {
+            timeline.stop();
+        }
+
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             secondsRemaining--;
             timeId.setText(String.valueOf(secondsRemaining));
 
+            // تحديث الدائرة (البروجرس)
+            double progress = secondsRemaining / 10.0;
+            timerIndicator.setProgress(progress);
+
             if (secondsRemaining <= 0) {
-                timeline.stop();
-                handleAutoReject(); 
+                stopTimeline();
+                handleAutoReject();
             }
         }));
+
         timeline.setCycleCount(10);
         timeline.play();
     }
-private void handleAutoReject() {
+
+    private void handleAutoReject() {
         Platform.runLater(() -> {
-            System.out.println("Offer expired. Auto-rejecting...");
-            
             sendResponse("later");
             NavigateBetweeenScreens.goToAvailablePlayer(null);
         });
     }
+
     @FXML
     private void onActionOfCourse(ActionEvent event) {
-        if (timeline != null) timeline.stop(); 
+        stopTimeline();
         NavigateBetweeenScreens.mySymbol = "O";
         NavigateBetweeenScreens.isMyTurn = false;
         NavigateBetweeenScreens.currentOpponent = fromPlayer;
-        
-        JSONObject response = new JSONObject();
-        response.put("type", "invite_response");
-        response.put("status", "accept");
-        response.put("to", fromPlayer); 
-        response.put("from", LoggedUser.name);
-        
-        ServerHandler.getInstance().send(response);
-      
+
+        sendResponse("accept");
         NavigateBetweeenScreens.goToPlay(event);
     }
 
-//    @FXML
-//    private void onActionTimeAnTher(ActionEvent event) {
-//        JSONObject response = new JSONObject();
-//        response.put("type", "invite_response");
-//        response.put("status", "later");
-//        response.put("to", fromPlayer);
-//        response.put("from", LoggedUser.name);
-//        
-//        ServerHandler.getInstance().send(response);
-//       
-//        NavigateBetweeenScreens.goToAvailablePlayer(event);
-//    }
     @FXML
     private void onActionTimeAnTher(ActionEvent event) {
-        if (timeline != null) timeline.stop(); 
-
+        stopTimeline();
         sendResponse("later");
         NavigateBetweeenScreens.goToAvailablePlayer(event);
     }
@@ -124,7 +110,38 @@ private void handleAutoReject() {
         response.put("from", LoggedUser.name);
         ServerHandler.getInstance().send(response);
     }
+
+    private void stopTimeline() {
+        if (timeline != null) {
+            timeline.stop();
+        }
+    }
+
     @FXML
-    private void onActionTimeLine(MouseEvent event) {
+    private void handleMouseEnter(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+        st.setToX(1.05);
+        st.setToY(1.05);
+        st.play();
+    }
+
+    @FXML
+    private void handleMouseExit(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.play();
+    }
+
+    @FXML
+    private void handleMousePressed(MouseEvent event) {
+        ((Button) event.getSource()).setTranslateY(3);
+    }
+
+    @FXML
+    private void handleMouseReleased(MouseEvent event) {
+        ((Button) event.getSource()).setTranslateY(0);
     }
 }
