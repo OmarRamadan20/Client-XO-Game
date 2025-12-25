@@ -1,74 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/25"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.mycompany.clientxogame.signUpController"
-      alignment="CENTER"
-      spacing="35" 
-      prefWidth="650"
-      prefHeight="650"
-      style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);">
+<StackPane prefHeight="650.0" prefWidth="650.0" 
+           style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" 
+           xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="com.mycompany.clientxogame.signUpController">
+   <children>
+      <VBox alignment="CENTER" maxHeight="580.0" maxWidth="450.0" spacing="20.0" 
+            style="-fx-background-color: white; -fx-background-radius: 40; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 25, 0, 0, 15);">
+         <children>
+            <Label text="Create Account" textFill="#8e44ad">
+               <font>
+                  <Font name="System Bold Italic" size="34.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
 
-    <Label text="Tic Tac Toe">
-        <font>
-            <Font name="System Bold" size="36.0" />
-        </font>
-        <VBox.margin>
-            <Insets bottom="10.0" />
-        </VBox.margin>
-    </Label>
+            <VBox spacing="15.0">
+               <children>
+                  <TextField fx:id="enterName" prefHeight="50.0" promptText="Full Name" 
+                             style="-fx-background-radius: 50; -fx-background-color: #f1f2f6; -fx-border-color: #dfe4ea; -fx-border-radius: 50; -fx-font-size: 15px;">
+                     <padding><Insets left="20.0" /></padding>
+                  </TextField>
+                  
+                  <TextField fx:id="enterEmail" prefHeight="50.0" promptText="Email Address" 
+                             style="-fx-background-radius: 50; -fx-background-color: #f1f2f6; -fx-border-color: #dfe4ea; -fx-border-radius: 50; -fx-font-size: 15px;">
+                     <padding><Insets left="20.0" /></padding>
+                  </TextField>
+                  
+                  <PasswordField fx:id="passID" onAction="#OnActionPassword" prefHeight="50.0" promptText="Password" 
+                                 style="-fx-background-radius: 50; -fx-background-color: #f1f2f6; -fx-border-color: #dfe4ea; -fx-border-radius: 50; -fx-font-size: 15px;">
+                     <padding><Insets left="20.0" /></padding>
+                  </PasswordField>
+                  
+                  <PasswordField fx:id="confirmPass" prefHeight="50.0" promptText="Confirm Password" 
+                                 style="-fx-background-radius: 50; -fx-background-color: #f1f2f6; -fx-border-color: #dfe4ea; -fx-border-radius: 50; -fx-font-size: 15px;">
+                     <padding><Insets left="20.0" /></padding>
+                  </PasswordField>
+               </children>
+               <VBox.margin>
+                  <Insets left="40.0" right="40.0" />
+               </VBox.margin>
+            </VBox>
 
-    <VBox alignment="CENTER"
-          spacing="20"
-          maxWidth="320">
-
-        <TextField fx:id="enterName"
-                   promptText="Enter Your Name"
-                   prefHeight="50"
-                   style="-fx-background-radius: 50; -fx-padding: 0 20 0 20; -fx-font-size: 16px;"/>
-
-        <TextField fx:id="enterEmail"
-                   promptText="Enter Your Email"
-                   prefHeight="50"
-                   style="-fx-background-radius: 50; -fx-padding: 0 20 0 20; -fx-font-size: 16px;"/>
-
-        <PasswordField fx:id="passID"
-                       promptText="Enter Your Password"
-                       prefHeight="50"
-                       style="-fx-background-radius: 50; -fx-padding: 0 20 0 20; -fx-font-size: 16px;"
-                       onAction="#OnActionPassword"/>
-
-        <PasswordField fx:id="confirmPass"
-                       promptText="Confirm Password"
-                       prefHeight="50"
-                       style="-fx-background-radius: 50; -fx-padding: 0 20 0 20; -fx-font-size: 16px;"/>
-    </VBox>
-
-    <HBox spacing="30" alignment="CENTER">
-        <padding>
-            <Insets top="10.0" />
-        </padding>
-        
-        <Button fx:id="btnBack"
-                text="Back"
-                prefWidth="130"
-                prefHeight="50"
-                onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"
-                style="-fx-background-radius: 50; -fx-cursor: hand; -fx-background-color: white; -fx-font-weight: bold; -fx-font-size: 18px;"
-                onAction="#ActionBack" />
-
-        <Button fx:id="btnSignUp"
-                text="Sign Up"
-                prefWidth="130"
-                prefHeight="50"
-                onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"
-                style="-fx-background-radius: 50; -fx-background-color: #6c5ce7; -fx-text-fill: white; -fx-cursor: hand; -fx-font-weight: bold; -fx-font-size: 18px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);"
-                onAction="#signUp" />
-    </HBox>
-
-</VBox>
+            <HBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <Button fx:id="btnBack" mnemonicParsing="false" onAction="#ActionBack" 
+                          onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
+                          onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
+                          prefHeight="50.0" prefWidth="120.0" 
+                          style="-fx-background-radius: 50; -fx-background-color: #dfe4ea; -fx-text-fill: #2f3542; -fx-font-weight: bold; -fx-font-size: 16px; -fx-cursor: hand;" 
+                          text="Back" />
+                  
+                  <Button fx:id="btnSignUp" mnemonicParsing="false" onAction="#signUp" 
+                          onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
+                          onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
+                          prefHeight="50.0" prefWidth="120.0" 
+                          style="-fx-background-radius: 50; -fx-background-color: linear-gradient(to bottom, #A569FF, #8e44ad); -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5); -fx-cursor: hand;" 
+                          text="Sign Up" />
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="40.0" top="40.0" />
+         </padding>
+      </VBox>
+   </children>
+</StackPane>
