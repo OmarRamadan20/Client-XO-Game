@@ -12,21 +12,21 @@
               onAction="#onActionBtmSingle" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
               onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
               prefHeight="65.0" prefWidth="300.0" 
-              style="-fx-background-color: linear-gradient(to bottom, #8e44ad, #6c3483); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26px; -fx-font-style: italic; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 0, 0, 0, 8); -fx-border-color: rgba(255,255,255,0.3); -fx-border-radius: 50; -fx-border-width: 1;" 
+              style="-fx-background-color: linear-gradient(to bottom, #8e44ad, #6c3483); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26px; -fx-font-style: italic; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 6); -fx-border-color: rgba(255,255,255,0.25); -fx-border-radius: 50; -fx-border-width: 1.5;" 
               text="Single Player" />
 
       <Button fx:id="btmPlayer" layoutX="175.0" layoutY="270.0" mnemonicParsing="false" 
               onAction="#onActionBtmPlayer" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
               onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
               prefHeight="65.0" prefWidth="300.0" 
-              style="-fx-background-color: linear-gradient(to bottom, #d81b60, #ad1457); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26px; -fx-font-style: italic; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 0, 0, 0, 8); -fx-border-color: rgba(255,255,255,0.3); -fx-border-radius: 50; -fx-border-width: 1;" 
+              style="-fx-background-color: linear-gradient(to bottom, #d81b60, #ad1457); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26px; -fx-font-style: italic; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 6); -fx-border-color: rgba(255,255,255,0.25); -fx-border-radius: 50; -fx-border-width: 1.5;" 
               text="Two Players" />
 
       <Button fx:id="btmOline" layoutX="175.0" layoutY="380.0" mnemonicParsing="false" 
               onAction="#onActionOnline" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
               onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
               prefHeight="65.0" prefWidth="300.0" 
-              style="-fx-background-color: linear-gradient(to bottom, #2980b9, #1f618d); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26px; -fx-font-style: italic; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 0, 0, 0, 8); -fx-border-color: rgba(255,255,255,0.3); -fx-border-radius: 50; -fx-border-width: 1;" 
+              style="-fx-background-color: linear-gradient(to bottom, #2980b9, #1f618d); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26px; -fx-font-style: italic; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 6); -fx-border-color: rgba(255,255,255,0.25); -fx-border-radius: 50; -fx-border-width: 1.5;" 
               text="Online Mode" />
    </children>
 </AnchorPane>
