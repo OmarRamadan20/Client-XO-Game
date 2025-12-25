@@ -30,6 +30,7 @@
                         <Insets left="50.0" />
                      </HBox.margin>
                   </Button>
+                  <Label fx:id="timeId" onDragDetected="#onActionTimeLine" text="10" />
                </children>
             </HBox>
          </children>
