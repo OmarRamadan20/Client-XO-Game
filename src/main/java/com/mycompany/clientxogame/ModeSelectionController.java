@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -70,6 +71,18 @@ public class ModeSelectionController implements Initializable {
         btn.setScaleX(1.0);
         btn.setScaleY(1.0);
         btn.setOpacity(1.0);
+    }
+    
+    @FXML
+    private void handleMousePressed(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(4); 
+    }
+
+    @FXML
+    private void handleMouseReleased(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(0);
     }
 
 }

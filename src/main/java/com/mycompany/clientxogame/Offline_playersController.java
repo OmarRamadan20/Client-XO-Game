@@ -62,7 +62,7 @@ public class Offline_playersController implements Initializable {
             return;
         }
 
-        NavigateBetweeenScreens.goToPlay(event);
+        NavigateBetweeenScreens.goToTwoPlayersMode(event,p1,p2);
     }
 
     private void showSimpleMessage(String message) {
@@ -107,5 +107,6 @@ public class Offline_playersController implements Initializable {
         btn.setScaleY(1.0);
         btn.setOpacity(1.0);
     }
+
 
 }

@@ -4,6 +4,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,11 +15,14 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class DoubleBoardController implements Initializable {
 
@@ -36,19 +42,17 @@ public class DoubleBoardController implements Initializable {
 
     private Text[][] cells;
 
-    
     private String[][] board = {
-            {"", "", ""},
-            {"", "", ""},
-            {"", "", ""}
+        {"", "", ""},
+        {"", "", ""},
+        {"", "", ""}
     };
 
     private boolean xTurn = true;
     private boolean gameOver = false;
     private int scoreX = 0, scoreO = 0;
     private SingleMode ai = new SingleMode();
-    private String difficulty = "Easy"; 
-    
+    private String difficulty = "Easy";
 
     public void setDifficulty(String difficulty) {
         if (difficulty != null && !difficulty.isEmpty()) {
@@ -59,9 +63,9 @@ public class DoubleBoardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cells = new Text[][]{
-                {cell00, cell01, cell02},
-                {cell10, cell11, cell12},
-                {cell20, cell21, cell22}
+            {cell00, cell01, cell02},
+            {cell10, cell11, cell12},
+            {cell20, cell21, cell22}
         };
         setupCells();
         resetGame();
@@ -81,7 +85,6 @@ public class DoubleBoardController implements Initializable {
 
                     makePlayerMove(row, col);
 
-                    
                     if (!gameOver) {
                         Platform.runLater(this::makeAIMove);
                     }
@@ -94,7 +97,6 @@ public class DoubleBoardController implements Initializable {
         cells[row][col].setText("X");
         cells[row][col].setFill(Color.LIME);
         board[row][col] = "X";
-       
 
         int winCode = checkWin();
         if (winCode != -1) {
@@ -102,17 +104,17 @@ public class DoubleBoardController implements Initializable {
             scoreX++;
             playerOneScore.setText(String.valueOf(scoreX));
             drawWinLine(winCode);
-          
+
         } else if (isBoardFull()) {
             gameOver = true;
-           
+
         } else {
-            xTurn = false; 
+            xTurn = false;
         }
     }
 
     private void makeAIMove() {
-        
+
         if (difficulty == null || difficulty.isEmpty()) {
             difficulty = "Easy";
         }
@@ -125,7 +127,6 @@ public class DoubleBoardController implements Initializable {
             cells[row][col].setText("O");
             cells[row][col].setFill(Color.HOTPINK);
             board[row][col] = "O";
-           
 
             int winCode = checkWin();
             if (winCode != -1) {
@@ -133,12 +134,12 @@ public class DoubleBoardController implements Initializable {
                 scoreO++;
                 PlayerTwoScore.setText(String.valueOf(scoreO));
                 drawWinLine(winCode);
-              
+
             } else if (isBoardFull()) {
                 gameOver = true;
-               
+
             } else {
-                xTurn = true; 
+                xTurn = true;
             }
         }
     }
@@ -188,32 +189,32 @@ public class DoubleBoardController implements Initializable {
 
     private void drawWinLine(int code) {
         winLine.setVisible(true);
-       switch (code) {
-    case 0:
-        setLineBounds(cells[0][0], cells[0][2]);
-        break;
-    case 1:
-        setLineBounds(cells[1][0], cells[1][2]);
-        break;
-    case 2:
-        setLineBounds(cells[2][0], cells[2][2]);
-        break;
-    case 3:
-        setLineBounds(cells[0][0], cells[2][0]);
-        break;
-    case 4:
-        setLineBounds(cells[0][1], cells[2][1]);
-        break;
-    case 5:
-        setLineBounds(cells[0][2], cells[2][2]);
-        break;
-    case 6:
-        setLineBounds(cells[0][0], cells[2][2]);
-        break;
-    case 7:
-        setLineBounds(cells[0][2], cells[2][0]);
-        break;
-}
+        switch (code) {
+            case 0:
+                setLineBounds(cells[0][0], cells[0][2]);
+                break;
+            case 1:
+                setLineBounds(cells[1][0], cells[1][2]);
+                break;
+            case 2:
+                setLineBounds(cells[2][0], cells[2][2]);
+                break;
+            case 3:
+                setLineBounds(cells[0][0], cells[2][0]);
+                break;
+            case 4:
+                setLineBounds(cells[0][1], cells[2][1]);
+                break;
+            case 5:
+                setLineBounds(cells[0][2], cells[2][2]);
+                break;
+            case 6:
+                setLineBounds(cells[0][0], cells[2][2]);
+                break;
+            case 7:
+                setLineBounds(cells[0][2], cells[2][0]);
+                break;
+        }
 
     }
 
@@ -250,11 +251,67 @@ public class DoubleBoardController implements Initializable {
         xTurn = true;
         gameOver = false;
         winLine.setVisible(false);
-       
+
     }
 
     @FXML
-    private void onBack(ActionEvent event) {
+    private void onActionBack(ActionEvent event) {
         NavigateBetweeenScreens.backToLevelSelection(event);
+    }
+
+    @FXML
+    private void handleCellHover(MouseEvent event) {
+        StackPane pane = (StackPane) event.getSource();
+        pane.setScaleX(1.05);
+        pane.setScaleY(1.05);
+        ((Rectangle) pane.getChildren().get(0)).setFill(javafx.scene.paint.Color.web("#3d0158"));
+    }
+
+    @FXML
+    private void handleCellExit(MouseEvent event) {
+        StackPane pane = (StackPane) event.getSource();
+        pane.setScaleX(1.0);
+        pane.setScaleY(1.0);
+        ((Rectangle) pane.getChildren().get(0)).setFill(javafx.scene.paint.Color.web("#2c003e"));
+    }
+
+    @FXML
+    private void handleCellClick(MouseEvent event) {
+        StackPane pane = (StackPane) event.getSource();
+
+        pane.setTranslateY(4);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> pane.setTranslateY(0)));
+        timeline.play();
+
+    }
+
+    @FXML
+    private void handleMouseEnter(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+        st.setToX(1.07);
+        st.setToY(1.07);
+        st.play();
+    }
+
+    @FXML
+    private void handleMouseExit(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.play();
+    }
+
+    @FXML
+    private void handleMousePressed(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(4); 
+    }
+
+    @FXML
+    private void handleMouseReleased(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(0);
     }
 }

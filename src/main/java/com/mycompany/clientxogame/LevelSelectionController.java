@@ -42,6 +42,16 @@ public class LevelSelectionController implements Initializable {
         btn.setScaleY(1.0);
         btn.setOpacity(1.0);
     }
+    
+    @FXML
+    private void handleMousePressed(MouseEvent event) {
+        ((Button) event.getSource()).setTranslateY(3);
+    }
+
+    @FXML
+    private void handleMouseReleased(MouseEvent event) {
+        ((Button) event.getSource()).setTranslateY(0);
+    }
 
 
     @FXML
