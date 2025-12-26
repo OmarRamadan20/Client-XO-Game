@@ -13,15 +13,13 @@ import org.json.JSONObject;
 
 public class LoginController implements Initializable, ServerListener {
 
-   
-
     @FXML
 
     private TextField enterPassword;
 
     @FXML
     private Button btnLogin;
-    
+
     @FXML
     private Button btnBack;
     @FXML
@@ -53,14 +51,17 @@ public class LoginController implements Initializable, ServerListener {
     @Override
     public void onMessage(JSONObject response) {
 
-        if (!response.getString("type").equals("login"))
+        if (!response.getString("type").equals("login")) {
             return;
+        }
 
         if (response.getString("status").equals("success")) {
 
             LoggedUser.name = response.getString("name");
             LoggedUser.gmail = response.getString("gmail");
             LoggedUser.score = response.getInt("score");
+
+            SoundManager.play("enter");
 
             NavigateBetweeenScreens.goToAvailablePlayer(
                     NavigateBetweeenScreens.lastEvent
@@ -77,19 +78,19 @@ public class LoginController implements Initializable, ServerListener {
         alert.show();
     }
 
-    
     @FXML
     private void register(ActionEvent event) {
+        SoundManager.play("enter");
         NavigateBetweeenScreens.goToRegister(event);
     }
 
     @FXML
     private void actionBtn(ActionEvent event) {
+        SoundManager.play("back");
         NavigateBetweeenScreens.backToModeSelection(event);
     }
-    
-   
-     @FXML
+
+    @FXML
     private void handleMouseEnter(javafx.scene.input.MouseEvent event) {
         Button btn = (Button) event.getSource();
         btn.setScaleX(1.08);
@@ -100,16 +101,16 @@ public class LoginController implements Initializable, ServerListener {
     @FXML
     private void handleMouseExit(javafx.scene.input.MouseEvent event) {
         Button btn = (Button) event.getSource();
-        
+
         btn.setScaleX(1.0);
         btn.setScaleY(1.0);
         btn.setOpacity(1.0);
     }
-    
+
     @FXML
     private void handleMousePressed(MouseEvent event) {
         Button btn = (Button) event.getSource();
-        btn.setTranslateY(4); 
+        btn.setTranslateY(4);
     }
 
     @FXML
@@ -118,5 +119,3 @@ public class LoginController implements Initializable, ServerListener {
         btn.setTranslateY(0);
     }
 }
-
-

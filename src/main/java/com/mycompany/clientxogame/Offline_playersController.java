@@ -49,6 +49,7 @@ public class Offline_playersController implements Initializable {
 
     @FXML
     private void onActionBack(ActionEvent event) {
+        SoundManager.play("back");
         NavigateBetweeenScreens.backToModeSelection(event);
     }
 
@@ -62,6 +63,7 @@ public class Offline_playersController implements Initializable {
             showSimpleMessage("Please enter names for both players");
             return;
         }
+        SoundManager.play("enter");
 
         NavigateBetweeenScreens.goToTwoPlayersMode(event, p1, p2);
     }

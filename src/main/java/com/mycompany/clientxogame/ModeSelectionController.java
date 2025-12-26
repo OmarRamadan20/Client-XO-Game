@@ -32,6 +32,7 @@ public class ModeSelectionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        SoundManager.startBackgroundMusic();
         // TODO
     }
 

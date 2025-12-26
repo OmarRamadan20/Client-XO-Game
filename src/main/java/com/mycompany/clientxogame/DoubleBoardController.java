@@ -62,6 +62,7 @@ public class DoubleBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        SoundManager.stopBackgroundMusic();
         cells = new Text[][]{
             {cell00, cell01, cell02},
             {cell10, cell11, cell12},
