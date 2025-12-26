@@ -4,7 +4,7 @@ module com.mycompany.clientxogame {
     requires javafx.media;
     requires java.base;
     requires org.json;
-    requires javafx.web;
+  
 
     opens splash to javafx.fxml; 
 
