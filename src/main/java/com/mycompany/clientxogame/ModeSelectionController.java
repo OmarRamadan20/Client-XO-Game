@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.media.AudioClip;
+
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
@@ -26,52 +26,36 @@ public class ModeSelectionController implements Initializable {
     private Button btmPlayer;
     @FXML
     private Button btmOline;
-    private AudioClip enterClickSound;
-    private AudioClip backClickSound;
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            enterClickSound = new AudioClip(getClass().getResource("/sounds/enter_click.mp3").toExternalForm());
-            backClickSound = new AudioClip(getClass().getResource("/sounds/back_click.mp3").toExternalForm());
-
-        } catch (Exception e) {
-            System.err.println(" Audio Not Found ");
-        }
-    }
-    
-    private void playClick() {
-        if (enterClickSound != null){
-            enterClickSound.play();
-        }
+        // TODO
     }
 
     @FXML
     private void onActionBtmSingle(ActionEvent event) {
-        playClick();
+        SoundManager.play("enter");
+
         NavigateBetweeenScreens.goToSingleMode(event);
     }
 
     @FXML
     private void onActionBtmPlayer(ActionEvent event) {
-        playClick();
-
+        SoundManager.play("enter");
         NavigateBetweeenScreens.goToDoubleMode(event);
 
     }
 
     @FXML
     private void onActionOnline(ActionEvent event) {
-        playClick();
-
+        SoundManager.play("enter");
         NavigateBetweeenScreens.goToLogIn(event);
 
     }
-    
-    
+
     @FXML
     private void handleMouseEnter(javafx.scene.input.MouseEvent event) {
         Button btn = (Button) event.getSource();
@@ -83,16 +67,16 @@ public class ModeSelectionController implements Initializable {
     @FXML
     private void handleMouseExit(javafx.scene.input.MouseEvent event) {
         Button btn = (Button) event.getSource();
-        
+
         btn.setScaleX(1.0);
         btn.setScaleY(1.0);
         btn.setOpacity(1.0);
     }
-    
+
     @FXML
     private void handleMousePressed(MouseEvent event) {
         Button btn = (Button) event.getSource();
-        btn.setTranslateY(4); 
+        btn.setTranslateY(4);
     }
 
     @FXML

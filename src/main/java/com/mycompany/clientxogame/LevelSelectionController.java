@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.AudioClip;
 import javafx.util.Duration;
 
 public class LevelSelectionController implements Initializable {
@@ -21,33 +20,9 @@ public class LevelSelectionController implements Initializable {
     private Button btmHard;
     @FXML
     private Button btmBack;
-    private AudioClip enterClickSound;
-    private AudioClip backClickSound;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            enterClickSound = new AudioClip(getClass().getResource("/sounds/enter_click.mp3").toExternalForm());
-            backClickSound = new AudioClip(getClass().getResource("/sounds/back_click.mp3").toExternalForm());
-
-        } catch (Exception e) {
-            System.err.println(" Audio Not Found ");
-        }
-    }
-
-    private void playClick() {
-        if (enterClickSound != null) {
-            enterClickSound.play();
-        }
-    }
-
-    private void playBackClick() {
-        if (backClickSound != null) {
-            backClickSound.play();
-        }
     }
 
     @FXML
@@ -79,27 +54,26 @@ public class LevelSelectionController implements Initializable {
 
     @FXML
     private void onActionBtmEasy(ActionEvent event) {
-        playClick();
+        SoundManager.play("enter");
+
         NavigateBetweeenScreens.goToEasyLevel(event);
     }
 
     @FXML
     private void onActionBtmMedium(ActionEvent event) {
-        playClick();
-
+        SoundManager.play("enter");
         NavigateBetweeenScreens.goToMeduimLevel(event);
     }
 
     @FXML
     private void onActionHard(ActionEvent event) {
-        playClick();
-
+        SoundManager.play("enter");
         NavigateBetweeenScreens.goToHardLevel(event);
     }
 
     @FXML
     private void onActionBack(ActionEvent event) {
-        playBackClick();
+        SoundManager.play("back");
         NavigateBetweeenScreens.backToModeSelection(event);
     }
 }

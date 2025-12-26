@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import static javafx.util.Duration.seconds;
 
@@ -62,7 +63,7 @@ public class Offline_playersController implements Initializable {
             return;
         }
 
-        NavigateBetweeenScreens.goToTwoPlayersMode(event,p1,p2);
+        NavigateBetweeenScreens.goToTwoPlayersMode(event, p1, p2);
     }
 
     private void showSimpleMessage(String message) {
@@ -108,5 +109,16 @@ public class Offline_playersController implements Initializable {
         btn.setOpacity(1.0);
     }
 
+    @FXML
+    private void handleMousePressed(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(4);
+    }
+
+    @FXML
+    private void handleMouseReleased(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(0);
+    }
 
 }
