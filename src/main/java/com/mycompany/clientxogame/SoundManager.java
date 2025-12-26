@@ -40,7 +40,7 @@ public class SoundManager {
 
             backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE);
 
-            backgroundMusic.setVolume(0.2);
+            backgroundMusic.setVolume(0.1);
         } catch (Exception e) {
             System.err.println("Error loading background music");
         }

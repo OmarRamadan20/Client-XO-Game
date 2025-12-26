@@ -6,6 +6,9 @@ package com.mycompany.clientxogame;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,7 +20,10 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -75,7 +81,7 @@ public class Two_players_boardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-                SoundManager.stopBackgroundMusic();
+        SoundManager.stopBackgroundMusic();
 
         cells = new Text[][]{
             {cell00, cell01, cell02},
@@ -248,6 +254,65 @@ public class Two_players_boardController implements Initializable {
 
     @FXML
     private void onBack(ActionEvent event) {
+        SoundManager.play("back");
+        SoundManager.startBackgroundMusic();
+        NavigateBetweeenScreens.gotoModeSelection(event);
         System.out.println("Back button clicked!");
+    }
+    
+    @FXML
+    private void handleCellHover(MouseEvent event) {
+        StackPane pane = (StackPane) event.getSource();
+        pane.setScaleX(1.05);
+        pane.setScaleY(1.05);
+        ((Rectangle) pane.getChildren().get(0)).setFill(javafx.scene.paint.Color.web("#3d0158"));
+    }
+
+    @FXML
+    private void handleCellExit(MouseEvent event) {
+        StackPane pane = (StackPane) event.getSource();
+        pane.setScaleX(1.0);
+        pane.setScaleY(1.0);
+        ((Rectangle) pane.getChildren().get(0)).setFill(javafx.scene.paint.Color.web("#2c003e"));
+    }
+
+    @FXML
+    private void handleCellClick(MouseEvent event) {
+        StackPane pane = (StackPane) event.getSource();
+
+        pane.setTranslateY(4);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> pane.setTranslateY(0)));
+        timeline.play();
+
+    }
+
+    @FXML
+    private void handleMouseEnter(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+        st.setToX(1.07);
+        st.setToY(1.07);
+        st.play();
+    }
+
+    @FXML
+    private void handleMouseExit(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.play();
+    }
+
+    @FXML
+    private void handleMousePressed(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(4); 
+    }
+
+    @FXML
+    private void handleMouseReleased(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(0);
     }
 }

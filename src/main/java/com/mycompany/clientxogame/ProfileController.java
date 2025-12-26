@@ -44,11 +44,13 @@ public class ProfileController implements Initializable {
     
     @FXML
     private void onBack(ActionEvent event) {
+        SoundManager.play("back");
         NavigateBetweeenScreens.backFromProfile(event);
     }
 
     @FXML
     private void onRecord(ActionEvent event) {
+        SoundManager.play("enter");
         NavigateBetweeenScreens.goToShowRecords(event);
     }
     

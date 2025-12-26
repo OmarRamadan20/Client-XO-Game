@@ -257,6 +257,8 @@ public class DoubleBoardController implements Initializable {
 
     @FXML
     private void onActionBack(ActionEvent event) {
+        SoundManager.play("back");
+        SoundManager.startBackgroundMusic();
         NavigateBetweeenScreens.backToLevelSelection(event);
     }
 
