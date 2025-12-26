@@ -47,6 +47,7 @@ public class signUpController implements Initializable {
 
     @FXML
     private void ActionBack(ActionEvent event) {
+        SoundManager.play("back");
         NavigateBetweeenScreens.goToLogIn(event);
     }
 
@@ -91,7 +92,8 @@ public class signUpController implements Initializable {
                         showSimpleMessage("Registration successful! Welcome " + name);
                         javafx.animation.PauseTransition delay = new javafx.animation.PauseTransition(javafx.util.Duration.seconds(2));
                         delay.setOnFinished(e -> {
-                            NavigateBetweeenScreens.goToAvailablePlayer(event);
+                            SoundManager.play("enter");
+                            NavigateBetweeenScreens.goToLogIn(event);
                         });
                         delay.play();
                     });

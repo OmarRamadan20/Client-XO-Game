@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.media.MediaView?>
+
+<StackPane fx:id="rootPane" alignment="CENTER" prefHeight="650.0" prefWidth="650.0" 
+           style="-fx-background-color: black;"
+           xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.mycompany.clientxogame.SplashScreenController">
+    <children>
+        <MediaView fx:id="mediaView" fitWidth="650" fitHeight="450" />
+    </children>
+</StackPane>
