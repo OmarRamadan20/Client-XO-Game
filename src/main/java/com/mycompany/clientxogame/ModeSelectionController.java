@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
+import javafx.scene.media.AudioClip;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
@@ -26,23 +26,38 @@ public class ModeSelectionController implements Initializable {
     private Button btmPlayer;
     @FXML
     private Button btmOline;
-
+    private AudioClip enterClickSound;
+    private AudioClip backClickSound;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {
+            enterClickSound = new AudioClip(getClass().getResource("/sounds/enter_click.mp3").toExternalForm());
+            backClickSound = new AudioClip(getClass().getResource("/sounds/back_click.mp3").toExternalForm());
+
+        } catch (Exception e) {
+            System.err.println(" Audio Not Found ");
+        }
+    }
+    
+    private void playClick() {
+        if (enterClickSound != null){
+            enterClickSound.play();
+        }
     }
 
     @FXML
     private void onActionBtmSingle(ActionEvent event) {
-
+        playClick();
         NavigateBetweeenScreens.goToSingleMode(event);
     }
 
     @FXML
     private void onActionBtmPlayer(ActionEvent event) {
+        playClick();
 
         NavigateBetweeenScreens.goToDoubleMode(event);
 
@@ -50,6 +65,7 @@ public class ModeSelectionController implements Initializable {
 
     @FXML
     private void onActionOnline(ActionEvent event) {
+        playClick();
 
         NavigateBetweeenScreens.goToLogIn(event);
 
