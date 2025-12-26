@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.input.MouseEvent;
 
 class Player {
 
@@ -172,6 +173,9 @@ private void invitePlayer(ActionEvent event) {
         JSONObject request = new JSONObject();
         request.put("type", "invite");
         request.put("to", selected.getName());
+       request.put("toGmail", selected.getGmail());
+         System.out.print("*/******"+selected.getGmail());
+         
         request.put("from", LoggedUser.name);
     
         NavigateBetweeenScreens.invitedFrom = selected.getName(); 
@@ -205,6 +209,32 @@ private void invitePlayer(ActionEvent event) {
       
         NavigateBetweeenScreens.goToShowProfile(event);
 
+    }
+    
+
+    @FXML
+    private void handleMousePressed(MouseEvent event) {
+        ((Button) event.getSource()).setTranslateY(4);
+    }
+
+    @FXML
+    private void handleMouseReleased(MouseEvent event) {
+        ((Button) event.getSource()).setTranslateY(0);
+    }
+    @FXML
+    private void handleMouseEnter(javafx.scene.input.MouseEvent event) {
+        javafx.scene.control.Button btn = (javafx.scene.control.Button) event.getSource();
+        btn.setScaleX(1.1);
+        btn.setScaleY(1.1);
+        btn.setOpacity(0.9);
+    }
+
+    @FXML
+    private void handleMouseExit(javafx.scene.input.MouseEvent event) {
+        javafx.scene.control.Button btn = (javafx.scene.control.Button) event.getSource();
+        btn.setScaleX(1.0); 
+        btn.setScaleY(1.0);
+        btn.setOpacity(1.0);
     }
  
     @FXML

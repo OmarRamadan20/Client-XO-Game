@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="700.0" style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.GameRecordsController">
+<AnchorPane prefHeight="650.0" prefWidth="650.0" style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.GameRecordsController">
    <children>
       <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f0f2f5" height="70.0" layoutX="55.0" layoutY="72.0" stroke="#cccccc" width="590.0" />
       <Label fx:id="nameTxt" layoutX="96.0" layoutY="93.0" textFill="#333333">
@@ -25,7 +25,9 @@
       <HBox alignment="CENTER" layoutX="32.0" layoutY="604.0" prefWidth="630.0" spacing="100.0">
          <children>
       
-                  <Button fx:id="backBtn" onAction="#onActionBack" prefHeight="40.0" prefWidth="280.0" style="-fx-background-color: #f1c40f; -fx-background-radius: 15; -fx-text-fill: #2c3e50; -fx-font-weight: bold; -fx-padding: 5 20; -fx-cursor: hand;" text="Back" />
+                  <Button fx:id="backBtn" onAction="#onActionBack" prefHeight="40.0" prefWidth="280.0" 
+              style="-fx-background-color: transparent; -fx-text-fill: #4834d4; -fx-underline: true; -fx-cursor: hand; -fx-font-weight: bold; -fx-font-size: 16px;" 
+                          text="Back" />
          </children>
       </HBox>
    </children>

@@ -3,33 +3,60 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.OfferController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" 
+           prefHeight="700.0" prefWidth="700.0" 
+           style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" 
+           xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="com.mycompany.clientxogame.OfferController">
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" style="-fx-background-color: #FFC300; -fx-text-fill: #1f3a93; -fx-background-radius: 10; -fx-padding: 10 25; -fx-font-weight: bold;: +;">
+      <VBox alignment="CENTER" maxWidth="550.0" maxHeight="500.0" spacing="40.0" 
+            style="-fx-background-color: white; -fx-background-radius: 30; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 20, 0, 0, 10);">
          <children>
-            <Label text="abotreaka is exesting to play with you !">
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
+            <Label fx:id="invitationLabel" text="Abotreaka wants to play with you!" textAlignment="CENTER" wrapText="true" textFill="#8e44ad">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
             </Label>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../image.png" />
-               </image>
-            </ImageView>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
+            
+            <StackPane>
                <children>
-                  <Button fx:id="btmOfCourse" mnemonicParsing="false" onAction="#onActionOfCourse" style="-fx-background-color: #FFC300; -fx-text-fill: #1f3a93; -fx-background-radius: 10; -fx-padding: 10 25; -fx-font-weight: bold;" text="of Course!" />
-                  <Button fx:id="btmTimeAnther" layoutX="190.0" layoutY="32.0" mnemonicParsing="false" onAction="#onActionTimeAnTher" style="-fx-background-color: #FFC300; -fx-text-fill: #1f3a93; -fx-background-radius: 10; -fx-padding: 10 25; -fx-font-weight: bold;" text="time anther" />
+                  <ProgressIndicator fx:id="timerIndicator" progress="1.0" minHeight="160.0" minWidth="160.0" 
+                                    style="-fx-progress-color: #d81b60;" />
+                  <Label fx:id="timeId" text="10" textFill="#8e44ad">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+
+            <HBox alignment="CENTER" spacing="40.0">
+               <children>
+                  <Button fx:id="btmOfCourse" mnemonicParsing="false" onAction="#onActionOfCourse" 
+                          onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
+                          onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
+                          prefHeight="60.0" prefWidth="170.0" 
+                          style="-fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 6); -fx-cursor: hand;" 
+                          text="Of Course!" />
+                          
+                  <Button fx:id="btmTimeAnther" mnemonicParsing="false" onAction="#onActionTimeAnTher" 
+                          onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
+                          onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
+                          prefHeight="60.0" prefWidth="170.0" 
+                          style="-fx-background-color: linear-gradient(to bottom, #e74c3c, #c0392b); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 6); -fx-cursor: hand;" 
+                          text="Later..." />
                </children>
             </HBox>
          </children>
+         <padding>
+            <Insets bottom="50.0" left="40.0" right="40.0" top="50.0" />
+         </padding>
       </VBox>
    </children>
 </StackPane>

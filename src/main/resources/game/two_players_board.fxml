@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane prefHeight="700.0" prefWidth="800.0" 
+           style="-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #ffd1e8, #c8b3ff, #a0ffff);" 
+           xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="com.mycompany.clientxogame.Two_players_boardController">
+
+    <BorderPane>
+        <top>
+            <VBox alignment="CENTER" prefHeight="100">
+                <Label text="TIC TAC TOE" textFill="#8e44ad">
+                    <font>
+                        <Font name="System Bold Italic" size="45.0" />
+                    </font>
+                </Label>
+            </VBox>
+        </top>
+
+        <center>
+            <HBox alignment="CENTER" spacing="50">
+                
+                <VBox alignment="CENTER" prefWidth="150.0" spacing="10" 
+                      style="-fx-background-color: rgba(255,255,255,0.4); -fx-background-radius: 30; -fx-padding: 20; -fx-border-color: #8e44ad; -fx-border-radius: 30; -fx-border-width: 2;">
+                    <Label fx:id="playerOneName" text="Player 1 (X)" textFill="#2c003e" style="-fx-font-weight: bold;">
+                        <font><Font size="18.0" /></font>
+                    </Label>
+                    <Label fx:id="playerOneScore" text="0" textFill="#d81b60">
+                        <font><Font name="System Bold" size="48.0" /></font>
+                    </Label>
+                </VBox>
+
+                <GridPane alignment="CENTER" hgap="12" vgap="12">
+                    <StackPane onMouseClicked="#handleCellClick" onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit" style="-fx-cursor: hand;" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Rectangle arcHeight="30" arcWidth="30" fill="#2c003e" height="110" width="110" />
+                        <Text fx:id="cell00" fill="#c8b3ff" style="-fx-font-weight: bold;">
+                            <font><Font size="65.0" /></font>
+                        </Text>
+                    </StackPane>
+                    <StackPane onMouseClicked="#handleCellClick" onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit" style="-fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Rectangle arcHeight="30" arcWidth="30" fill="#2c003e" height="110" width="110" />
+                        <Text fx:id="cell01" fill="#c8b3ff" style="-fx-font-weight: bold;">
+                            <font><Font size="65.0" /></font>
+                        </Text>
+                    </StackPane>
+                    <StackPane onMouseClicked="#handleCellClick" onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit" style="-fx-cursor: hand;" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <Rectangle arcHeight="30" arcWidth="30" fill="#2c003e" height="110" width="110" />
+                        <Text fx:id="cell02" fill="#c8b3ff" style="-fx-font-weight: bold;">
+                            <font><Font size="65.0" /></font>
+                        </Text>
+                    </StackPane>
+
+                    <StackPane onMouseClicked="#handleCellClick" onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit" style="-fx-cursor: hand;" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Rectangle arcHeight="30" arcWidth="30" fill="#2c003e" height="110" width="110" />
+                        <Text fx:id="cell10" fill="#c8b3ff" style="-fx-font-weight: bold;">
+                            <font><Font size="65.0" /></font>
+                        </Text>
+                    </StackPane>
+                    <StackPane onMouseClicked="#handleCellClick" onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit" style="-fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Rectangle arcHeight="30" arcWidth="30" fill="#2c003e" height="110" width="110" />
+                        <Text fx:id="cell11" fill="#c8b3ff" style="-fx-font-weight: bold;">
+                            <font><Font size="65.0" /></font>
+                        </Text>
+                    </StackPane>
+                    <StackPane onMouseClicked="#handleCellClick" onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit" style="-fx-cursor: hand;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <Rectangle arcHeight="30" arcWidth="30" fill="#2c003e" height="110" width="110" />
+                        <Text fx:id="cell12" fill="#c8b3ff" style="-fx-font-weight: bold;">
+                            <font><Font size="65.0" /></font>
+                        </Text>
+                    </StackPane>
+
+                    <StackPane onMouseClicked="#handleCellClick" onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit" style="-fx-cursor: hand;" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <Rectangle arcHeight="30" arcWidth="30" fill="#2c003e" height="110" width="110" />
+                        <Text fx:id="cell20" fill="#c8b3ff" style="-fx-font-weight: bold;">
+                            <font><Font size="65.0" /></font>
+                        </Text>
+                    </StackPane>
+                    <StackPane onMouseClicked="#handleCellClick" onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit" style="-fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Rectangle arcHeight="30" arcWidth="30" fill="#2c003e" height="110" width="110" />
+                        <Text fx:id="cell21" fill="#c8b3ff" style="-fx-font-weight: bold;">
+                            <font><Font size="65.0" /></font>
+                        </Text>
+                    </StackPane>
+                    <StackPane onMouseClicked="#handleCellClick" onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit" style="-fx-cursor: hand;" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <Rectangle arcHeight="30" arcWidth="30" fill="#2c003e" height="110" width="110" />
+                        <Text fx:id="cell22" fill="#c8b3ff" style="-fx-font-weight: bold;">
+                            <font><Font size="65.0" /></font>
+                        </Text>
+                    </StackPane>
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
+
+                <VBox alignment="CENTER" prefWidth="150.0" spacing="10" 
+                      style="-fx-background-color: rgba(255,255,255,0.4); -fx-background-radius: 30; -fx-padding: 20; -fx-border-color: #8e44ad; -fx-border-radius: 30; -fx-border-width: 2;">
+                    <Label fx:id="playerTwoName" text="Player 2 (O)" textFill="#2c003e" style="-fx-font-weight: bold;">
+                        <font><Font size="18.0" /></font>
+                    </Label>
+                    <Label fx:id="PlayerTwoScore" text="0" textFill="#2ecc71">
+                        <font><Font name="System Bold" size="48.0" /></font>
+                    </Label>
+                </VBox>
+            </HBox>
+        </center>
+
+        <bottom>
+            <HBox alignment="BOTTOM_LEFT" prefHeight="100.0">
+                <padding>
+                    <Insets bottom="40.0" left="50.0" />
+                </padding>
+                <children>
+                    <Button fx:id="BackButtonId" mnemonicParsing="false" onAction="#onBack" 
+                            onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
+                            onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased" 
+                            prefHeight="50.0" prefWidth="130.0" 
+                            style="-fx-background-color: linear-gradient(to bottom, #A569FF, #8e44ad); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 22px; -fx-font-style: italic; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 6);" 
+                            text="Back" />
+                </children>
+            </HBox>
+        </bottom>
+    </BorderPane>
+
+    <Line fx:id="winLine" stroke="#d81b60" strokeLineCap="ROUND" strokeWidth="12" visible="false" />
+
+</StackPane>

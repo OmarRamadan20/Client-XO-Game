@@ -14,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import org.json.JSONObject;
 
 /**
@@ -46,7 +47,7 @@ public class signUpController implements Initializable {
 
     @FXML
     private void ActionBack(ActionEvent event) {
-        NavigateBetweeenScreens.goToLogIn(event);
+         NavigateBetweeenScreens.goToLogIn(event);
     }
 
     @FXML
@@ -90,7 +91,7 @@ public class signUpController implements Initializable {
                         showSimpleMessage("Registration successful! Welcome " + name);
                         javafx.animation.PauseTransition delay = new javafx.animation.PauseTransition(javafx.util.Duration.seconds(2));
                         delay.setOnFinished(e -> {
-                            NavigateBetweeenScreens.goToAvailablePlayer(event);
+                             NavigateBetweeenScreens.goToLogIn(event);
                         });
                         delay.play();
                     });
@@ -127,18 +128,32 @@ public class signUpController implements Initializable {
     
     @FXML
     private void handleMouseEnter(javafx.scene.input.MouseEvent event) {
-        javafx.scene.control.Button btn = (javafx.scene.control.Button) event.getSource();
-        btn.setScaleX(1.1); 
-        btn.setScaleY(1.1);
+        Button btn = (Button) event.getSource();
+        btn.setScaleX(1.08);
+        btn.setScaleY(1.08);
         btn.setOpacity(0.9);
     }
 
     @FXML
     private void handleMouseExit(javafx.scene.input.MouseEvent event) {
-        javafx.scene.control.Button btn = (javafx.scene.control.Button) event.getSource();
-        btn.setScaleX(1.0); 
+        Button btn = (Button) event.getSource();
+        
+        btn.setScaleX(1.0);
         btn.setScaleY(1.0);
         btn.setOpacity(1.0);
     }
+    
+    @FXML
+    private void handleMousePressed(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(4); 
+    }
+
+    @FXML
+    private void handleMouseReleased(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(0);
+    }
+    
 
 }

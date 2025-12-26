@@ -13,7 +13,7 @@ import javafx.util.Duration;
 public class LevelSelectionController implements Initializable {
 
     @FXML
-    private Button btmEasy; 
+    private Button btmEasy;
     @FXML
     private Button btmMeduim;
     @FXML
@@ -23,8 +23,7 @@ public class LevelSelectionController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    }    
-
+    }
 
     @FXML
     private void handleMouseEnter(javafx.scene.input.MouseEvent event) {
@@ -37,30 +36,40 @@ public class LevelSelectionController implements Initializable {
     @FXML
     private void handleMouseExit(javafx.scene.input.MouseEvent event) {
         Button btn = (Button) event.getSource();
-        
+
         btn.setScaleX(1.0);
         btn.setScaleY(1.0);
         btn.setOpacity(1.0);
     }
 
+    @FXML
+    private void handleMousePressed(MouseEvent event) {
+        ((Button) event.getSource()).setTranslateY(3);
+    }
+
+    @FXML
+    private void handleMouseReleased(MouseEvent event) {
+        ((Button) event.getSource()).setTranslateY(0);
+    }
 
     @FXML
     private void onActionBtmEasy(ActionEvent event) {
+ 
         NavigateBetweeenScreens.goToEasyLevel(event);
     }
 
     @FXML
     private void onActionBtmMedium(ActionEvent event) {
-        NavigateBetweeenScreens.goToMeduimLevel(event);
+         NavigateBetweeenScreens.goToMeduimLevel(event);
     }
 
     @FXML
     private void onActionHard(ActionEvent event) {
-        NavigateBetweeenScreens.goToHardLevel(event);
+         NavigateBetweeenScreens.goToHardLevel(event);
     }
 
     @FXML
     private void onActionBack(ActionEvent event) {
-        NavigateBetweeenScreens.backToModeSelection(event);
+         NavigateBetweeenScreens.backToModeSelection(event);
     }
 }

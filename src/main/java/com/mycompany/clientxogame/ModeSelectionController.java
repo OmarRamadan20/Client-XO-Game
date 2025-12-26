@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -31,30 +32,28 @@ public class ModeSelectionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+      //  SoundManager.startBackgroundMusic();
         // TODO
     }
 
     @FXML
     private void onActionBtmSingle(ActionEvent event) {
-
+ 
         NavigateBetweeenScreens.goToSingleMode(event);
     }
 
     @FXML
     private void onActionBtmPlayer(ActionEvent event) {
-
-        NavigateBetweeenScreens.goToDoubleMode(event);
+         NavigateBetweeenScreens.goToDoubleMode(event);
 
     }
 
     @FXML
     private void onActionOnline(ActionEvent event) {
-
-        NavigateBetweeenScreens.goToLogIn(event);
+         NavigateBetweeenScreens.goToLogIn(event);
 
     }
-    
-    
+
     @FXML
     private void handleMouseEnter(javafx.scene.input.MouseEvent event) {
         Button btn = (Button) event.getSource();
@@ -66,10 +65,22 @@ public class ModeSelectionController implements Initializable {
     @FXML
     private void handleMouseExit(javafx.scene.input.MouseEvent event) {
         Button btn = (Button) event.getSource();
-        
+
         btn.setScaleX(1.0);
         btn.setScaleY(1.0);
         btn.setOpacity(1.0);
+    }
+
+    @FXML
+    private void handleMousePressed(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(4);
+    }
+
+    @FXML
+    private void handleMouseReleased(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(0);
     }
 
 }

@@ -95,6 +95,8 @@ public class RecordController implements Initializable {
         currentMoveIndex = 0;
         clearBoard();
     }
+    
+    
 
     @FXML
     private void onBack(ActionEvent event) {

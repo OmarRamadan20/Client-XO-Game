@@ -8,11 +8,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 import org.json.JSONObject;
 
 public class LoginController implements Initializable, ServerListener {
-
-   
 
     @FXML
 
@@ -20,7 +19,7 @@ public class LoginController implements Initializable, ServerListener {
 
     @FXML
     private Button btnLogin;
-    
+
     @FXML
     private Button btnBack;
     @FXML
@@ -52,8 +51,9 @@ public class LoginController implements Initializable, ServerListener {
     @Override
     public void onMessage(JSONObject response) {
 
-        if (!response.getString("type").equals("login"))
+        if (!response.getString("type").equals("login")) {
             return;
+        }
 
         if (response.getString("status").equals("success")) {
 
@@ -61,6 +61,7 @@ public class LoginController implements Initializable, ServerListener {
             LoggedUser.gmail = response.getString("gmail");
             LoggedUser.score = response.getInt("score");
 
+ 
             NavigateBetweeenScreens.goToAvailablePlayer(
                     NavigateBetweeenScreens.lastEvent
             );
@@ -76,33 +77,42 @@ public class LoginController implements Initializable, ServerListener {
         alert.show();
     }
 
-    
     @FXML
     private void register(ActionEvent event) {
-        NavigateBetweeenScreens.goToRegister(event);
+         NavigateBetweeenScreens.goToRegister(event);
     }
 
     @FXML
     private void actionBtn(ActionEvent event) {
-        NavigateBetweeenScreens.backToModeSelection(event);
+         NavigateBetweeenScreens.backToModeSelection(event);
     }
-    
+
     @FXML
     private void handleMouseEnter(javafx.scene.input.MouseEvent event) {
-        javafx.scene.control.Button btn = (javafx.scene.control.Button) event.getSource();
-        btn.setScaleX(1.1);
-        btn.setScaleY(1.1);
+        Button btn = (Button) event.getSource();
+        btn.setScaleX(1.08);
+        btn.setScaleY(1.08);
         btn.setOpacity(0.9);
     }
 
     @FXML
     private void handleMouseExit(javafx.scene.input.MouseEvent event) {
-        javafx.scene.control.Button btn = (javafx.scene.control.Button) event.getSource();
-        btn.setScaleX(1.0); 
+        Button btn = (Button) event.getSource();
+
+        btn.setScaleX(1.0);
         btn.setScaleY(1.0);
         btn.setOpacity(1.0);
     }
-    
+
+    @FXML
+    private void handleMousePressed(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(4);
+    }
+
+    @FXML
+    private void handleMouseReleased(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(0);
+    }
 }
-
-
