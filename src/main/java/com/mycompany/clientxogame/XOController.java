@@ -223,7 +223,9 @@ public class XOController implements Initializable {
         } else if (!winnerSymbol.equals("")) {
             return Opponent.gmail;
         }
-        return "";
+        else {
+        return "Draw";
+        }
     }
 
     private void handleGetScore(JSONObject response) {
