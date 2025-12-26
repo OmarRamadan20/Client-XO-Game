@@ -24,6 +24,12 @@
             <version>${javafx.version}</version>
         </dependency>
         
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>21</version>
+        </dependency>
+
         
         <dependency>
             <groupId>org.openjfx</groupId>
