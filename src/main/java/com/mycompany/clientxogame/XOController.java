@@ -132,6 +132,10 @@ public class XOController implements Initializable {
                 final int col = c;
 
                 parent.setOnMouseClicked(e -> {
+                    SoundManager.getInstance().playButton("playClick");
+                    parent.setTranslateY(4);
+                    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), ev -> parent.setTranslateY(0)));
+                    timeline.play();
 
                     if (gameOver || !cell.getText().isEmpty() || !myTurn) {
                         return;
@@ -380,7 +384,6 @@ public class XOController implements Initializable {
 
         isRecord = true;
     }
-    
     
     @FXML
     private void handleCellHover(MouseEvent event) {
