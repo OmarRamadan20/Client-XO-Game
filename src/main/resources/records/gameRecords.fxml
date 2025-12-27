@@ -1,34 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="650.0" style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.GameRecordsController">
+<StackPane prefHeight="650.0" prefWidth="650.0" style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.GameRecordsController">
    <children>
-      <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f0f2f5" height="70.0" layoutX="55.0" layoutY="72.0" stroke="#cccccc" width="590.0" />
-      <Label fx:id="nameTxt" layoutX="96.0" layoutY="93.0" textFill="#333333">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnplayOn" layoutX="548.0" layoutY="80.0" onAction="#playOn" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 20; -fx-background-color: #1e90ff;" text="play on" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Button>
-      <ListView fx:id="ListFile" layoutX="53.0" layoutY="162.0" prefHeight="409.0" prefWidth="591.0" style="-fx-background-radius: 10; -fx-border-color: #eee;" />
-      <HBox alignment="CENTER" layoutX="32.0" layoutY="604.0" prefWidth="630.0" spacing="100.0">
+      <VBox alignment="TOP_CENTER" spacing="20.0">
+         <padding>
+            <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+         </padding>
          <children>
-      
-                  <Button fx:id="backBtn" onAction="#onActionBack" prefHeight="40.0" prefWidth="280.0" 
-              style="-fx-background-color: transparent; -fx-text-fill: #4834d4; -fx-underline: true; -fx-cursor: hand; -fx-font-weight: bold; -fx-font-size: 16px;" 
-                          text="Back" />
+            <Label text="Game Replays" textFill="#8e44ad">
+               <font>
+                  <Font name="System Bold Italic" size="32.0" />
+               </font>
+            </Label>
+
+            <HBox alignment="CENTER_LEFT" prefHeight="80.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5); -fx-padding: 15;">
+               <children>
+                  <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Selected Record:" textFill="#7f8c8d">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="nameTxt" text="No file selected" textFill="#2c3e50">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Button fx:id="btnplayOn" onAction="#playOn" prefHeight="45.0" prefWidth="120.0" style="-fx-background-radius: 25; -fx-background-color: linear-gradient(to right, #1e90ff, #00d2ff); -fx-text-fill: white; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 3);" text="Play Replay">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+
+            <VBox spacing="10.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label text="Available Recordings:" textFill="#2c003e">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <ListView fx:id="ListFile" prefHeight="350.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #ddd; -fx-padding: 5; -fx-background-color: white;" />
+               </children>
+            </VBox>
+
+            <HBox alignment="CENTER">
+               <children>
+                  <Button fx:id="backBtn" onAction="#onActionBack" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #bdc3c7, #95a5a6); -fx-background-radius: 30; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 3);" text="Return to Profile" />
+               </children>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
    </children>
-</AnchorPane>
+</StackPane>

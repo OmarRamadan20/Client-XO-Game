@@ -34,9 +34,10 @@ public class ProfileController implements Initializable {
     private Button RecordsButtonId;
  
 
-     /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private Button HistoryButtonId;
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LableId.setText(LoggedUser.name);
@@ -57,6 +58,12 @@ public class ProfileController implements Initializable {
         SoundManager.getInstance().playButton("enter");
         NavigateBetweeenScreens.goToShowRecords(event);
      }
+
+    @FXML
+    private void onHistory(ActionEvent event) {
+        NavigateBetweeenScreens.goToShowHistory(event);
+        System.out.println("History Button Clicked!");
+    }
 
     @FXML
     private void handleMouseEnter(javafx.scene.input.MouseEvent event) {

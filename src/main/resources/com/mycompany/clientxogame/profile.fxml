@@ -12,7 +12,7 @@
 
 <StackPane prefHeight="650.0" prefWidth="650.0" style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.ProfileController">
    <children>
-      <VBox alignment="CENTER" maxHeight="500.0" maxWidth="400.0" spacing="25.0" style="-fx-background-color: white; -fx-background-radius: 40; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 20, 0, 0, 10);">
+      <VBox alignment="CENTER" maxHeight="520.0" maxWidth="450.0" spacing="25.0" style="-fx-background-color: white; -fx-background-radius: 40; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 20, 0, 0, 10);">
          <children>
             <StackPane maxWidth="130.0">
                <children>
@@ -53,16 +53,18 @@
                </VBox.margin>
             </VBox>
 
-            <HBox alignment="CENTER" spacing="20.0">
+            <HBox alignment="CENTER" spacing="15.0">
                <children>
-                  <Button fx:id="BackButtonId" onAction="#onBack" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: linear-gradient(to bottom, #bdc3c7, #95a5a6); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 4); -fx-cursor: hand;" text="Back" />
+                  <Button fx:id="BackButtonId" onAction="#onBack" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="45.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to bottom, #bdc3c7, #95a5a6); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="Back" />
                   
-                  <Button fx:id="RecordsButtonId" onAction="#onRecord" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: linear-gradient(to bottom, #A569FF, #8e44ad); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 4); -fx-cursor: hand;" text="Records" />
+                  <Button fx:id="HistoryButtonId" onAction="#onHistory" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="45.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to bottom, #4facfe, #00f2fe); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);" text="History" />
+                  
+                  <Button fx:id="RecordsButtonId" onAction="#onRecord" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="45.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to bottom, #A569FF, #8e44ad); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="Records" />
                </children>
             </HBox>
          </children>
          <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
          </padding>
       </VBox>
    </children>

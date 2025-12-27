@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
@@ -16,9 +17,11 @@ import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -39,6 +42,14 @@ public class XOController implements Initializable {
     @FXML private Label playerOneScore;
     @FXML private Label PlayerTwoScore;
 
+    @FXML
+    private HBox recordingIndicator;
+    @FXML
+    private Circle redDot;
+
+    private Timeline recordTimeline;
+
+    private Text[][] cells;
     @FXML private Button idRecords;
 
      private Text[][] cells;
@@ -48,6 +59,28 @@ public class XOController implements Initializable {
     private String mySymbol;
     private boolean myTurn;
     private String opponentName;
+    @FXML
+    private Button idRecords;
+
+    private List<Move> moves = new ArrayList<>();
+    boolean isRecord = false;
+    @FXML
+    private Label Playerone;
+    @FXML
+    private Label playerOneScore;
+    @FXML
+    private Label Playertwo;
+    @FXML
+    private Label PlayerTwoScore;
+
+    char operant = '+';
+
+    int scoreX = 0;
+    int scoreO = 0;
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
     private String winnerSymbol = "";
 
     private int scoreX = 0;
@@ -165,6 +198,14 @@ public class XOController implements Initializable {
         handleInsertGameResult();
 
         if (isRecord) {
+        GameFileManager.save(moves, LoggedUser.name, opponentName);
+        
+        if (recordTimeline != null) recordTimeline.stop();
+        recordingIndicator.setVisible(false);
+        
+        idRecords.setText("Saved!");
+        idRecords.setStyle("-fx-background-color: #2ed573; -fx-background-radius: 50; -fx-text-fill: white;");
+    }
             GameFileManager.save(moves, LoggedUser.name, opponentName);
         }
 
@@ -199,6 +240,15 @@ public class XOController implements Initializable {
         }
      
     }
+
+    private void handleInsertGameResult() {
+        JSONObject request = new JSONObject();
+        request.put("type", "game_result");
+        request.put("gmail1", LoggedUser.gmail);
+        request.put("gmail2", Opponent.gmail);
+        request.put("gmailWin", determineWinnerGmail());
+
+        ServerHandler.getInstance().send(request);
     }
 
      private void handleInsertGameResult() {
@@ -305,6 +355,83 @@ public class XOController implements Initializable {
 
      @FXML
     private void onActionRecode(ActionEvent event) {
+                SoundManager.getInstance().playButton("enter");
+
+        if (!isRecord) {
+            isRecord = true;
+
+            recordingIndicator.setVisible(true);
+
+            recordTimeline = new Timeline(
+                    new KeyFrame(Duration.seconds(0.6), new KeyValue(redDot.opacityProperty(), 0.2)),
+                    new KeyFrame(Duration.seconds(1.2), new KeyValue(redDot.opacityProperty(), 1.0))
+            );
+            recordTimeline.setCycleCount(Timeline.INDEFINITE);
+            recordTimeline.play();
+
+            idRecords.setText("Recording...");
+            idRecords.setDisable(true); 
+            idRecords.setStyle("-fx-background-color: #ff4757; -fx-background-radius: 50; -fx-text-fill: white;");
+
+            System.out.println("Recording started...");
+        }
+    }
+
+    @FXML
+    private void handleCellHover(MouseEvent event) {
+        StackPane pane = (StackPane) event.getSource();
+        pane.setScaleX(1.05);
+        pane.setScaleY(1.05);
+        ((Rectangle) pane.getChildren().get(0)).setFill(javafx.scene.paint.Color.web("#3d0158"));
+    }
+
+    @FXML
+    private void handleCellExit(MouseEvent event) {
+        StackPane pane = (StackPane) event.getSource();
+        pane.setScaleX(1.0);
+        pane.setScaleY(1.0);
+        ((Rectangle) pane.getChildren().get(0)).setFill(javafx.scene.paint.Color.web("#2c003e"));
+    }
+
+    @FXML
+    private void handleCellClick(MouseEvent event) {
+        StackPane pane = (StackPane) event.getSource();
+
+        pane.setTranslateY(4);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> pane.setTranslateY(0)));
+        timeline.play();
+
+    }
+
+    @FXML
+    private void handleMouseEnter(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+        st.setToX(1.07);
+        st.setToY(1.07);
+        st.play();
+    }
+
+    @FXML
+    private void handleMouseExit(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.play();
+    }
+
+    @FXML
+    private void handleMousePressed(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(4);
+    }
+
+    @FXML
+    private void handleMouseReleased(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(0);
+    }
         SoundManager.getInstance().playButton("enter");
         isRecord = true;
     }

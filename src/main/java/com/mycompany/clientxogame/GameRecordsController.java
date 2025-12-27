@@ -44,7 +44,6 @@ public class GameRecordsController implements Initializable {
     @FXML
     private void onActionBack(ActionEvent event) {
         SoundManager.getInstance().playButton("back");
-
         NavigateBetweeenScreens.backToShowProfile(event);
     }
 
@@ -59,6 +58,7 @@ public class GameRecordsController implements Initializable {
                 String player = m.playerId == 0 ? "X" : "O";
                 movesData.add(player + " -> Row: " + m.row + ", Col: " + m.col);
             }
+            SoundManager.getInstance().playButton("enter");
 
             ListFile.setItems(movesData);
 
