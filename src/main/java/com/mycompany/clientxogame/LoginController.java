@@ -61,7 +61,7 @@ public class LoginController implements Initializable, ServerListener {
             LoggedUser.gmail = response.getString("gmail");
             LoggedUser.score = response.getInt("score");
 
-            SoundManager.play("enter");
+            //SoundManager.play("enter");
 
             NavigateBetweeenScreens.goToAvailablePlayer(
                     NavigateBetweeenScreens.lastEvent
@@ -80,13 +80,13 @@ public class LoginController implements Initializable, ServerListener {
 
     @FXML
     private void register(ActionEvent event) {
-        SoundManager.play("enter");
+    SoundManager.getInstance().playButton("enter");
         NavigateBetweeenScreens.goToRegister(event);
     }
 
     @FXML
     private void actionBtn(ActionEvent event) {
-        SoundManager.play("back");
+    SoundManager.getInstance().playButton("back");
         NavigateBetweeenScreens.backToModeSelection(event);
     }
 

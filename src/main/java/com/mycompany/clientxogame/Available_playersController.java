@@ -34,7 +34,7 @@ class Player {
         this.gmail = gmail;
     }
 
-    public Player(String name, int score,String gmail) {
+    public Player(String name, int score, String gmail) {
         this.name = name;
         this.score = score;
         this.gmail = gmail;
@@ -92,12 +92,11 @@ public class Available_playersController implements Initializable {
                     case "logout_response":
                         handleLogoutResponse(json);
                         break;
-                 
+
                     case "invite_recieved":
                         String from = json.getString("from");
-                        System.out.println("Invitation received from: " + from); 
+                        System.out.println("Invitation received from: " + from);
 
-                        
                         Platform.runLater(() -> {
                             NavigateBetweeenScreens.invite(null, from);
                         });
@@ -120,7 +119,7 @@ public class Available_playersController implements Initializable {
         requestPlayersFromServer();
     }
 
- private void handleAvailablePlayers(JSONObject json) {
+    private void handleAvailablePlayers(JSONObject json) {
         JSONArray jsonPlayers = json.optJSONArray("players");
         players.clear();
 
@@ -135,7 +134,7 @@ public class Available_playersController implements Initializable {
                     continue;
                 }
 
-                players.add(new Player(name, score,gmail));
+                players.add(new Player(name, score, gmail));
             }
 
             if (!players.isEmpty()) {
@@ -166,30 +165,32 @@ public class Available_playersController implements Initializable {
         server.send(request);
     }
 
-@FXML
-private void invitePlayer(ActionEvent event) {
-    Player selected = playersList.getSelectionModel().getSelectedItem();
-    if (selected != null) {
-        JSONObject request = new JSONObject();
-        request.put("type", "invite");
-        request.put("to", selected.getName());
-        request.put("from", LoggedUser.name);
-    
-        NavigateBetweeenScreens.invitedFrom = selected.getName(); 
-         Opponent.gmail = selected.getGmail();
-         Opponent.name = selected.getName();
-         Opponent.score =selected.getScore();
-        server.send(request);
-        NavigateBetweeenScreens.lastEvent = event;
-        NavigateBetweeenScreens.goToWaitAccept(event);
+    @FXML
+    private void invitePlayer(ActionEvent event) {
+        Player selected = playersList.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            JSONObject request = new JSONObject();
+            request.put("type", "invite");
+            request.put("to", selected.getName());
+            request.put("from", LoggedUser.name);
+            SoundManager.getInstance().playButton("enter");
+
+            NavigateBetweeenScreens.invitedFrom = selected.getName();
+            Opponent.gmail = selected.getGmail();
+            Opponent.name = selected.getName();
+            Opponent.score = selected.getScore();
+            server.send(request);
+            NavigateBetweeenScreens.lastEvent = event;
+            NavigateBetweeenScreens.goToWaitAccept(event);
+        }
     }
-}
+
     private void handleLogoutResponse(JSONObject response) {
         if ("success".equals(response.optString("status"))) {
             LoggedUser.name = null;
             LoggedUser.gmail = null;
             LoggedUser.score = 0;
-            
+            SoundManager.getInstance().playButton("back");
 
             NavigateBetweeenScreens.goToLogIn(NavigateBetweeenScreens.lastEvent);
         }
@@ -197,17 +198,19 @@ private void invitePlayer(ActionEvent event) {
 
     @FXML
     private void refreshPlayers(ActionEvent event) {
+        SoundManager.getInstance().playButton("enter");
+
         requestPlayersFromServer();
     }
 
     @FXML
     private void showProfile(ActionEvent event) {
 
-      
+        SoundManager.getInstance().playButton("enter");
+
         NavigateBetweeenScreens.goToShowProfile(event);
 
     }
-    
 
     @FXML
     private void handleMousePressed(MouseEvent event) {
@@ -218,6 +221,7 @@ private void invitePlayer(ActionEvent event) {
     private void handleMouseReleased(MouseEvent event) {
         ((Button) event.getSource()).setTranslateY(0);
     }
+
     @FXML
     private void handleMouseEnter(javafx.scene.input.MouseEvent event) {
         javafx.scene.control.Button btn = (javafx.scene.control.Button) event.getSource();
@@ -229,15 +233,14 @@ private void invitePlayer(ActionEvent event) {
     @FXML
     private void handleMouseExit(javafx.scene.input.MouseEvent event) {
         javafx.scene.control.Button btn = (javafx.scene.control.Button) event.getSource();
-        btn.setScaleX(1.0); 
+        btn.setScaleX(1.0);
         btn.setScaleY(1.0);
         btn.setOpacity(1.0);
     }
- 
+
     @FXML
     private void logOut(ActionEvent event) {
         NavigateBetweeenScreens.lastEvent = event;
         server.logout(LoggedUser.gmail);
     }
 }
- 

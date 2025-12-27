@@ -1,8 +1,6 @@
 package com.mycompany.clientxogame;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
@@ -62,7 +60,6 @@ public class DoubleBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SoundManager.stopBackgroundMusic();
         cells = new Text[][]{
             {cell00, cell01, cell02},
             {cell10, cell11, cell12},
@@ -80,6 +77,10 @@ public class DoubleBoardController implements Initializable {
                 final int col = c;
 
                 parent.setOnMouseClicked(e -> {
+                     SoundManager.getInstance().playButton("playClick");
+                    parent.setTranslateY(4);
+                    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), ev -> parent.setTranslateY(0)));
+                    timeline.play();
                     if (gameOver || !xTurn || !board[row][col].isEmpty()) {
                         return;
                     }
@@ -257,8 +258,7 @@ public class DoubleBoardController implements Initializable {
 
     @FXML
     private void onActionBack(ActionEvent event) {
-        SoundManager.play("back");
-        SoundManager.startBackgroundMusic();
+    SoundManager.getInstance().playButton("back");
         NavigateBetweeenScreens.backToLevelSelection(event);
     }
 

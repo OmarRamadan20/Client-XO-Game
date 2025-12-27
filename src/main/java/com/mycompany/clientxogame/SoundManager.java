@@ -2,59 +2,64 @@ package com.mycompany.clientxogame;
 
 import javafx.scene.media.AudioClip;
 import java.util.HashMap;
-import java.util.Map;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 public class SoundManager {
 
-    private static final Map<String, AudioClip> sounds = new HashMap<>();
-    private static MediaPlayer backgroundMusic;
+    private static SoundManager instance; // singleton
+    private AudioClip backgroundMusic;
+    private HashMap<String, AudioClip> buttonSounds = new HashMap<>();
 
-    static {
-        loadSound("enter", "/sounds/enter_click.mp3");
-        loadSound("back", "/sounds/back_click.mp3");
-        loadBackgroundMusic("/sounds/back_ground2.mp3");
-    }
-
-    private static void loadSound(String name, String path) {
+    private SoundManager() {
         try {
-            AudioClip clip = new AudioClip(SoundManager.class.getResource(path).toExternalForm());
-            sounds.put(name, clip);
+            backgroundMusic = new AudioClip(getClass().getResource("/sounds/back_ground2.mp3").toExternalForm());
+            backgroundMusic.setCycleCount(AudioClip.INDEFINITE);
+            backgroundMusic.setVolume(0.05);
+
+            loadButtonSound("enter", "/sounds/enter_click.mp3");
+            loadButtonSound("back", "/sounds/back_click.mp3");
+            loadButtonSound("playClick", "/sounds/play_click.mp3");
+
         } catch (Exception e) {
-            System.err.println("Audio Not found");
+            System.err.println("Error loading sounds: " + e.getMessage());
         }
     }
 
-    public static void play(String name) {
-        AudioClip clip = sounds.get(name);
-        if (clip != null) {
-            clip.play();
+    public static SoundManager getInstance() {
+        if (instance == null) {
+            instance = new SoundManager();
         }
+        return instance;
     }
 
-    private static void loadBackgroundMusic(String path) {
+    private void loadButtonSound(String name, String path) {
         try {
-            Media media = new Media(SoundManager.class.getResource(path).toExternalForm());
-            backgroundMusic = new MediaPlayer(media);
-
-            backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE);
-
-            backgroundMusic.setVolume(0.1);
+            AudioClip clip = new AudioClip(getClass().getResource(path).toExternalForm());
+            buttonSounds.put(name, clip);
         } catch (Exception e) {
-            System.err.println("Error loading background music");
+            System.err.println("Button sound not found: " + path);
         }
     }
 
-    public static void startBackgroundMusic() {
-        if (backgroundMusic != null) {
+    public void playBackgroundMusic() {
+        if (backgroundMusic != null && !backgroundMusic.isPlaying()) {
             backgroundMusic.play();
         }
     }
 
-    public static void stopBackgroundMusic() {
+    public void stopBackgroundMusic() {
         if (backgroundMusic != null) {
-            backgroundMusic.pause();
+            backgroundMusic.stop();
         }
     }
+
+    public void playButton(String name) {
+        AudioClip clip = buttonSounds.get(name);
+        if (clip != null) {
+            clip.play();
+        }
+    }
+    
+    
+
+    
 }

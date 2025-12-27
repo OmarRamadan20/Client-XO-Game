@@ -27,32 +27,34 @@ public class ModeSelectionController implements Initializable {
     @FXML
     private Button btmOline;
 
+    private SoundManager soundManager;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SoundManager.startBackgroundMusic();
-        // TODO
+        SoundManager.getInstance().playBackgroundMusic();
+
     }
 
     @FXML
     private void onActionBtmSingle(ActionEvent event) {
-        SoundManager.play("enter");
+        SoundManager.getInstance().playButton("enter");
 
         NavigateBetweeenScreens.goToSingleMode(event);
     }
 
     @FXML
     private void onActionBtmPlayer(ActionEvent event) {
-        SoundManager.play("enter");
+        SoundManager.getInstance().playButton("enter");
         NavigateBetweeenScreens.goToDoubleMode(event);
 
     }
 
     @FXML
     private void onActionOnline(ActionEvent event) {
-        SoundManager.play("enter");
+        SoundManager.getInstance().playButton("enter");
         NavigateBetweeenScreens.goToLogIn(event);
 
     }
