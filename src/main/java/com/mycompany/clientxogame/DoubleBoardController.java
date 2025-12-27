@@ -77,7 +77,7 @@ public class DoubleBoardController implements Initializable {
                 final int col = c;
 
                 parent.setOnMouseClicked(e -> {
-                     SoundManager.getInstance().playButton("playClick");
+                    SoundManager.getInstance().playButton("playClick");
                     parent.setTranslateY(4);
                     Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), ev -> parent.setTranslateY(0)));
                     timeline.play();
@@ -258,7 +258,7 @@ public class DoubleBoardController implements Initializable {
 
     @FXML
     private void onActionBack(ActionEvent event) {
-    SoundManager.getInstance().playButton("back");
+        SoundManager.getInstance().playButton("back");
         NavigateBetweeenScreens.backToLevelSelection(event);
     }
 
@@ -309,7 +309,7 @@ public class DoubleBoardController implements Initializable {
     @FXML
     private void handleMousePressed(MouseEvent event) {
         Button btn = (Button) event.getSource();
-        btn.setTranslateY(4); 
+        btn.setTranslateY(4);
     }
 
     @FXML
