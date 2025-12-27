@@ -106,6 +106,18 @@ public class Available_playersController implements Initializable {
                         System.out.println("player_move moved: " + move);
 
                         break;
+                    case "invite_status_back":
+                        String status = json.getString("status");
+                        if ("accept".equals(status)) {
+                           
+                            NavigateBetweeenScreens.goToTwoPlayersMode(null, LoggedUser.name, Opponent.name);
+                        } else {
+                            
+                            Platform.runLater(() -> {
+                               
+                            });
+                        }
+                        break;
                 }
             });
         });
@@ -191,6 +203,7 @@ public class Available_playersController implements Initializable {
             LoggedUser.gmail = null;
             LoggedUser.score = 0;
             SoundManager.getInstance().playButton("back");
+
 
             NavigateBetweeenScreens.goToLogIn(NavigateBetweeenScreens.lastEvent);
         }

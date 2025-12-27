@@ -111,6 +111,7 @@ public class OfferController implements Initializable {
         response.put("status", status);
         response.put("to", fromPlayer);
         response.put("from", LoggedUser.name);
+        response.put("fromEmail", LoggedUser.gmail);
         ServerHandler.getInstance().send(response);
     }
 
