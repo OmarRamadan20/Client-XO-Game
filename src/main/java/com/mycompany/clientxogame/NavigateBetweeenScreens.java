@@ -98,7 +98,8 @@ private static void changeScenePlayRecords(ActionEvent event, String fxml, Strin
     public static void goToSingleMode(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/LevelSelection.fxml", "Level Selection");
     }
-
+    
+    
     public static void backToModeSelection(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/ModeSelection.fxml", "Mode Selection");
     }
@@ -210,6 +211,9 @@ private static void changeScenePlayRecords(ActionEvent event, String fxml, Strin
         changeScene(event, "/records/gameRecords.fxml", "Game Records");
      }
 
+  public static void  drawGame(){
+     changeScene(null,"/com/mycompany/clientxogame/draw.fxml","draw");
+      } 
     public static void winGame() {
         changeScene(null, "/com/mycompany/clientxogame/win.fxml", "Win");
     }
