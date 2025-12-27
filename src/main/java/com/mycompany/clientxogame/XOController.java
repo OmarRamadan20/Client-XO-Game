@@ -1,12 +1,12 @@
-package com.mycompany.clientxogame;
-
-import static com.mycompany.clientxogame.ServerHandler.getInstance;
+package com.mycompany.clientxogame; 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -30,17 +30,17 @@ import org.json.JSONObject;
 
 public class XOController implements Initializable {
 
-    @FXML
-    private Text cell00, cell01, cell02;
-    @FXML
-    private Text cell10, cell11, cell12;
-    @FXML
-    private Text cell20, cell21, cell22;
+     @FXML private Text cell00, cell01, cell02;
+    @FXML private Text cell10, cell11, cell12;
+    @FXML private Text cell20, cell21, cell22;
 
-    @FXML
-    private Line winLine;
-    @FXML
-    private VBox endGameBox;
+    @FXML private Line winLine;
+    @FXML private VBox endGameBox;
+
+    @FXML private Label Playerone;
+    @FXML private Label Playertwo;
+    @FXML private Label playerOneScore;
+    @FXML private Label PlayerTwoScore;
 
     @FXML
     private HBox recordingIndicator;
@@ -50,11 +50,12 @@ public class XOController implements Initializable {
     private Timeline recordTimeline;
 
     private Text[][] cells;
+    @FXML private Button idRecords;
+
+     private Text[][] cells;
     private String[][] board;
-    private boolean xTurn = true;
     private boolean gameOver = false;
-    private SingleMode ai = new SingleMode();
-    private String difficulty;
+
     private String mySymbol;
     private boolean myTurn;
     private String opponentName;
@@ -80,129 +81,116 @@ public class XOController implements Initializable {
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
+    private String winnerSymbol = "";
 
-    @Override
+    private int scoreX = 0;
+    private int scoreO = 0;
+
+    private final List<Move> moves = new ArrayList<>();
+    private boolean isRecord = false;
+
+     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         cells = new Text[][]{
-            {cell00, cell01, cell02},
-            {cell10, cell11, cell12},
-            {cell20, cell21, cell22}
+                {cell00, cell01, cell02},
+                {cell10, cell11, cell12},
+                {cell20, cell21, cell22}
         };
 
         resetBoard();
-
         setupCells();
-
+        endGameBox.setVisible(false);
     }
 
-    public void setOnlineMode(String opponent, String symbol, boolean turn) {
+     public void setOnlineMode(String opponent, String symbol, boolean turn) {
         this.opponentName = opponent;
         this.mySymbol = symbol;
         this.myTurn = turn;
-        Playerone.setText(this.opponentName);
+
+        Playerone.setText(opponentName);
         Playertwo.setText(LoggedUser.name);
 
-        System.out.println("Playing against: " + opponent + " | Symbol: " + symbol + " | My Turn: " + turn);
-
         ServerHandler.getInstance().setListener(json -> {
-            if (json.optString("type").equals("player_move")) {
-                String move = json.getString("move");
-                int r = Integer.parseInt(move.split(",")[0]);
-                int c = Integer.parseInt(move.split(",")[1]);
+            if ("player_move".equals(json.optString("type"))) {
+
+                String[] rc = json.getString("move").split(",");
+                int r = Integer.parseInt(rc[0]);
+                int c = Integer.parseInt(rc[1]);
 
                 Platform.runLater(() -> {
                     String opSymbol = mySymbol.equals("X") ? "O" : "X";
                     Color opColor = opSymbol.equals("X") ? Color.LIME : Color.HOTPINK;
-                    makeMove(r, c, opSymbol, opColor);
-                    this.myTurn = true;
 
-                    int winStatus = checkWin();
-                    if (winStatus != -1 || isBoardFull()) {
-                        handleGameOver(winStatus);
+                    makeMove(r, c, opSymbol, opColor);
+                    myTurn = true;
+
+                    int winCode = checkWin();
+                    if (winCode != -1 || isBoardFull()) {
+                        handleGameOver(winCode);
                     }
                 });
             }
         });
     }
 
-    private void resetBoard() {
+     private void resetBoard() {
         board = new String[][]{
-            {"", "", ""},
-            {"", "", ""},
-            {"", "", ""}
+                {"", "", ""},
+                {"", "", ""},
+                {"", "", ""}
         };
     }
 
     private void setupCells() {
         for (int r = 0; r < 3; r++) {
             for (int c = 0; c < 3; c++) {
+
                 Text cell = cells[r][c];
                 StackPane parent = (StackPane) cell.getParent();
-                final int row = r;
-                final int col = c;
+                int row = r, col = c;
 
                 parent.setOnMouseClicked(e -> {
+
+                    if (gameOver || !cell.getText().isEmpty() || !myTurn) return;
+
                     SoundManager.getInstance().playButton("playClick");
-                    parent.setTranslateY(4);
-                    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), ev -> parent.setTranslateY(0)));
-                    timeline.play();
 
-                    if (gameOver || !cell.getText().isEmpty() || !myTurn) {
-                        return;
-                    }
-
-                    String colorStr = mySymbol.equals("X") ? "LIME" : "HOTPINK";
-                    makeMove(row, col, mySymbol, Color.valueOf(colorStr));
+                    makeMove(row, col, mySymbol,
+                            mySymbol.equals("X") ? Color.LIME : Color.HOTPINK);
 
                     myTurn = false;
 
-                    JSONObject moveRequest = new JSONObject();
-                    moveRequest.put("type", "move");
-                    moveRequest.put("to", NavigateBetweeenScreens.currentOpponent);
-                    moveRequest.put("from", LoggedUser.name);
-                    moveRequest.put("move", row + "," + col);
+                    JSONObject req = new JSONObject();
+                    req.put("type", "move");
+                    req.put("from", LoggedUser.name);
+                    req.put("to", NavigateBetweeenScreens.currentOpponent);
+                    req.put("move", row + "," + col);
+                    ServerHandler.getInstance().send(req);
 
-                    ServerHandler.getInstance().send(moveRequest);
-
-                    int winStatus = checkWin();
-                    if (winStatus != -1 || isBoardFull()) {
-                        handleGameOver(winStatus);
+                    int winCode = checkWin();
+                    if (winCode != -1 || isBoardFull()) {
+                        handleGameOver(winCode);
                     }
                 });
             }
         }
     }
 
-    String winnerSymbol = " ";
+     private void handleGameOver(int winCode) {
 
-    private void handleGameOver(int winCode) {
         gameOver = true;
 
         if (winCode != -1) {
             drawWinLine(winCode);
 
-            winnerSymbol = "";
-            if (winCode >= 0 && winCode <= 2) {
-                winnerSymbol = board[winCode][0];
-            } else if (winCode >= 3 && winCode <= 5) {
-                int col = winCode - 3;
-                winnerSymbol = board[0][col];
-            } else if (winCode == 6) {
-                winnerSymbol = board[0][0];
-            } else if (winCode == 7) {
-                winnerSymbol = board[0][2];
-            }
-
-            if (!myTurn) {
-                System.out.println("You Win!");
-            } else {
-                System.out.println("You Lose!");
-            }
+            if (winCode <= 2) winnerSymbol = board[winCode][0];
+            else if (winCode <= 5) winnerSymbol = board[0][winCode - 3];
+            else if (winCode == 6) winnerSymbol = board[0][0];
+            else winnerSymbol = board[0][2];
 
         } else {
-            System.out.println("Draw");
-            winnerSymbol = "";
+            winnerSymbol = "";  
         }
 
         endGameBox.setVisible(true);
@@ -218,16 +206,39 @@ public class XOController implements Initializable {
         idRecords.setText("Saved!");
         idRecords.setStyle("-fx-background-color: #2ed573; -fx-background-radius: 50; -fx-text-fill: white;");
     }
+            GameFileManager.save(moves, LoggedUser.name, opponentName);
+        }
+
+        Platform.runLater(() -> {
+            PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
+            pause.setOnFinished(e -> {
+
+                if (winnerSymbol.isEmpty()) {
+                  NavigateBetweeenScreens.drawGame();  
+                } else if (winnerSymbol.equals(mySymbol)) {
+                    NavigateBetweeenScreens.winGame();
+                } else {
+                    NavigateBetweeenScreens.loseGame();
+                }
+
+            });
+            pause.play();
+        });
+
+        updateScore();
     }
 
     private void updateScore() {
-        if (xTurn) {
+       if(!winnerSymbol.isEmpty())
+       {         
+        if ("X".equals(winnerSymbol)) {
             scoreX++;
             playerOneScore.setText(String.valueOf(scoreX));
-        } else {
+        } else if ("O".equals(winnerSymbol)) {
             scoreO++;
             PlayerTwoScore.setText(String.valueOf(scoreO));
         }
+     
     }
 
     private void handleInsertGameResult() {
@@ -240,158 +251,109 @@ public class XOController implements Initializable {
         ServerHandler.getInstance().send(request);
     }
 
-    private String determineWinnerGmail() {
-        if (winnerSymbol.equals(mySymbol)) {
-            return LoggedUser.gmail;
-        } else if (!winnerSymbol.equals("")) {
-            return Opponent.gmail;
-        }
-        return "";
+     private void handleInsertGameResult() {
+        JSONObject req = new JSONObject();
+        req.put("type", "game_result");
+        req.put("gmail1", LoggedUser.gmail);
+        req.put("gmail2", Opponent.gmail);
+        req.put("gmailWin",winnerSymbol.isEmpty() ? "draw": winnerSymbol.equals(mySymbol) ? LoggedUser.gmail : Opponent.gmail);
+        ServerHandler.getInstance().send(req);
     }
 
-    private void handleGetScore(JSONObject response) {
-
-        String type = response.getString("type");
-
-        if (type.equals("getScore_response")) {
-
-            String status = response.getString("status");
-
-            if (status.equals("success")) {
-                LoggedUser.score = response.getInt("score");
-                System.out.println("Score = " + LoggedUser.score);
-            } else {
-                System.out.println("Error: " + response.getString("message"));
-            }
-        }
-    }
-
-    private void makeMove(int row, int col, String player, Color color) {
-        cells[row][col].setText(player);
+     private void makeMove(int row, int col, String symbol, Color color) {
+        cells[row][col].setText(symbol);
         cells[row][col].setFill(color);
-        board[row][col] = player;
-        int playerId = player.equals("X") ? 0 : 1;
-        moves.add(new Move(playerId, row, col));
+        board[row][col] = symbol;
+        moves.add(new Move(symbol.equals("X") ? 0 : 1, row, col));
     }
 
-    private int checkWin() {
-        for (int r = 0; r < 3; r++) {
-            if (!board[r][0].equals("")
-                    && board[r][0].equals(board[r][1])
-                    && board[r][1].equals(board[r][2])) {
-                return r;
-            }
+     private int checkWin() {
+        for (int i = 0; i < 3; i++) {
+            if (!board[i][0].isEmpty() &&
+                board[i][0].equals(board[i][1]) &&
+                board[i][1].equals(board[i][2])) return i;
+
+            if (!board[0][i].isEmpty() &&
+                board[0][i].equals(board[1][i]) &&
+                board[1][i].equals(board[2][i])) return i + 3;
         }
 
-        for (int c = 0; c < 3; c++) {
-            if (!board[0][c].equals("")
-                    && board[0][c].equals(board[1][c])
-                    && board[1][c].equals(board[2][c])) {
-                return c + 3;
-            }
-        }
+        if (!board[0][0].isEmpty() && board[0][0].equals(board[1][1]) &&
+            board[1][1].equals(board[2][2])) return 6;
 
-        if (!board[0][0].equals("") && board[0][0].equals(board[1][1])
-                && board[1][1].equals(board[2][2])) {
-            return 6;
-        }
-        if (!board[0][2].equals("") && board[0][2].equals(board[1][1])
-                && board[1][1].equals(board[2][0])) {
-            return 7;
-        }
+        if (!board[0][2].isEmpty() && board[0][2].equals(board[1][1]) &&
+            board[1][1].equals(board[2][0])) return 7;
 
         return -1;
     }
 
     private boolean isBoardFull() {
-        for (String[] row : board) {
-            for (String cell : row) {
-                if (cell.equals("")) {
-                    return false;
-                }
-            }
-        }
+        for (String[] r : board)
+            for (String c : r)
+                if (c.isEmpty()) return false;
         return true;
     }
 
     private void drawWinLine(int code) {
-        winLine.setVisible(true);
-        switch (code) {
-            case 0:
-                setLineForRow(0);
-                break;
-            case 1:
-                setLineForRow(1);
-                break;
-            case 2:
-                setLineForRow(2);
-                break;
-            case 3:
-                setLineForCol(0);
-                break;
-            case 4:
-                setLineForCol(1);
-                break;
-            case 5:
-                setLineForCol(2);
-                break;
-            case 6:
-                setLineForDiag(true);
-                break;
-            case 7:
-                setLineForDiag(false);
-                break;
-        }
+    winLine.setVisible(true);
+
+    StackPane start = null;
+    StackPane end = null;
+
+    switch (code) {
+        case 0:
+            start = (StackPane) cells[0][0].getParent();
+            end   = (StackPane) cells[0][2].getParent();
+            break;
+
+        case 1:
+            start = (StackPane) cells[1][0].getParent();
+            end   = (StackPane) cells[1][2].getParent();
+            break;
+
+        case 2:
+            start = (StackPane) cells[2][0].getParent();
+            end   = (StackPane) cells[2][2].getParent();
+            break;
+
+        case 3:
+            start = (StackPane) cells[0][0].getParent();
+            end   = (StackPane) cells[2][0].getParent();
+            break;
+
+        case 4:
+            start = (StackPane) cells[0][1].getParent();
+            end   = (StackPane) cells[2][1].getParent();
+            break;
+
+        case 5:
+            start = (StackPane) cells[0][2].getParent();
+            end   = (StackPane) cells[2][2].getParent();
+            break;
+
+        case 6:
+            start = (StackPane) cells[0][0].getParent();
+            end   = (StackPane) cells[2][2].getParent();
+            break;
+
+        case 7:
+            start = (StackPane) cells[0][2].getParent();
+            end   = (StackPane) cells[2][0].getParent();
+            break;
     }
 
-    private void setLineForRow(int row) {
-        setLineBounds((StackPane) cells[row][0].getParent(), (StackPane) cells[row][2].getParent());
+    if (start != null && end != null) {
+        Bounds sb = start.localToParent(start.getLayoutBounds());
+        Bounds eb = end.localToParent(end.getLayoutBounds());
+
+        winLine.setStartX(sb.getMinX() + sb.getWidth() / 2);
+        winLine.setStartY(sb.getMinY() + sb.getHeight() / 2);
+        winLine.setEndX(eb.getMinX() + eb.getWidth() / 2);
+        winLine.setEndY(eb.getMinY() + eb.getHeight() / 2);
     }
+}
 
-    private void setLineForCol(int col) {
-        setLineBounds((StackPane) cells[0][col].getParent(), (StackPane) cells[2][col].getParent());
-    }
-
-    private void setLineForDiag(boolean leftToRight) {
-        if (leftToRight) {
-            setLineBounds((StackPane) cells[0][0].getParent(), (StackPane) cells[2][2].getParent());
-        } else {
-            setLineBounds((StackPane) cells[0][2].getParent(), (StackPane) cells[2][0].getParent());
-        }
-    }
-
-    private void setLineBounds(StackPane start, StackPane end) {
-        Bounds s = start.localToParent(start.getLayoutBounds());
-        Bounds e = end.localToParent(end.getLayoutBounds());
-
-        winLine.setStartX(s.getMinX() + s.getWidth() / 2);
-        winLine.setStartY(s.getMinY() + s.getHeight() / 2);
-        winLine.setEndX(e.getMinX() + e.getWidth() / 2);
-        winLine.setEndY(e.getMinY() + e.getHeight() / 2);
-    }
-
-    @FXML
-    private void onPlayAgain() {
-        resetBoard();
-        xTurn = true;
-        gameOver = false;
-        winLine.setVisible(false);
-        endGameBox.setVisible(false);
-
-        for (Text[] row : cells) {
-            for (Text cell : row) {
-                cell.setText("");
-            }
-        }
-    }
-
-    @FXML
-    private void onBack() {
-        SoundManager.getInstance().playButton("back");
-        System.exit(0);
-    }
-
-    @FXML
+     @FXML
     private void onActionRecode(ActionEvent event) {
                 SoundManager.getInstance().playButton("enter");
 
@@ -469,5 +431,8 @@ public class XOController implements Initializable {
     private void handleMouseReleased(MouseEvent event) {
         Button btn = (Button) event.getSource();
         btn.setTranslateY(0);
+    }
+        SoundManager.getInstance().playButton("enter");
+        isRecord = true;
     }
 }

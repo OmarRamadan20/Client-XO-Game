@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.MediaView;
 import javafx.util.Duration;
 import static javafx.util.Duration.seconds;
 import org.json.JSONObject;
@@ -30,8 +31,6 @@ import org.json.JSONObject;
 public class AcceptController implements Initializable {
 
     @FXML
-    private Button cancelBtn;
-    @FXML
     private Label timeId;
     /**
      * Initializes the controller class.
@@ -42,6 +41,8 @@ public class AcceptController implements Initializable {
     private String fromPlayer;
     @FXML
     private ProgressIndicator timerIndicator;
+    @FXML
+    private Button cancelBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -121,9 +122,6 @@ public class AcceptController implements Initializable {
         NavigateBetweeenScreens.goToAvailablePlayer(event);
     }
 
-    @FXML
-    private void onActionTimeLine(MouseEvent event) {
-    }
 
     private void stopTimeline() {
         if (timeline != null) {
@@ -158,5 +156,6 @@ public class AcceptController implements Initializable {
     private void handleMouseReleased(MouseEvent event) {
         ((Button) event.getSource()).setTranslateY(0);
     }
+
 
 }

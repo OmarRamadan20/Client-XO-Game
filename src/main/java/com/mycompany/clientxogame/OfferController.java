@@ -110,9 +110,12 @@ public class OfferController implements Initializable {
         response.put("type", "invite_response");
         response.put("status", status);
         response.put("to", fromPlayer);
+        
         response.put("from", LoggedUser.name);
+ 
         response.put("fromEmail", LoggedUser.gmail);
-        ServerHandler.getInstance().send(response);
+         ServerHandler.getInstance().send(response);
+        
     }
 
     private void stopTimeline() {

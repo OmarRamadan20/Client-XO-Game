@@ -177,6 +177,7 @@ public class Available_playersController implements Initializable {
         server.send(request);
     }
 
+   
     @FXML
     private void invitePlayer(ActionEvent event) {
         Player selected = playersList.getSelectionModel().getSelectedItem();
@@ -195,7 +196,7 @@ public class Available_playersController implements Initializable {
             NavigateBetweeenScreens.lastEvent = event;
             NavigateBetweeenScreens.goToWaitAccept(event);
         }
-    }
+     }
 
     private void handleLogoutResponse(JSONObject response) {
         if ("success".equals(response.optString("status"))) {

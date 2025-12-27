@@ -34,29 +34,33 @@ public class ModeSelectionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+ 
         SoundManager.getInstance().playBackgroundMusic();
 
-    }
+     }
 
     @FXML
     private void onActionBtmSingle(ActionEvent event) {
+ 
         SoundManager.getInstance().playButton("enter");
 
-        NavigateBetweeenScreens.goToSingleMode(event);
+         NavigateBetweeenScreens.goToSingleMode(event);
     }
 
     @FXML
     private void onActionBtmPlayer(ActionEvent event) {
+ 
         SoundManager.getInstance().playButton("enter");
         NavigateBetweeenScreens.goToDoubleMode(event);
-
+ 
     }
 
     @FXML
     private void onActionOnline(ActionEvent event) {
+ 
         SoundManager.getInstance().playButton("enter");
         NavigateBetweeenScreens.goToLogIn(event);
-
+ 
     }
 
     @FXML

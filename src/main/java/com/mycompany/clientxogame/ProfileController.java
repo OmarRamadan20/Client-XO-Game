@@ -32,13 +32,12 @@ public class ProfileController implements Initializable {
     private Button BackButtonId;
     @FXML
     private Button RecordsButtonId;
+ 
 
     @FXML
     private Button HistoryButtonId;
 
-    /**
-     * Initializes the controller class.
-     */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LableId.setText(LoggedUser.name);
@@ -48,15 +47,17 @@ public class ProfileController implements Initializable {
 
     @FXML
     private void onBack(ActionEvent event) {
+ 
         SoundManager.getInstance().playButton("back");
         NavigateBetweeenScreens.backFromProfile(event);
-    }
+     }
 
     @FXML
     private void onRecord(ActionEvent event) {
+ 
         SoundManager.getInstance().playButton("enter");
         NavigateBetweeenScreens.goToShowRecords(event);
-    }
+     }
 
     @FXML
     private void onHistory(ActionEvent event) {
@@ -89,6 +90,12 @@ public class ProfileController implements Initializable {
     @FXML
     private void handleMouseReleased(MouseEvent event) {
         ((Button) event.getSource()).setTranslateY(0);
+    }
+
+    @FXML
+    private void onHistory(ActionEvent event) {
+   NavigateBetweeenScreens.goToShowHistory(event);
+    
     }
 
 }

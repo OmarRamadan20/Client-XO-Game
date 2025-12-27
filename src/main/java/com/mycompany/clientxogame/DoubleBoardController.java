@@ -60,8 +60,9 @@ public class DoubleBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+ 
         cells = new Text[][]{
-            {cell00, cell01, cell02},
+             {cell00, cell01, cell02},
             {cell10, cell11, cell12},
             {cell20, cell21, cell22}
         };
@@ -242,7 +243,6 @@ public class DoubleBoardController implements Initializable {
         winLine.setEndY(endPoint.getY());
     }
 
-    @FXML
     public void resetGame() {
         for (int r = 0; r < 3; r++) {
             for (int c = 0; c < 3; c++) {
@@ -258,8 +258,9 @@ public class DoubleBoardController implements Initializable {
 
     @FXML
     private void onActionBack(ActionEvent event) {
+ 
         SoundManager.getInstance().playButton("back");
-        NavigateBetweeenScreens.backToLevelSelection(event);
+         NavigateBetweeenScreens.backToLevelSelection(event);
     }
 
     @FXML

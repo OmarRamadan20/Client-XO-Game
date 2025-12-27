@@ -1,3 +1,4 @@
+
 package com.mycompany.clientxogame;
 
 import java.io.IOException;
@@ -73,3 +74,4 @@ public class SplashScreenController implements Initializable {
         currentStage.close();
     }
 }
+ 

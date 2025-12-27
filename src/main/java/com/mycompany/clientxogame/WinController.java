@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
 /**
@@ -26,19 +28,29 @@ public class WinController implements Initializable {
     private Button playAgainButton;
     @FXML
     private MediaView mediaView;
-    @FXML
-    private Label result;
 
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+@Override
+public void initialize(URL url, ResourceBundle rb) {
+
+    String path = getClass()
+            .getResource("/videos/win.mp4")
+            .toExternalForm();
+
+    Media media = new Media(path);
+    MediaPlayer mediaPlayer = new MediaPlayer(media);
+
+    mediaView.setMediaPlayer(mediaPlayer);
+
+    mediaPlayer.play();   
+}
 
     @FXML
     private void newGame(ActionEvent event) {
+    NavigateBetweeenScreens.goToNewGame(event);
+    
     }
 
     @FXML
