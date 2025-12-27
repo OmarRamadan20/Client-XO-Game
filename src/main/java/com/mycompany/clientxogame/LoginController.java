@@ -79,13 +79,17 @@ public class LoginController implements Initializable, ServerListener {
 
     @FXML
     private void register(ActionEvent event) {
-         NavigateBetweeenScreens.goToRegister(event);
-    }
+ 
+    SoundManager.getInstance().playButton("enter");
+        NavigateBetweeenScreens.goToRegister(event);
+     }
 
     @FXML
     private void actionBtn(ActionEvent event) {
-         NavigateBetweeenScreens.backToModeSelection(event);
-    }
+ 
+    SoundManager.getInstance().playButton("back");
+        NavigateBetweeenScreens.backToModeSelection(event);
+     }
 
     @FXML
     private void handleMouseEnter(javafx.scene.input.MouseEvent event) {

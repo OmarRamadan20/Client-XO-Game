@@ -99,6 +99,11 @@ public class Two_players_boardController implements Initializable {
                 final int col = c;
 
                 parent.setOnMouseClicked(e -> {
+                    SoundManager.getInstance().playButton("playClick");
+                    parent.setTranslateY(4);
+                    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), ev -> parent.setTranslateY(0)));
+                    timeline.play();
+
                     if (gameOver || board[row][col] != null) {
                         return;
                     }
@@ -129,6 +134,8 @@ public class Two_players_boardController implements Initializable {
 
                     xTurn = !xTurn;
                 });
+                parent.setOnMouseEntered(this::handleCellHover);
+                parent.setOnMouseExited(this::handleCellExit);
             }
         }
     }
@@ -253,10 +260,12 @@ public class Two_players_boardController implements Initializable {
 
     @FXML
     private void onBack(ActionEvent event) {
-         NavigateBetweeenScreens.gotoModeSelection(event);
-        System.out.println("Back button clicked!");
+ 
+        SoundManager.getInstance().playButton("back");
+        NavigateBetweeenScreens.gotoModeSelection(event);
+         System.out.println("Back button clicked!");
     }
-    
+
     @FXML
     private void handleCellHover(MouseEvent event) {
         StackPane pane = (StackPane) event.getSource();
@@ -304,7 +313,7 @@ public class Two_players_boardController implements Initializable {
     @FXML
     private void handleMousePressed(MouseEvent event) {
         Button btn = (Button) event.getSource();
-        btn.setTranslateY(4); 
+        btn.setTranslateY(4);
     }
 
     @FXML

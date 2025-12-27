@@ -25,7 +25,8 @@ public class App extends Application {
         stage.centerOnScreen();
         stage.show();
     }
-
+    
+    
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }

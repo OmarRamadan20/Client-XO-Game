@@ -47,8 +47,10 @@ public class signUpController implements Initializable {
 
     @FXML
     private void ActionBack(ActionEvent event) {
-         NavigateBetweeenScreens.goToLogIn(event);
-    }
+ 
+        SoundManager.getInstance().playButton("back");
+        NavigateBetweeenScreens.goToLogIn(event);
+     }
 
     @FXML
     private void signUp(ActionEvent event) {
@@ -91,8 +93,10 @@ public class signUpController implements Initializable {
                         showSimpleMessage("Registration successful! Welcome " + name);
                         javafx.animation.PauseTransition delay = new javafx.animation.PauseTransition(javafx.util.Duration.seconds(2));
                         delay.setOnFinished(e -> {
-                             NavigateBetweeenScreens.goToLogIn(event);
-                        });
+ 
+                            SoundManager.getInstance().playButton("enter");
+                            NavigateBetweeenScreens.goToLogIn(event);
+                         });
                         delay.play();
                     });
                 } else {
@@ -125,7 +129,7 @@ public class signUpController implements Initializable {
     @FXML
     private void OnActionPassword(ActionEvent event) {
     }
-    
+
     @FXML
     private void handleMouseEnter(javafx.scene.input.MouseEvent event) {
         Button btn = (Button) event.getSource();
@@ -137,16 +141,16 @@ public class signUpController implements Initializable {
     @FXML
     private void handleMouseExit(javafx.scene.input.MouseEvent event) {
         Button btn = (Button) event.getSource();
-        
+
         btn.setScaleX(1.0);
         btn.setScaleY(1.0);
         btn.setOpacity(1.0);
     }
-    
+
     @FXML
     private void handleMousePressed(MouseEvent event) {
         Button btn = (Button) event.getSource();
-        btn.setTranslateY(4); 
+        btn.setTranslateY(4);
     }
 
     @FXML
@@ -154,6 +158,5 @@ public class signUpController implements Initializable {
         Button btn = (Button) event.getSource();
         btn.setTranslateY(0);
     }
-    
 
 }

@@ -63,6 +63,8 @@ public class AcceptController implements Initializable {
                         NavigateBetweeenScreens.mySymbol = "X";
                         NavigateBetweeenScreens.isMyTurn = true;
                         NavigateBetweeenScreens.currentOpponent = NavigateBetweeenScreens.invitedFrom;
+                        SoundManager.getInstance().playButton("enter");
+
                         NavigateBetweeenScreens.goToPlay(null);
                     } else {
                         NavigateBetweeenScreens.goToAvailablePlayer(null);
@@ -115,6 +117,7 @@ public class AcceptController implements Initializable {
         response.put("from", LoggedUser.name);
 
         ServerHandler.getInstance().send(response);
+        SoundManager.getInstance().playButton("back");
 
         NavigateBetweeenScreens.goToAvailablePlayer(event);
     }

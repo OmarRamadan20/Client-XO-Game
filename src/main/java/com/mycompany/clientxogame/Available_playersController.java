@@ -186,6 +186,7 @@ public class Available_playersController implements Initializable {
             request.put("type", "invite");
             request.put("to", selected.getName());
             request.put("from", LoggedUser.name);
+            SoundManager.getInstance().playButton("enter");
 
             NavigateBetweeenScreens.invitedFrom = selected.getName();
             Opponent.gmail = selected.getGmail();
@@ -202,6 +203,8 @@ public class Available_playersController implements Initializable {
             LoggedUser.name = null;
             LoggedUser.gmail = null;
             LoggedUser.score = 0;
+            SoundManager.getInstance().playButton("back");
+
 
             NavigateBetweeenScreens.goToLogIn(NavigateBetweeenScreens.lastEvent);
         }
@@ -209,11 +212,15 @@ public class Available_playersController implements Initializable {
 
     @FXML
     private void refreshPlayers(ActionEvent event) {
+        SoundManager.getInstance().playButton("enter");
+
         requestPlayersFromServer();
     }
 
     @FXML
     private void showProfile(ActionEvent event) {
+
+        SoundManager.getInstance().playButton("enter");
 
         NavigateBetweeenScreens.goToShowProfile(event);
 

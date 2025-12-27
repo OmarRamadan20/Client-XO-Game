@@ -20,9 +20,12 @@ public class LevelSelectionController implements Initializable {
     private Button btmHard;
     @FXML
     private Button btmBack;
+    
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
     }
 
     @FXML
@@ -55,21 +58,29 @@ public class LevelSelectionController implements Initializable {
     @FXML
     private void onActionBtmEasy(ActionEvent event) {
  
-        NavigateBetweeenScreens.goToEasyLevel(event);
+    SoundManager.getInstance().playButton("enter");
+
+         NavigateBetweeenScreens.goToEasyLevel(event);
     }
 
     @FXML
     private void onActionBtmMedium(ActionEvent event) {
-         NavigateBetweeenScreens.goToMeduimLevel(event);
-    }
+ 
+    SoundManager.getInstance().playButton("enter");
+        NavigateBetweeenScreens.goToMeduimLevel(event);
+     }
 
     @FXML
     private void onActionHard(ActionEvent event) {
-         NavigateBetweeenScreens.goToHardLevel(event);
-    }
+ 
+    SoundManager.getInstance().playButton("enter");
+        NavigateBetweeenScreens.goToHardLevel(event);
+     }
 
     @FXML
     private void onActionBack(ActionEvent event) {
-         NavigateBetweeenScreens.backToModeSelection(event);
-    }
+ 
+    SoundManager.getInstance().playButton("back");
+        NavigateBetweeenScreens.backToModeSelection(event);
+     }
 }

@@ -63,7 +63,6 @@ public class OfferController implements Initializable {
             secondsRemaining--;
             timeId.setText(String.valueOf(secondsRemaining));
 
-            // تحديث الدائرة (البروجرس)
             double progress = secondsRemaining / 10.0;
             timerIndicator.setProgress(progress);
 
@@ -87,6 +86,8 @@ public class OfferController implements Initializable {
     @FXML
     private void onActionOfCourse(ActionEvent event) {
         stopTimeline();
+            SoundManager.getInstance().playButton("enter");
+
         NavigateBetweeenScreens.mySymbol = "O";
         NavigateBetweeenScreens.isMyTurn = false;
         NavigateBetweeenScreens.currentOpponent = fromPlayer;
@@ -99,6 +100,8 @@ public class OfferController implements Initializable {
     private void onActionTimeAnTher(ActionEvent event) {
         stopTimeline();
         sendResponse("later");
+            SoundManager.getInstance().playButton("back");
+
         NavigateBetweeenScreens.goToAvailablePlayer(event);
     }
 

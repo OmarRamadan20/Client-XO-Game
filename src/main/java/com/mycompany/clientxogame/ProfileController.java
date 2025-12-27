@@ -14,13 +14,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+
 /**
  * FXML Controller class
  *
  * @author Aladawy
  */
 public class ProfileController implements Initializable {
-
 
     @FXML
     private ImageView ImageId;
@@ -32,29 +32,32 @@ public class ProfileController implements Initializable {
     private Button BackButtonId;
     @FXML
     private Button RecordsButtonId;
-    @FXML
-    private Button history;
-    /**
+ 
+
+     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    LableId.setText(LoggedUser.name);
-    ScoreId.setText(String.valueOf(LoggedUser.score));
+        LableId.setText(LoggedUser.name);
+        ScoreId.setText(String.valueOf(LoggedUser.score));
 
-    }    
-    
+    }
+
     @FXML
     private void onBack(ActionEvent event) {
-         NavigateBetweeenScreens.backFromProfile(event);
-    }
+ 
+        SoundManager.getInstance().playButton("back");
+        NavigateBetweeenScreens.backFromProfile(event);
+     }
 
     @FXML
     private void onRecord(ActionEvent event) {
-         NavigateBetweeenScreens.goToShowRecords(event);
-    }
-    
-    
+ 
+        SoundManager.getInstance().playButton("enter");
+        NavigateBetweeenScreens.goToShowRecords(event);
+     }
+
     @FXML
     private void handleMouseEnter(javafx.scene.input.MouseEvent event) {
         Button btn = (Button) event.getSource();
@@ -66,7 +69,7 @@ public class ProfileController implements Initializable {
     @FXML
     private void handleMouseExit(javafx.scene.input.MouseEvent event) {
         Button btn = (Button) event.getSource();
-        
+
         btn.setScaleX(1.0);
         btn.setScaleY(1.0);
         btn.setOpacity(1.0);
