@@ -5,6 +5,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,11 +15,14 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.json.JSONObject;
 
 public class XOController implements Initializable {
@@ -364,12 +370,71 @@ public class XOController implements Initializable {
 
     @FXML
     private void onBack() {
+        SoundManager.getInstance().playButton("back");
         System.exit(0);
     }
 
     @FXML
     private void onActionRecode(ActionEvent event) {
+                SoundManager.getInstance().playButton("enter");
 
         isRecord = true;
+    }
+    
+    
+    @FXML
+    private void handleCellHover(MouseEvent event) {
+        StackPane pane = (StackPane) event.getSource();
+        pane.setScaleX(1.05);
+        pane.setScaleY(1.05);
+        ((Rectangle) pane.getChildren().get(0)).setFill(javafx.scene.paint.Color.web("#3d0158"));
+    }
+
+    @FXML
+    private void handleCellExit(MouseEvent event) {
+        StackPane pane = (StackPane) event.getSource();
+        pane.setScaleX(1.0);
+        pane.setScaleY(1.0);
+        ((Rectangle) pane.getChildren().get(0)).setFill(javafx.scene.paint.Color.web("#2c003e"));
+    }
+
+    @FXML
+    private void handleCellClick(MouseEvent event) {
+        StackPane pane = (StackPane) event.getSource();
+
+        pane.setTranslateY(4);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> pane.setTranslateY(0)));
+        timeline.play();
+
+    }
+
+    @FXML
+    private void handleMouseEnter(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+        st.setToX(1.07);
+        st.setToY(1.07);
+        st.play();
+    }
+
+    @FXML
+    private void handleMouseExit(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.play();
+    }
+
+    @FXML
+    private void handleMousePressed(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(4); 
+    }
+
+    @FXML
+    private void handleMouseReleased(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(0);
     }
 }
