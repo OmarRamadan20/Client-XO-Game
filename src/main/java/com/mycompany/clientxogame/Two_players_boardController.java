@@ -81,6 +81,7 @@ public class Two_players_boardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+ 
         cells = new Text[][]{
             {cell00, cell01, cell02},
             {cell10, cell11, cell12},
@@ -259,9 +260,10 @@ public class Two_players_boardController implements Initializable {
 
     @FXML
     private void onBack(ActionEvent event) {
+ 
         SoundManager.getInstance().playButton("back");
         NavigateBetweeenScreens.gotoModeSelection(event);
-        System.out.println("Back button clicked!");
+         System.out.println("Back button clicked!");
     }
 
     @FXML

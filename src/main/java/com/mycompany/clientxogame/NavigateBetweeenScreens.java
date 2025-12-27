@@ -134,10 +134,22 @@ private static void changeScenePlayRecords(ActionEvent event, String fxml, Strin
 
     public static void goToShowProfile(ActionEvent event) {
 
-        // changeScene(event, "/UI/players/available_players.fxml", "Available Players");
+ 
         changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
 
     }
+    
+    public static void goToShowHistory(ActionEvent event) {
+
+        changeScene(event, "/records/gameHistory.fxml", "Profile");
+     }
+
+     public static void backToShowHistory(ActionEvent event) {
+
+        changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
+     }
+    
+    
 
     public static void logOut(ActionEvent event) {
         changeScene(event, "/UI/Register/signUp.fxml", "Sign Up");
@@ -198,12 +210,12 @@ private static void changeScenePlayRecords(ActionEvent event, String fxml, Strin
         changeScene(event, "/records/gameRecords.fxml", "Game Records");
      }
 
-    public static void winGame(ActionEvent event) {
-        changeScene(event, "/com/mycompany/clientxogame/win.fxml", "Win");
+    public static void winGame() {
+        changeScene(null, "/com/mycompany/clientxogame/win.fxml", "Win");
     }
 
-    public static void loseGame(ActionEvent event) {
-        changeScene(event, "/com/mycompany/clientxogame/lose.fxml", "Lose");
+    public static void loseGame() {
+        changeScene(null, "/com/mycompany/clientxogame/lose.fxml", "Lose");
     }
 
     public static void goToPlayAgain(ActionEvent event) {
@@ -294,3 +306,4 @@ private static void changeScenePlayRecords(ActionEvent event, String fxml, Strin
     }
 
 }
+

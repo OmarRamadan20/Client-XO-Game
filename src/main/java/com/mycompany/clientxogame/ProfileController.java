@@ -32,8 +32,9 @@ public class ProfileController implements Initializable {
     private Button BackButtonId;
     @FXML
     private Button RecordsButtonId;
+ 
 
-    /**
+     /**
      * Initializes the controller class.
      */
     @Override
@@ -45,15 +46,17 @@ public class ProfileController implements Initializable {
 
     @FXML
     private void onBack(ActionEvent event) {
+ 
         SoundManager.getInstance().playButton("back");
         NavigateBetweeenScreens.backFromProfile(event);
-    }
+     }
 
     @FXML
     private void onRecord(ActionEvent event) {
+ 
         SoundManager.getInstance().playButton("enter");
         NavigateBetweeenScreens.goToShowRecords(event);
-    }
+     }
 
     @FXML
     private void handleMouseEnter(javafx.scene.input.MouseEvent event) {
@@ -80,6 +83,12 @@ public class ProfileController implements Initializable {
     @FXML
     private void handleMouseReleased(MouseEvent event) {
         ((Button) event.getSource()).setTranslateY(0);
+    }
+
+    @FXML
+    private void onHistory(ActionEvent event) {
+   NavigateBetweeenScreens.goToShowHistory(event);
+    
     }
 
 }

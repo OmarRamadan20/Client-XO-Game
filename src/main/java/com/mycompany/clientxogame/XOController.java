@@ -5,10 +5,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+ 
 import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
+ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -63,9 +64,9 @@ public class XOController implements Initializable {
     private Label PlayerTwoScore;
 
     char operant = '+';
-
     int scoreX = 0;
-        int scoreO = 0;
+    int scoreO = 0;
+
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
@@ -166,6 +167,7 @@ public class XOController implements Initializable {
     String winnerSymbol = " ";
 
     private void handleGameOver(int winCode) {
+
         gameOver = true;
 
         if (winCode != -1) {
@@ -201,9 +203,23 @@ public class XOController implements Initializable {
         if (isRecord) {
             GameFileManager.save(moves, LoggedUser.name, opponentName);
         }
-        
+
         updateScore();
+    /*   
+        PauseTransition pause = new PauseTransition(Duration.seconds(.5));
+        pause.setOnFinished(e -> {
+            if (!winnerSymbol.equals("")) {
+                if (winnerSymbol.equals(mySymbol)) {
+                    NavigateBetweeenScreens.winGame();
+                } else {
+                    NavigateBetweeenScreens.loseGame();
+                }
+            }
+        });
+        pause.play();
+*/
     }
+
     private void updateScore() {
         if (xTurn) {
             scoreX++;
@@ -213,9 +229,6 @@ public class XOController implements Initializable {
             PlayerTwoScore.setText(String.valueOf(scoreO));
         }
     }
-    
-    
-    
 
     private void handleInsertGameResult() {
         JSONObject request = new JSONObject();
@@ -232,8 +245,9 @@ public class XOController implements Initializable {
             return LoggedUser.gmail;
         } else if (!winnerSymbol.equals("")) {
             return Opponent.gmail;
+        } else {
+            return "Draw";
         }
-        return "";
     }
 
     private void handleGetScore(JSONObject response) {
@@ -357,6 +371,7 @@ public class XOController implements Initializable {
         winLine.setEndY(e.getMinY() + e.getHeight() / 2);
     }
 
+ 
     @FXML
     private void onPlayAgain() {
         resetBoard();
@@ -377,15 +392,15 @@ public class XOController implements Initializable {
         SoundManager.getInstance().playButton("back");
         System.exit(0);
     }
-
+ 
     @FXML
     private void onActionRecode(ActionEvent event) {
                 SoundManager.getInstance().playButton("enter");
 
         isRecord = true;
     }
+ 
     
-    @FXML
     private void handleCellHover(MouseEvent event) {
         StackPane pane = (StackPane) event.getSource();
         pane.setScaleX(1.05);
@@ -393,7 +408,6 @@ public class XOController implements Initializable {
         ((Rectangle) pane.getChildren().get(0)).setFill(javafx.scene.paint.Color.web("#3d0158"));
     }
 
-    @FXML
     private void handleCellExit(MouseEvent event) {
         StackPane pane = (StackPane) event.getSource();
         pane.setScaleX(1.0);
@@ -411,7 +425,6 @@ public class XOController implements Initializable {
 
     }
 
-    @FXML
     private void handleMouseEnter(MouseEvent event) {
         Button btn = (Button) event.getSource();
         ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
@@ -420,7 +433,6 @@ public class XOController implements Initializable {
         st.play();
     }
 
-    @FXML
     private void handleMouseExit(MouseEvent event) {
         Button btn = (Button) event.getSource();
         ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
@@ -429,15 +441,13 @@ public class XOController implements Initializable {
         st.play();
     }
 
-    @FXML
     private void handleMousePressed(MouseEvent event) {
         Button btn = (Button) event.getSource();
         btn.setTranslateY(4); 
     }
 
-    @FXML
     private void handleMouseReleased(MouseEvent event) {
         Button btn = (Button) event.getSource();
         btn.setTranslateY(0);
     }
-}
+ }

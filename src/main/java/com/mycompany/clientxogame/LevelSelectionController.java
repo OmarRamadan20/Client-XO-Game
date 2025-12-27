@@ -57,26 +57,30 @@ public class LevelSelectionController implements Initializable {
 
     @FXML
     private void onActionBtmEasy(ActionEvent event) {
+ 
     SoundManager.getInstance().playButton("enter");
 
-        NavigateBetweeenScreens.goToEasyLevel(event);
+         NavigateBetweeenScreens.goToEasyLevel(event);
     }
 
     @FXML
     private void onActionBtmMedium(ActionEvent event) {
+ 
     SoundManager.getInstance().playButton("enter");
         NavigateBetweeenScreens.goToMeduimLevel(event);
-    }
+     }
 
     @FXML
     private void onActionHard(ActionEvent event) {
+ 
     SoundManager.getInstance().playButton("enter");
         NavigateBetweeenScreens.goToHardLevel(event);
-    }
+     }
 
     @FXML
     private void onActionBack(ActionEvent event) {
+ 
     SoundManager.getInstance().playButton("back");
         NavigateBetweeenScreens.backToModeSelection(event);
-    }
+     }
 }
