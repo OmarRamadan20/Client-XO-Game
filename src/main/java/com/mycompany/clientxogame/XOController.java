@@ -387,11 +387,13 @@ public class XOController implements Initializable {
 
     @FXML
     private void onBack() {
+        SoundManager.getInstance().playButton("back");
         System.exit(0);
     }
 
     @FXML
     private void onActionRecode(ActionEvent event) {
+                SoundManager.getInstance().playButton("enter");
 
         if (!isRecord) {
             isRecord = true;
