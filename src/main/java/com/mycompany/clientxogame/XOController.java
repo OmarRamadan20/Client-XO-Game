@@ -3,9 +3,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
@@ -42,14 +42,6 @@ public class XOController implements Initializable {
     @FXML private Label playerOneScore;
     @FXML private Label PlayerTwoScore;
 
-    @FXML
-    private HBox recordingIndicator;
-    @FXML
-    private Circle redDot;
-
-    private Timeline recordTimeline;
-
-    private Text[][] cells;
     @FXML private Button idRecords;
 
      private Text[][] cells;
@@ -59,28 +51,6 @@ public class XOController implements Initializable {
     private String mySymbol;
     private boolean myTurn;
     private String opponentName;
-    @FXML
-    private Button idRecords;
-
-    private List<Move> moves = new ArrayList<>();
-    boolean isRecord = false;
-    @FXML
-    private Label Playerone;
-    @FXML
-    private Label playerOneScore;
-    @FXML
-    private Label Playertwo;
-    @FXML
-    private Label PlayerTwoScore;
-
-    char operant = '+';
-
-    int scoreX = 0;
-    int scoreO = 0;
-
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
-    }
     private String winnerSymbol = "";
 
     private int scoreX = 0;
@@ -88,6 +58,14 @@ public class XOController implements Initializable {
 
     private final List<Move> moves = new ArrayList<>();
     private boolean isRecord = false;
+    @FXML
+    private HBox recordingIndicator;
+    @FXML
+    private Circle redDot;
+    
+    private FadeTransition dotAnimation;
+    @FXML
+    private Button BackButtonId;
 
      @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -97,6 +75,12 @@ public class XOController implements Initializable {
                 {cell10, cell11, cell12},
                 {cell20, cell21, cell22}
         };
+
+        dotAnimation = new FadeTransition(Duration.seconds(0.5), redDot);
+        dotAnimation.setFromValue(1.0);
+        dotAnimation.setToValue(0.2);
+        dotAnimation.setCycleCount(Timeline.INDEFINITE);
+        dotAnimation.setAutoReverse(true);
 
         resetBoard();
         setupCells();
@@ -155,6 +139,9 @@ public class XOController implements Initializable {
                     if (gameOver || !cell.getText().isEmpty() || !myTurn) return;
 
                     SoundManager.getInstance().playButton("playClick");
+                    parent.setTranslateY(4);
+                    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), ev -> parent.setTranslateY(0)));
+                    timeline.play();
 
                     makeMove(row, col, mySymbol,
                             mySymbol.equals("X") ? Color.LIME : Color.HOTPINK);
@@ -180,6 +167,8 @@ public class XOController implements Initializable {
      private void handleGameOver(int winCode) {
 
         gameOver = true;
+        dotAnimation.stop();
+        recordingIndicator.setVisible(false);
 
         if (winCode != -1) {
             drawWinLine(winCode);
@@ -198,14 +187,6 @@ public class XOController implements Initializable {
         handleInsertGameResult();
 
         if (isRecord) {
-        GameFileManager.save(moves, LoggedUser.name, opponentName);
-        
-        if (recordTimeline != null) recordTimeline.stop();
-        recordingIndicator.setVisible(false);
-        
-        idRecords.setText("Saved!");
-        idRecords.setStyle("-fx-background-color: #2ed573; -fx-background-radius: 50; -fx-text-fill: white;");
-    }
             GameFileManager.save(moves, LoggedUser.name, opponentName);
         }
 
@@ -240,15 +221,6 @@ public class XOController implements Initializable {
         }
      
     }
-
-    private void handleInsertGameResult() {
-        JSONObject request = new JSONObject();
-        request.put("type", "game_result");
-        request.put("gmail1", LoggedUser.gmail);
-        request.put("gmail2", Opponent.gmail);
-        request.put("gmailWin", determineWinnerGmail());
-
-        ServerHandler.getInstance().send(request);
     }
 
      private void handleInsertGameResult() {
@@ -355,28 +327,14 @@ public class XOController implements Initializable {
 
      @FXML
     private void onActionRecode(ActionEvent event) {
-                SoundManager.getInstance().playButton("enter");
-
-        if (!isRecord) {
+        SoundManager.getInstance().playButton("enter");
             isRecord = true;
-
             recordingIndicator.setVisible(true);
-
-            recordTimeline = new Timeline(
-                    new KeyFrame(Duration.seconds(0.6), new KeyValue(redDot.opacityProperty(), 0.2)),
-                    new KeyFrame(Duration.seconds(1.2), new KeyValue(redDot.opacityProperty(), 1.0))
-            );
-            recordTimeline.setCycleCount(Timeline.INDEFINITE);
-            recordTimeline.play();
-
-            idRecords.setText("Recording...");
+            dotAnimation.play();
             idRecords.setDisable(true); 
-            idRecords.setStyle("-fx-background-color: #ff4757; -fx-background-radius: 50; -fx-text-fill: white;");
-
-            System.out.println("Recording started...");
-        }
+            idRecords.setOpacity(0.5);
     }
-
+    
     @FXML
     private void handleCellHover(MouseEvent event) {
         StackPane pane = (StackPane) event.getSource();
@@ -432,7 +390,6 @@ public class XOController implements Initializable {
         Button btn = (Button) event.getSource();
         btn.setTranslateY(0);
     }
-        SoundManager.getInstance().playButton("enter");
-        isRecord = true;
-    }
+
+    
 }
