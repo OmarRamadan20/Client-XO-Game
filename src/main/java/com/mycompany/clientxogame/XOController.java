@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,11 +13,13 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.json.JSONObject;
 
 public class XOController implements Initializable {
@@ -30,7 +33,6 @@ public class XOController implements Initializable {
 
     @FXML
     private Line winLine;
-    @FXML
     private VBox endGameBox;
 
     private Text[][] cells;
@@ -57,9 +59,9 @@ public class XOController implements Initializable {
     private Label PlayerTwoScore;
 
     char operant = '+';
-
     int scoreX = 0;
-        int scoreO = 0;
+    int scoreO = 0;
+
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
@@ -156,6 +158,7 @@ public class XOController implements Initializable {
     String winnerSymbol = " ";
 
     private void handleGameOver(int winCode) {
+
         gameOver = true;
 
         if (winCode != -1) {
@@ -191,9 +194,23 @@ public class XOController implements Initializable {
         if (isRecord) {
             GameFileManager.save(moves, LoggedUser.name, opponentName);
         }
-        
+
         updateScore();
+    /*   
+        PauseTransition pause = new PauseTransition(Duration.seconds(.5));
+        pause.setOnFinished(e -> {
+            if (!winnerSymbol.equals("")) {
+                if (winnerSymbol.equals(mySymbol)) {
+                    NavigateBetweeenScreens.winGame();
+                } else {
+                    NavigateBetweeenScreens.loseGame();
+                }
+            }
+        });
+        pause.play();
+*/
     }
+
     private void updateScore() {
         if (xTurn) {
             scoreX++;
@@ -203,9 +220,6 @@ public class XOController implements Initializable {
             PlayerTwoScore.setText(String.valueOf(scoreO));
         }
     }
-    
-    
-    
 
     private void handleInsertGameResult() {
         JSONObject request = new JSONObject();
@@ -222,9 +236,8 @@ public class XOController implements Initializable {
             return LoggedUser.gmail;
         } else if (!winnerSymbol.equals("")) {
             return Opponent.gmail;
-        }
-        else {
-        return "Draw";
+        } else {
+            return "Draw";
         }
     }
 
@@ -349,29 +362,12 @@ public class XOController implements Initializable {
         winLine.setEndY(e.getMinY() + e.getHeight() / 2);
     }
 
-    @FXML
-    private void onPlayAgain() {
-        resetBoard();
-        xTurn = true;
-        gameOver = false;
-        winLine.setVisible(false);
-        endGameBox.setVisible(false);
-
-        for (Text[] row : cells) {
-            for (Text cell : row) {
-                cell.setText("");
-            }
-        }
-    }
-
-    @FXML
-    private void onBack() {
-        System.exit(0);
-    }
+    
 
     @FXML
     private void onActionRecode(ActionEvent event) {
 
         isRecord = true;
     }
+
 }

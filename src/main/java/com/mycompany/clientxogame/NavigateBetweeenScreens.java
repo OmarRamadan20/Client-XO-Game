@@ -210,12 +210,12 @@ private static void changeScenePlayRecords(ActionEvent event, String fxml, Strin
         changeScene(event, "/records/gameRecords.fxml", "Game Records");
      }
 
-    public static void winGame(ActionEvent event) {
-        changeScene(event, "/com/mycompany/clientxogame/win.fxml", "Win");
+    public static void winGame() {
+        changeScene(null, "/com/mycompany/clientxogame/win.fxml", "Win");
     }
 
-    public static void loseGame(ActionEvent event) {
-        changeScene(event, "/com/mycompany/clientxogame/lose.fxml", "Lose");
+    public static void loseGame() {
+        changeScene(null, "/com/mycompany/clientxogame/lose.fxml", "Lose");
     }
 
     public static void goToPlayAgain(ActionEvent event) {
@@ -306,3 +306,4 @@ private static void changeScenePlayRecords(ActionEvent event, String fxml, Strin
     }
 
 }
+

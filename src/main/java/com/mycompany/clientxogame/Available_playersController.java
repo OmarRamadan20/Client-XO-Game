@@ -177,27 +177,7 @@ public class Available_playersController implements Initializable {
         server.send(request);
     }
 
-<<<<<<< HEAD
-@FXML
-private void invitePlayer(ActionEvent event) {
-    Player selected = playersList.getSelectionModel().getSelectedItem();
-    if (selected != null) {
-        JSONObject request = new JSONObject();
-        request.put("type", "invite");
-        request.put("to", selected.getName());
-       request.put("toGmail", selected.getGmail());
-         System.out.print("*/******"+selected.getGmail());
-         
-        request.put("from", LoggedUser.name);
-    
-        NavigateBetweeenScreens.invitedFrom = selected.getName(); 
-         Opponent.gmail = selected.getGmail();
-         Opponent.name = selected.getName();
-         Opponent.score =selected.getScore();
-        server.send(request);
-        NavigateBetweeenScreens.lastEvent = event;
-        NavigateBetweeenScreens.goToWaitAccept(event);
-=======
+   
     @FXML
     private void invitePlayer(ActionEvent event) {
         Player selected = playersList.getSelectionModel().getSelectedItem();
@@ -215,8 +195,7 @@ private void invitePlayer(ActionEvent event) {
             NavigateBetweeenScreens.lastEvent = event;
             NavigateBetweeenScreens.goToWaitAccept(event);
         }
->>>>>>> origin/main
-    }
+     }
 
     private void handleLogoutResponse(JSONObject response) {
         if ("success".equals(response.optString("status"))) {
