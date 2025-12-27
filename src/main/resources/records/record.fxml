@@ -1,101 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="com.mycompany.clientxogame.RecordController"
-          style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);"> <VBox spacing="20"
-          alignment="TOP_CENTER"
-          maxWidth="650"
-          maxHeight="650"
-          style="
-              -fx-background-color: rgba(255, 255, 255, 0.3); 
-              -fx-background-radius: 30;
-              -fx-padding: 20;
-          ">
+<StackPane prefHeight="650.0" prefWidth="650.0" 
+           style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" 
+           xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="com.mycompany.clientxogame.RecordController">
+   <children>
+      
+      <VBox alignment="CENTER" maxHeight="580.0" maxWidth="500.0" spacing="25.0" 
+            style="-fx-background-color: rgba(255, 255, 255, 0.4); -fx-background-radius: 40; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 15, 0, 0, 10);">
+         <children>
+            
+            <HBox alignment="CENTER" spacing="15.0">
+               <children>
+                  <Button fx:id="backBtn" onAction="#onBack" 
+                          onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
+                          onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
+                          prefHeight="40.0" prefWidth="90.0" 
+                          style="-fx-background-color: #6c5ce7; -fx-text-fill: white; -fx-background-radius: 20; -fx-font-weight: bold; -fx-cursor: hand;" text="Back" />
+                  
+                  <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="REPLAY MODE" textFill="#2c003e">
+                           <font>
+                              <Font name="System Bold" size="22.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
 
-        <HBox alignment="CENTER">
+                  <Button fx:id="playBtn" onAction="#onStart" 
+                          onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
+                          onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
+                          prefHeight="40.0" prefWidth="90.0" 
+                          style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 20; -fx-font-weight: bold; -fx-cursor: hand;" text="Play" />
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </HBox>
 
-            <Button text="Back"
-        onAction="#onBack"
-        style="
-            -fx-background-color: #6c5ce7; 
-            -fx-text-fill: white; 
-            -fx-background-radius: 25; 
-            -fx-font-weight: bold; 
-            -fx-font-size: 14px;
-            -fx-padding: 8 25;
-            -fx-cursor: hand;
-            -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
-        "/>
+            <GridPane alignment="CENTER" hgap="15.0" vgap="15.0">
+               <children>
+                  <StackPane GridPane.columnIndex="0" GridPane.rowIndex="0">
+                     <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#2c003e" height="100.0" width="100.0" />
+                     <Text fx:id="cell00" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <font><Font name="System Bold" size="60.0" /></font>
+                     </Text>
+                  </StackPane>
+                  <StackPane GridPane.columnIndex="1" GridPane.rowIndex="0">
+                     <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#2c003e" height="100.0" width="100.0" />
+                     <Text fx:id="cell01" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <font><Font name="System Bold" size="60.0" /></font>
+                     </Text>
+                  </StackPane>
+                  <StackPane GridPane.columnIndex="2" GridPane.rowIndex="0">
+                     <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#2c003e" height="100.0" width="100.0" />
+                     <Text fx:id="cell02" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <font><Font name="System Bold" size="60.0" /></font>
+                     </Text>
+                  </StackPane>
+                  
+                  <StackPane GridPane.columnIndex="0" GridPane.rowIndex="1">
+                     <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#2c003e" height="100.0" width="100.0" />
+                     <Text fx:id="cell10" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <font><Font name="System Bold" size="60.0" /></font>
+                     </Text>
+                  </StackPane>
+                  <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#2c003e" height="100.0" width="100.0" />
+                     <Text fx:id="cell11" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <font><Font name="System Bold" size="60.0" /></font>
+                     </Text>
+                  </StackPane>
+                  <StackPane GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#2c003e" height="100.0" width="100.0" />
+                     <Text fx:id="cell12" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <font><Font name="System Bold" size="60.0" /></font>
+                     </Text>
+                  </StackPane>
+                  
+                  <StackPane GridPane.columnIndex="0" GridPane.rowIndex="2">
+                     <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#2c003e" height="100.0" width="100.0" />
+                     <Text fx:id="cell20" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <font><Font name="System Bold" size="60.0" /></font>
+                     </Text>
+                  </StackPane>
+                  <StackPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#2c003e" height="100.0" width="100.0" />
+                     <Text fx:id="cell21" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <font><Font name="System Bold" size="60.0" /></font>
+                     </Text>
+                  </StackPane>
+                  <StackPane GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#2c003e" height="100.0" width="100.0" />
+                     <Text fx:id="cell22" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <font><Font name="System Bold" size="60.0" /></font>
+                     </Text>
+                  </StackPane>
+               </children>
+            </GridPane>
+         </children>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+      </VBox>
 
-<Pane HBox.hgrow="ALWAYS"/>
-
-<Button text="Start"
-        onAction="#onStart"
-        style="
-            -fx-background-color: #6c5ce7; 
-            -fx-text-fill: white; 
-            -fx-background-radius: 25; 
-            -fx-font-weight: bold; 
-            -fx-font-size: 14px;
-            -fx-padding: 8 25;
-            -fx-cursor: hand;
-            -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
-        "/>
-
-        </HBox>
-
-        <GridPane hgap="20" vgap="20" alignment="CENTER">
-
-            <StackPane GridPane.rowIndex="0" GridPane.columnIndex="0">
-                <Rectangle width="90" height="90" arcWidth="20" arcHeight="20" fill="#2c003e"/> <Text fx:id="cell00" style="-fx-font-size:50;"/>
-            </StackPane>
-            <StackPane GridPane.rowIndex="0" GridPane.columnIndex="1">
-                <Rectangle width="90" height="90" arcWidth="20" arcHeight="20" fill="#2c003e"/>
-                <Text fx:id="cell01" style="-fx-font-size:50;"/>
-            </StackPane>
-            <StackPane GridPane.rowIndex="0" GridPane.columnIndex="2">
-                <Rectangle width="90" height="90" arcWidth="20" arcHeight="20" fill="#2c003e"/>
-                <Text fx:id="cell02" style="-fx-font-size:50;"/>
-            </StackPane>
-
-            <StackPane GridPane.rowIndex="1" GridPane.columnIndex="0">
-                <Rectangle width="90" height="90" arcWidth="20" arcHeight="20" fill="#2c003e"/>
-                <Text fx:id="cell10" style="-fx-font-size:50;"/>
-            </StackPane>
-            <StackPane GridPane.rowIndex="1" GridPane.columnIndex="1">
-                <Rectangle width="90" height="90" arcWidth="20" arcHeight="20" fill="#2c003e"/>
-                <Text fx:id="cell11" style="-fx-font-size:50;"/>
-            </StackPane>
-            <StackPane GridPane.rowIndex="1" GridPane.columnIndex="2">
-                <Rectangle width="90" height="90" arcWidth="20" arcHeight="20" fill="#2c003e"/>
-                <Text fx:id="cell12" style="-fx-font-size:50;"/>
-            </StackPane>
-
-            <StackPane GridPane.rowIndex="2" GridPane.columnIndex="0">
-                <Rectangle width="90" height="90" arcWidth="20" arcHeight="20" fill="#2c003e"/>
-                <Text fx:id="cell20" style="-fx-font-size:50;"/>
-            </StackPane>
-            <StackPane GridPane.rowIndex="2" GridPane.columnIndex="1">
-                <Rectangle width="90" height="90" arcWidth="20" arcHeight="20" fill="#2c003e"/>
-                <Text fx:id="cell21" style="-fx-font-size:50;"/>
-            </StackPane>
-            <StackPane GridPane.rowIndex="2" GridPane.columnIndex="2">
-                <Rectangle width="90" height="90" arcWidth="20" arcHeight="20" fill="#2c003e"/>
-                <Text fx:id="cell22" style="-fx-font-size:50;"/>
-            </StackPane>
-
-        </GridPane>
-
-    </VBox>
-
+      <AnchorPane mouseTransparent="true">
+         <children>
+            <HBox fx:id="replayStatusBox" alignment="CENTER" layoutX="25.0" layoutY="25.0" opacity="0.0" spacing="8.0" 
+                  style="-fx-background-color: rgba(0,0,0,0.6); -fx-background-radius: 20; -fx-padding: 8 15;">
+               <children>
+                  <Circle fx:id="recordingDot" fill="#e74c3c" radius="6.0" />
+                  <Label text="REPLAYING" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
 </StackPane>

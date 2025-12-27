@@ -33,6 +33,9 @@ public class ProfileController implements Initializable {
     @FXML
     private Button RecordsButtonId;
 
+    @FXML
+    private Button HistoryButtonId;
+
     /**
      * Initializes the controller class.
      */
@@ -53,6 +56,12 @@ public class ProfileController implements Initializable {
     private void onRecord(ActionEvent event) {
         SoundManager.getInstance().playButton("enter");
         NavigateBetweeenScreens.goToShowRecords(event);
+    }
+
+    @FXML
+    private void onHistory(ActionEvent event) {
+        NavigateBetweeenScreens.goToShowHistory(event);
+        System.out.println("History Button Clicked!");
     }
 
     @FXML

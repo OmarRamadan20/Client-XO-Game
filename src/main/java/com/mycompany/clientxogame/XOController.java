@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -16,9 +17,11 @@ import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -38,6 +41,13 @@ public class XOController implements Initializable {
     private Line winLine;
     @FXML
     private VBox endGameBox;
+
+    @FXML
+    private HBox recordingIndicator;
+    @FXML
+    private Circle redDot;
+
+    private Timeline recordTimeline;
 
     private Text[][] cells;
     private String[][] board;
@@ -65,7 +75,8 @@ public class XOController implements Initializable {
     char operant = '+';
 
     int scoreX = 0;
-        int scoreO = 0;
+    int scoreO = 0;
+
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
@@ -199,11 +210,16 @@ public class XOController implements Initializable {
         handleInsertGameResult();
 
         if (isRecord) {
-            GameFileManager.save(moves, LoggedUser.name, opponentName);
-        }
+        GameFileManager.save(moves, LoggedUser.name, opponentName);
         
-        updateScore();
+        if (recordTimeline != null) recordTimeline.stop();
+        recordingIndicator.setVisible(false);
+        
+        idRecords.setText("Saved!");
+        idRecords.setStyle("-fx-background-color: #2ed573; -fx-background-radius: 50; -fx-text-fill: white;");
     }
+    }
+
     private void updateScore() {
         if (xTurn) {
             scoreX++;
@@ -213,9 +229,6 @@ public class XOController implements Initializable {
             PlayerTwoScore.setText(String.valueOf(scoreO));
         }
     }
-    
-    
-    
 
     private void handleInsertGameResult() {
         JSONObject request = new JSONObject();
@@ -380,9 +393,26 @@ public class XOController implements Initializable {
     @FXML
     private void onActionRecode(ActionEvent event) {
 
-        isRecord = true;
+        if (!isRecord) {
+            isRecord = true;
+
+            recordingIndicator.setVisible(true);
+
+            recordTimeline = new Timeline(
+                    new KeyFrame(Duration.seconds(0.6), new KeyValue(redDot.opacityProperty(), 0.2)),
+                    new KeyFrame(Duration.seconds(1.2), new KeyValue(redDot.opacityProperty(), 1.0))
+            );
+            recordTimeline.setCycleCount(Timeline.INDEFINITE);
+            recordTimeline.play();
+
+            idRecords.setText("Recording...");
+            idRecords.setDisable(true); 
+            idRecords.setStyle("-fx-background-color: #ff4757; -fx-background-radius: 50; -fx-text-fill: white;");
+
+            System.out.println("Recording started...");
+        }
     }
-    
+
     @FXML
     private void handleCellHover(MouseEvent event) {
         StackPane pane = (StackPane) event.getSource();
@@ -430,7 +460,7 @@ public class XOController implements Initializable {
     @FXML
     private void handleMousePressed(MouseEvent event) {
         Button btn = (Button) event.getSource();
-        btn.setTranslateY(4); 
+        btn.setTranslateY(4);
     }
 
     @FXML
