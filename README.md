@@ -46,9 +46,11 @@ Java, JavaFX, FXML, Maven, JSON, Multithreading, Git & GitHub
 7. Logout when finished.
 
 ## 👩‍💻 Team Members
-Ahlam Gomaa Snosy  
-Omar Ramadan  
-Amr Abdulrahim Tayea
-Mahmoud Mahammed
+- Ahlam Gomaa Snosy
+- Mahmoud Mohamed Abdullah
+- Omar Ramadan
+- Amr Abdulrahim Tayea
+
+
 
 
