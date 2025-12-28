@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.clientxogame.navigation;
 
 import com.mycompany.clientxogame.model.LoggedUser;
@@ -17,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import static javafx.stage.Window.getWindows;
 
@@ -33,6 +30,18 @@ public class NavigationManager {
     public static String currentOpponent;
     public static int lastScoreX = 0;
     public static int lastScoreO = 0;
+
+     private static void applyLogo(Stage stage) {
+        if (stage != null) {
+            try {
+                Image icon = new Image(NavigationManager.class.getResourceAsStream("/images/logo.png"));
+                stage.getIcons().clear(); 
+                stage.getIcons().add(icon);
+            } catch (Exception e) {
+                System.err.println("Could not load application icon: " + e.getMessage());
+            }
+        }
+    }
 
     private static void changeScene(ActionEvent event, String fxmlFile, String title) {
         Platform.runLater(() -> {
@@ -56,6 +65,7 @@ public class NavigationManager {
                 if (stage != null) {
                     stage.setScene(new Scene(root));
                     stage.setTitle(title);
+                    applyLogo(stage);  
                     stage.show();
                 } else {
                     System.err.println("CRITICAL: No Stage found even after deep search!");
@@ -87,6 +97,7 @@ public class NavigationManager {
             if (stage != null) {
                 stage.setScene(new Scene(root));
                 stage.setTitle(title);
+                applyLogo(stage);  
                 stage.show();
             } else {
                 System.err.println("CRITICAL: No Stage found even from Window list!");
@@ -108,6 +119,7 @@ public class NavigationManager {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle(title);
+            applyLogo(stage); 
             stage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -124,6 +136,7 @@ public class NavigationManager {
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
+            applyLogo(stage);  
             stage.show();
 
         } catch (IOException e) {
@@ -145,7 +158,6 @@ public class NavigationManager {
 
     public static void goToDoubleMode(ActionEvent event) {
         changeScene(event, "/UI/players/offline-players.fxml", "Offline Players");
-        //E:\ITI\java\Team4\client\Client-XO-Game\src\main\resources
     }
 
     public static void backToOfflinePlayer(ActionEvent event) {
@@ -158,29 +170,21 @@ public class NavigationManager {
 
     public static void goToLogIn(ActionEvent event) {
         changeScene(event, "/UI/Register/login.fxml", "Login");
-
-        //E:\ITI\java\Team4\client\Client-XO-Game\src\main\resources
     }
 
     public static void goToAvailablePlayer(ActionEvent event) {
         changeScene(event, "/UI/players/available-players.fxml", "Available Players");
-        //F:\traning\iti\Java\Final Project\ClientXOGame\src\main\resources\
     }
-//ui not exist
 
     public static void goToShowProfile(ActionEvent event) {
-
         changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
-
     }
 
     public static void goToShowHistory(ActionEvent event) {
-
-        changeScene(event, "/records/game-history.fxml", "Profile");
+        changeScene(event, "/records/game-history.fxml", "History");
     }
 
     public static void backToShowHistory(ActionEvent event) {
-
         changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
     }
 
@@ -203,7 +207,6 @@ public class NavigationManager {
                 if (event != null && event.getSource() instanceof Node) {
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 } else {
-
                     stage = (Stage) Stage.getWindows().stream()
                             .filter(window -> window.isShowing())
                             .findFirst()
@@ -213,6 +216,7 @@ public class NavigationManager {
                 if (stage != null) {
                     stage.setScene(new Scene(root));
                     stage.setTitle("New Invitation");
+                    applyLogo(stage);  
                     stage.show();
                 } else {
                     System.out.println("Stage is null, cannot switch to Offer screen");
@@ -268,13 +272,13 @@ public class NavigationManager {
     public static void loseGameForLevel(String difficulty) {
         switch (difficulty) {
             case "Easy":
-                changeSceneWithDifficultyFOrWinOrLoss("/fxml/loseForLevel.fxml", "You Win", "Easy");
+                changeSceneWithDifficultyFOrWinOrLoss("/fxml/loseForLevel.fxml", "You Lose", "Easy");
                 break;
             case "Medium":
-                changeSceneWithDifficultyFOrWinOrLoss("/fxml/loseForLevel.fxml", "You Win", "Medium");
+                changeSceneWithDifficultyFOrWinOrLoss("/fxml/loseForLevel.fxml", "You Lose", "Medium");
                 break;
             case "Hard":
-                changeSceneWithDifficultyFOrWinOrLoss("/fxml/loseForLevel.fxml", "You Win", "Hard");
+                changeSceneWithDifficultyFOrWinOrLoss("/fxml/loseForLevel.fxml", "You Lose", "Hard");
                 break;
         }
     }
@@ -282,13 +286,13 @@ public class NavigationManager {
     public static void drawGameForLevel(String difficulty) {
         switch (difficulty) {
             case "Easy":
-                changeSceneWithDifficultyFOrWinOrLoss("/fxml/drawForLevel.fxml", "You Win", "Easy");
+                changeSceneWithDifficultyFOrWinOrLoss("/fxml/drawForLevel.fxml", "Draw", "Easy");
                 break;
             case "Medium":
-                changeSceneWithDifficultyFOrWinOrLoss("/fxml/drawForLevel.fxml", "You Win", "Medium");
+                changeSceneWithDifficultyFOrWinOrLoss("/fxml/drawForLevel.fxml", "Draw", "Medium");
                 break;
             case "Hard":
-                changeSceneWithDifficultyFOrWinOrLoss("/fxml/drawForLevel.fxml", "You Win", "Hard");
+                changeSceneWithDifficultyFOrWinOrLoss("/fxml/drawForLevel.fxml", "Draw", "Hard");
                 break;
         }
     }
@@ -315,9 +319,7 @@ public class NavigationManager {
             Parent root = loader.load();
 
             OnlineBoardController controller = loader.getController();
-
             controller.setOnlineMode(currentOpponent, mySymbol, isMyTurn);
-
             controller.setScores(lastScoreX, lastScoreO);
 
             if ("X".equals(mySymbol)) {
@@ -331,13 +333,14 @@ public class NavigationManager {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("XO Game");
+            applyLogo(stage);  
             stage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
-   public static void goToNewGame(ActionEvent event) {
+    public static void goToNewGame(ActionEvent event) {
         changeScene(event, "/game/online-board.fxml", "XO Game");
     }
 
@@ -379,6 +382,7 @@ public class NavigationManager {
                 OnlineBoardController controller = loader.getController();
                 controller.setOnlineMode(currentOpponent, mySymbol, isMyTurn);
                 controller.setScores(lastScoreX, lastScoreO);
+                
                 Stage stage = null;
                 if (event != null && event.getSource() instanceof Node) {
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -389,6 +393,7 @@ public class NavigationManager {
                 if (stage != null) {
                     stage.setScene(new Scene(root));
                     stage.setTitle("Tic Tac Toe - Online vs " + currentOpponent);
+                    applyLogo(stage);  
                     stage.show();
                 }
             } catch (IOException ex) {
@@ -409,6 +414,7 @@ public class NavigationManager {
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
+            applyLogo(stage);  
             stage.show();
 
         } catch (IOException e) {
@@ -419,5 +425,4 @@ public class NavigationManager {
     public static void gotoModeSelection(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/mode-selection.fxml", "XO Game");
     }
-
 }
