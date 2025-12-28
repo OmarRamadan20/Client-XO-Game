@@ -288,7 +288,17 @@ public static void drawGameForLevel(String difficulty) {
             break;
     }
 }
-  
+
+ public static void drawGameForTwo() {
+        changeScene(null, "/fxml/drawForTwo.fxml", "draw");
+    }  
+public static void loseGameForTwo() {
+        changeScene(null, "/fxml/loseForTwo.fxml", "draw");
+    }  
+
+public static void winGameForTwo() {
+        changeScene(null, "/fxml/winForTwo.fxml", "draw");
+    }  
   
     public static void loseGame() {
         changeScene(null, "/com/mycompany/clientxogame/lose.fxml", "Lose");
