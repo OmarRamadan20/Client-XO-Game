@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" 
+            prefHeight="700.0" prefWidth="700.0" 
+            style="-fx-background-color: linear-gradient(to bottom right, #f1c40f, #e67e22, #9b59b6);" 
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.clientxogame.WinForTwoController">
+     
+   <top>
+      <VBox alignment="CENTER" prefHeight="160.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="YOU WIN 🎉" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="64.0" />
+               </font>
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" height="30.0" radius="14.5" width="30.0">
+                     <color>
+                        <Color red="1.0" green="0.84" blue="0.0" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Label>
+            <Label text="Congratulations on your victory!" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="18.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets top="40.0" />
+         </padding>
+      </VBox>
+   </top>
+
+   <center>
+      <StackPane style="-fx-background-color: rgba(255,255,255,0.25); -fx-background-radius: 40; -fx-max-width: 480; -fx-max-height: 320; -fx-border-color: #f1c40f; -fx-border-radius: 40; -fx-border-width: 4;" BorderPane.alignment="CENTER">
+         <children>
+            <MediaView fx:id="mediaView" fitHeight="280.0" fitWidth="420.0" />
+         </children>
+         <effect>
+            <DropShadow color="rgba(0,0,0,0.4)" radius="20" />
+         </effect>
+      </StackPane>
+   </center>
+
+   <bottom>
+      <AnchorPane prefHeight="160.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="700.0" spacing="60.0" layoutY="20.0">
+               <children>
+                  <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#newGame" prefHeight="58.0" prefWidth="200.0" 
+                          style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-background-radius: 50; -fx-font-weight: bold; -fx-font-size: 20px; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 15, 0, 0, 8);" 
+                          text="New Game" />
+                  
+                  <Button fx:id="playAgainButton" mnemonicParsing="false" onAction="#playAgain" prefHeight="58.0" prefWidth="200.0" 
+                          style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 50; -fx-font-weight: bold; -fx-font-size: 20px; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 15, 0, 0, 8);" 
+                          text="Play Again" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

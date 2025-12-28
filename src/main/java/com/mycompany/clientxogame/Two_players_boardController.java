@@ -60,22 +60,28 @@ public class Two_players_boardController implements Initializable {
     private Label playerOneName;
     @FXML
     private Label playerTwoName;
-
+    public static String player1 = "Player 1";
+    public static String player2 = "Player 2";
+    private static int scoreX = 0;
+    private static int scoreO = 0;
+   
     private Text[][] cells;
     private String[][] board = new String[3][3];
     private boolean xTurn = true;
     private boolean gameOver = false;
-    private int scoreX = 0, scoreO = 0;
-    private String player1;
-    private String player2;
 
-    public void setPlayersNames(String name1, String name2) {
-        this.player1 = name1;
-        this.player2 = name2;
-
-        playerOneName.setText(name1);
-        playerTwoName.setText(name2);
+     public void setPlayersNames(String name1, String name2) {
+        player1 = name1;
+        player2 = name2;
+        if (playerOneName != null) playerOneName.setText(name1);
+        if (playerTwoName != null) playerTwoName.setText(name2);
     }
+
+    public static void resetScores() {
+        scoreX = 0;
+        scoreO = 0;
+    }
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -84,10 +90,15 @@ public class Two_players_boardController implements Initializable {
             {cell10, cell11, cell12},
             {cell20, cell21, cell22}
         };
+
+         playerOneName.setText(player1);
+        playerTwoName.setText(player2);
+        playerOneScore.setText(String.valueOf(scoreX));
+        PlayerTwoScore.setText(String.valueOf(scoreO));
+
         setupCells();
         resetGame();
     }
-
     private void setupCells() {
         for (int r = 0; r < 3; r++) {
             for (int c = 0; c < 3; c++) {
@@ -124,9 +135,9 @@ public class Two_players_boardController implements Initializable {
                             PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
                             pause.setOnFinished(ev -> {
                                 if (winnerSymbol.equals("X")) {
-                                    NavigateBetweeenScreens.winGame();
+                                    NavigateBetweeenScreens.winGameForTwo();
                                 } else {
-                                    NavigateBetweeenScreens.loseGame();
+                                    NavigateBetweeenScreens.loseGameForTwo();
                                 }
                             });
                             pause.play();
@@ -137,7 +148,7 @@ public class Two_players_boardController implements Initializable {
                         System.out.println("Draw!");
                         Platform.runLater(() -> {
                             PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
-                            pause.setOnFinished(ev -> NavigateBetweeenScreens.drawGame());
+                            pause.setOnFinished(ev -> NavigateBetweeenScreens.drawGameForTwo());
                             pause.play();
                         });
                     }
