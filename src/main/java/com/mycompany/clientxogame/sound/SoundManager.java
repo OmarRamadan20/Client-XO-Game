@@ -42,7 +42,7 @@ public class SoundManager {
 
     public void playBackgroundMusic() {
         if (backgroundMusic != null && !backgroundMusic.isPlaying()) {
-            //backgroundMusic.play();
+            backgroundMusic.play();
         }
     }
 

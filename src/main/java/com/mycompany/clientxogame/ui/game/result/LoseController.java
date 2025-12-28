@@ -3,6 +3,7 @@ package com.mycompany.clientxogame.ui.game.result;
 import com.mycompany.clientxogame.model.LoggedUser;
 import com.mycompany.clientxogame.navigation.NavigationManager;
 import com.mycompany.clientxogame.network.ServerHandler;
+import com.mycompany.clientxogame.ui.game.board.OnlineBoardController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -61,10 +62,13 @@ public class LoseController implements Initializable {
     @FXML
     private void newGame(ActionEvent event) {
  
+                OnlineBoardController.resetScores();
+
         if (mediaView.getMediaPlayer() != null) {
             mediaView.getMediaPlayer().stop();
         }
-        NavigationManager.goToAvailablePlayer(event);
+
+         NavigationManager.goToAvailablePlayer(event);
     }
 
     @FXML

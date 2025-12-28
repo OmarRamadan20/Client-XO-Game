@@ -7,7 +7,7 @@ import com.mycompany.clientxogame.model.Opponent;
 import com.mycompany.clientxogame.network.ServerHandler;
 import com.mycompany.clientxogame.sound.SoundManager;
 import com.mycompany.clientxogame.model.LoggedUser;
-import java.net.URL;
+  import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -72,9 +72,13 @@ public class OnlineBoardController implements Initializable {
     private boolean myTurn;
     private String opponentName;
     private String winnerSymbol = "";
-
-    private int scoreX = 0;
-    private int scoreO = 0;
+public static void resetScores() {
+    scoreX = 0;
+    scoreO = 0;
+    
+}
+    private static int scoreX = 0;
+    private static int scoreO = 0;
 
     private final List<Move> moves = new ArrayList<>();
     private boolean isRecord = false;
@@ -93,9 +97,14 @@ public class OnlineBoardController implements Initializable {
         cells = new Text[][]{
             {cell00, cell01, cell02},
             {cell10, cell11, cell12},
-            {cell20, cell21, cell22}
+            {cell20, cell21, cell22}    
         };
 
+             
+        playerOneScore.setText(String.valueOf(scoreX));
+        PlayerTwoScore.setText(String.valueOf(scoreO));      
+        
+        
         dotAnimation = new FadeTransition(Duration.seconds(0.5), redDot);
         dotAnimation.setFromValue(1.0);
         dotAnimation.setToValue(0.2);
@@ -106,14 +115,35 @@ public class OnlineBoardController implements Initializable {
         setupCells();
         endGameBox.setVisible(false);
     }
+    
+    
+    public void setPlayerOneName(String name) {
+    Platform.runLater(() -> Playerone.setText(name));
+}
+
+public void setPlayerTwoName(String name) {
+    Platform.runLater(() -> Playertwo.setText(name));
+}
+
+
+
+
+
+    public void setScores(int scoreX, int scoreO) {
+       // this.scoreX = scoreX;
+       // this.scoreO = scoreO;
+        //playerOneScore.setText(String.valueOf(scoreX));
+        //PlayerTwoScore.setText(String.valueOf(scoreO));
+    }
 
     public void setOnlineMode(String opponent, String symbol, boolean turn) {
-        this.opponentName = opponent;
+       this.opponentName = opponent;
         this.mySymbol = symbol;
         this.myTurn = turn;
 
-        Playerone.setText(opponentName);
-        Playertwo.setText(LoggedUser.name);
+      Playerone.setText(LoggedUser.name);
+Playertwo.setText(opponentName);
+
 
         ServerHandler.getInstance().setListener(json -> {
             if ("player_move".equals(json.optString("type"))) {
@@ -137,6 +167,7 @@ public class OnlineBoardController implements Initializable {
             }
         });
     }
+    
 
     private void resetBoard() {
         board = new String[][]{
@@ -237,17 +268,23 @@ public class OnlineBoardController implements Initializable {
     }
 
     private void updateScore() {
-        if (!winnerSymbol.isEmpty()) {
-            if ("X".equals(winnerSymbol)) {
-                scoreX++;
-                playerOneScore.setText(String.valueOf(scoreX));
-            } else if ("O".equals(winnerSymbol)) {
-                scoreO++;
-                PlayerTwoScore.setText(String.valueOf(scoreO));
-            }
+    if (!winnerSymbol.isEmpty()) {
+        boolean iAmX = "X".equals(mySymbol);
+        boolean winnerIsX = "X".equals(winnerSymbol);
 
+        if ((iAmX && winnerIsX) || (!iAmX && !winnerIsX)) {
+            scoreX++;
+            playerOneScore.setText(String.valueOf(scoreX));
+        } else {
+            scoreO++;
+            PlayerTwoScore.setText(String.valueOf(scoreO));
         }
+
+        NavigationManager.lastScoreX = scoreX;
+        NavigationManager.lastScoreO = scoreO;
     }
+}
+
 
     private void handleInsertGameResult() {
         JSONObject req = new JSONObject();
@@ -384,6 +421,7 @@ public class OnlineBoardController implements Initializable {
         idRecords.setOpacity(0.5);
     }
 
+    
     @FXML
     private void handleCellHover(MouseEvent event) {
         StackPane pane = (StackPane) event.getSource();

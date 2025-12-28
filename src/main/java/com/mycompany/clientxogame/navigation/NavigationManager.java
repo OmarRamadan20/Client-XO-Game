@@ -4,6 +4,7 @@
  */
 package com.mycompany.clientxogame.navigation;
 
+import com.mycompany.clientxogame.model.LoggedUser;
 import com.mycompany.clientxogame.ui.game.board.TwoPlayersBoardController;
 import com.mycompany.clientxogame.ui.game.board.SinglePlayerBoardController;
 import com.mycompany.clientxogame.ui.history.RecordController;
@@ -30,6 +31,8 @@ public class NavigationManager {
     public static String mySymbol;
     public static boolean isMyTurn;
     public static String currentOpponent;
+    public static int lastScoreX = 0;
+    public static int lastScoreO = 0;
 
     private static void changeScene(ActionEvent event, String fxmlFile, String title) {
         Platform.runLater(() -> {
@@ -307,10 +310,34 @@ public class NavigationManager {
     }
 
     public static void goToPlayAgain(ActionEvent event) {
-        changeScene(event, "/game/online-board.fxml", "XO Game");
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationManager.class.getResource("/game/online-board.fxml"));
+            Parent root = loader.load();
+
+            OnlineBoardController controller = loader.getController();
+
+            controller.setOnlineMode(currentOpponent, mySymbol, isMyTurn);
+
+            controller.setScores(lastScoreX, lastScoreO);
+
+            if ("X".equals(mySymbol)) {
+                controller.setPlayerOneName(LoggedUser.name);
+                controller.setPlayerTwoName(currentOpponent);
+            } else {
+                controller.setPlayerOneName(currentOpponent);
+                controller.setPlayerTwoName(LoggedUser.name);
+            }
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("XO Game");
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
-    public static void goToNewGame(ActionEvent event) {
+   public static void goToNewGame(ActionEvent event) {
         changeScene(event, "/game/online-board.fxml", "XO Game");
     }
 
@@ -351,7 +378,7 @@ public class NavigationManager {
 
                 OnlineBoardController controller = loader.getController();
                 controller.setOnlineMode(currentOpponent, mySymbol, isMyTurn);
-
+                controller.setScores(lastScoreX, lastScoreO);
                 Stage stage = null;
                 if (event != null && event.getSource() instanceof Node) {
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

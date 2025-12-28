@@ -1,10 +1,12 @@
 package com.mycompany.clientxogame.ui.game.result;
 
+ import com.mycompany.clientxogame.ui.game.board.OnlineBoardController;
+ 
 
 import com.mycompany.clientxogame.model.LoggedUser;
 import com.mycompany.clientxogame.navigation.NavigationManager;
 import com.mycompany.clientxogame.network.ServerHandler;
-import java.net.URL;
+ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -62,10 +64,12 @@ public class DrawController implements Initializable {
 
     @FXML
     private void newGame(ActionEvent event) {
+        
         stopVideo();
+         OnlineBoardController.resetScores();
         NavigationManager.goToAvailablePlayer(event);
     }
-
+ 
     @FXML
     private void playAgain(ActionEvent event) {
         stopVideo();
