@@ -10,10 +10,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -24,8 +25,6 @@
            style="-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #ffd1e8, #c8b3ff, #a0ffff);">
 
     <BorderPane>
-
-        <!-- ===== TOP ===== -->
         <top>
             <VBox alignment="CENTER" prefHeight="120">
                 <Label text="TIC TAC TOE" textFill="#8e44ad">
@@ -36,17 +35,10 @@
             </VBox>
         </top>
 
-        <!-- ===== CENTER ===== -->
         <center>
             <HBox alignment="CENTER" spacing="50">
-
                 <VBox alignment="CENTER" spacing="15"
-                      style="-fx-background-color: rgba(255,255,255,0.3);
-                             -fx-background-radius: 25;
-                             -fx-padding: 25;
-                             -fx-border-color: #d81b60;
-                             -fx-border-radius: 25;
-                             -fx-border-width: 2;">
+                      style="-fx-background-color: rgba(255,255,255,0.3); -fx-background-radius: 25; -fx-padding: 25; -fx-border-color: #d81b60; -fx-border-radius: 25; -fx-border-width: 2;">
                     <Label fx:id="Playerone" textFill="#2c003e">
                         <font><Font size="24.0"/></font>
                     </Label>
@@ -56,74 +48,55 @@
                 </VBox>
 
                 <GridPane alignment="CENTER" hgap="15" vgap="15">
-
-                    <!-- ROW 0 -->
                     <StackPane GridPane.columnIndex="0" GridPane.rowIndex="0">
                         <Rectangle arcHeight="25" arcWidth="25" fill="#2c003e" height="115" width="115"/>
                         <Text fx:id="cell00"><font><Font size="70"/></font></Text>
                     </StackPane>
-
                     <StackPane GridPane.columnIndex="1" GridPane.rowIndex="0">
                         <Rectangle arcHeight="25" arcWidth="25" fill="#2c003e" height="115" width="115"/>
                         <Text fx:id="cell01"><font><Font size="70"/></font></Text>
                     </StackPane>
-
                     <StackPane GridPane.columnIndex="2" GridPane.rowIndex="0">
                         <Rectangle arcHeight="25" arcWidth="25" fill="#2c003e" height="115" width="115"/>
                         <Text fx:id="cell02"><font><Font size="70"/></font></Text>
                     </StackPane>
 
-                    <!-- ROW 1 -->
                     <StackPane GridPane.columnIndex="0" GridPane.rowIndex="1">
                         <Rectangle arcHeight="25" arcWidth="25" fill="#2c003e" height="115" width="115"/>
                         <Text fx:id="cell10"><font><Font size="70"/></font></Text>
                     </StackPane>
-
                     <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                         <Rectangle arcHeight="25" arcWidth="25" fill="#2c003e" height="115" width="115"/>
                         <Text fx:id="cell11"><font><Font size="70"/></font></Text>
                     </StackPane>
-
                     <StackPane GridPane.columnIndex="2" GridPane.rowIndex="1">
                         <Rectangle arcHeight="25" arcWidth="25" fill="#2c003e" height="115" width="115"/>
                         <Text fx:id="cell12"><font><Font size="70"/></font></Text>
                     </StackPane>
 
-                    <!-- ROW 2 -->
                     <StackPane GridPane.columnIndex="0" GridPane.rowIndex="2">
                         <Rectangle arcHeight="25" arcWidth="25" fill="#2c003e" height="115" width="115"/>
                         <Text fx:id="cell20"><font><Font size="70"/></font></Text>
                     </StackPane>
-
                     <StackPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                         <Rectangle arcHeight="25" arcWidth="25" fill="#2c003e" height="115" width="115"/>
                         <Text fx:id="cell21"><font><Font size="70"/></font></Text>
                     </StackPane>
-
                     <StackPane GridPane.columnIndex="2" GridPane.rowIndex="2">
                         <Rectangle arcHeight="25" arcWidth="25" fill="#2c003e" height="115" width="115"/>
                         <Text fx:id="cell22"><font><Font size="70"/></font></Text>
                     </StackPane>
 
                     <columnConstraints>
-                        <ColumnConstraints/>
-                        <ColumnConstraints/>
-                        <ColumnConstraints/>
+                        <ColumnConstraints/><ColumnConstraints/><ColumnConstraints/>
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints/>
-                        <RowConstraints/>
-                        <RowConstraints/>
+                        <RowConstraints/><RowConstraints/><RowConstraints/>
                     </rowConstraints>
                 </GridPane>
 
                 <VBox alignment="CENTER" spacing="15"
-                      style="-fx-background-color: rgba(255,255,255,0.3);
-                             -fx-background-radius: 25;
-                             -fx-padding: 25;
-                             -fx-border-color: #2ecc71;
-                             -fx-border-radius: 25;
-                             -fx-border-width: 2;">
+                      style="-fx-background-color: rgba(255,255,255,0.3); -fx-background-radius: 25; -fx-padding: 25; -fx-border-color: #2ecc71; -fx-border-radius: 25; -fx-border-width: 2;">
                     <Label fx:id="Playertwo" textFill="#2c003e">
                         <font><Font size="24.0"/></font>
                     </Label>
@@ -131,7 +104,6 @@
                         <font><Font size="44.0"/></font>
                     </Label>
                 </VBox>
-
             </HBox>
         </center>
 
@@ -143,10 +115,11 @@
                             style="-fx-background-color: linear-gradient(to bottom, #4facfe, #00f2fe); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);" 
                             text="Start Record" />
                 </children>
-            
+
             </HBox>
         </bottom>
     </BorderPane>
+
     <AnchorPane mouseTransparent="true" prefHeight="700.0" prefWidth="850.0">
         <children>
             <HBox fx:id="recordingIndicator" alignment="CENTER" layoutX="30.0" layoutY="30.0" spacing="8.0" visible="false" 
@@ -154,9 +127,7 @@
                 <children>
                     <Circle fx:id="redDot" fill="#ff4757" radius="8.0" stroke="TRANSPARENT" />
                     <Label text="REC" textFill="WHITE">
-                        <font>
-                            <Font name="System Bold" size="14.0" />
-                        </font>
+                        <font><Font name="System Bold" size="14.0" /></font>
                     </Label>
                 </children>
             </HBox>
@@ -165,9 +136,12 @@
 
     <VBox fx:id="endGameBox" visible="false"/>
 
-    <Line fx:id="winLine"
-          stroke="LIME"
-          strokeLineCap="ROUND"
-          strokeWidth="12"
-          visible="false"/>
+    <Pane mouseTransparent="true">
+        <Line fx:id="winLine"
+              stroke="LIME"
+              strokeLineCap="ROUND"
+              strokeWidth="12"
+              visible="false"/>
+    </Pane>
+
 </StackPane>
