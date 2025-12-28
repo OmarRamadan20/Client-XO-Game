@@ -45,10 +45,15 @@ public class DoubleBoardController implements Initializable {
         {"", "", ""},
         {"", "", ""}
     };
+    
+    public static void resetScores() {
+    scoreX = 0;
+    scoreO = 0;
+}
 
     private boolean xTurn = true;
     private boolean gameOver = false;
-    private int scoreX = 0, scoreO = 0;
+    private static  int scoreX = 0, scoreO = 0;
     private SingleMode ai = new SingleMode();
     private String difficulty = "Easy";
 
@@ -66,6 +71,8 @@ public class DoubleBoardController implements Initializable {
             {cell10, cell11, cell12},
             {cell20, cell21, cell22}
         };
+        playerOneScore.setText(String.valueOf(scoreX));
+    PlayerTwoScore.setText(String.valueOf(scoreO));
         setupCells();
         resetGame();
     }
@@ -108,10 +115,10 @@ public class DoubleBoardController implements Initializable {
             playerOneScore.setText(String.valueOf(scoreX));
             drawWinLine(winCode);
 
-            handleEndGame("X"); // استدعاء شاشة النهاية
+            handleEndGame("X");  
         } else if (isBoardFull()) {
             gameOver = true;
-            handleEndGame(""); // تعادل
+            handleEndGame(""); 
         } else {
             xTurn = false;
         }
@@ -138,10 +145,10 @@ public class DoubleBoardController implements Initializable {
                 PlayerTwoScore.setText(String.valueOf(scoreO));
                 drawWinLine(winCode);
 
-                handleEndGame("O"); // استدعاء شاشة النهاية
+                handleEndGame("O");  
             } else if (isBoardFull()) {
                 gameOver = true;
-                handleEndGame(""); // تعادل
+                handleEndGame(""); 
             } else {
                 xTurn = true;
             }
@@ -265,11 +272,11 @@ public class DoubleBoardController implements Initializable {
             pause.setOnFinished(e -> {
                 String mySymbol = "X";  
                 if (winnerSymbol.isEmpty()) {
-                    NavigateBetweeenScreens.drawGame();  
+                    NavigateBetweeenScreens.drawGameForLevel(difficulty);  
                 } else if (winnerSymbol.equals(mySymbol)) {
-                    NavigateBetweeenScreens.winGame();
+                NavigateBetweeenScreens.winGameForLevel(difficulty);  
                 } else {
-                    NavigateBetweeenScreens.loseGame();
+                    NavigateBetweeenScreens.loseGameForLevel(difficulty);
                 }
             });
             pause.play();
@@ -280,6 +287,7 @@ public class DoubleBoardController implements Initializable {
     private void onActionBack(ActionEvent event) {
 
         SoundManager.getInstance().playButton("back");
+        DoubleBoardController.resetScores();  
         NavigateBetweeenScreens.backToLevelSelection(event);
     }
 

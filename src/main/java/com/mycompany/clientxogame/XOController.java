@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
@@ -317,9 +316,7 @@ public class XOController implements Initializable {
      @FXML
     private void onActionRecode(ActionEvent event) {
         SoundManager.getInstance().playButton("enter");
-        isRecord = true;
-    }
-            isRecord = true;
+     isRecord = true;
             recordingIndicator.setVisible(true);
             dotAnimation.play();
             idRecords.setDisable(true); 
@@ -380,7 +377,5 @@ public class XOController implements Initializable {
     private void handleMouseReleased(MouseEvent event) {
         Button btn = (Button) event.getSource();
         btn.setTranslateY(0);
-    }
-
-    
-
+    }   
+}
