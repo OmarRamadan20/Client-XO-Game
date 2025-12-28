@@ -204,18 +204,30 @@ public class Two_players_boardController implements Initializable {
     }
 
     private void setLineBounds(Text startCell, Text endCell) {
-        Bounds startBounds = startCell.localToScene(startCell.getBoundsInLocal());
-        Bounds endBounds = endCell.localToScene(endCell.getBoundsInLocal());
-        Pane parent = (Pane) winLine.getParent();
-        Point2D startPoint = parent.sceneToLocal(startBounds.getMinX() + startBounds.getWidth() / 2,
-                                                startBounds.getMinY() + startBounds.getHeight() / 2);
-        Point2D endPoint = parent.sceneToLocal(endBounds.getMinX() + endBounds.getWidth() / 2,
-                                              endBounds.getMinY() + endBounds.getHeight() / 2);
+    StackPane startPane = (StackPane) startCell.getParent();
+    StackPane endPane = (StackPane) endCell.getParent();
+    Pane lineContainer = (Pane) winLine.getParent();
+
+    Platform.runLater(() -> {
+        Bounds startBounds = startPane.localToScene(startPane.getBoundsInLocal());
+        Point2D startPoint = lineContainer.sceneToLocal(
+                startBounds.getMinX() + startBounds.getWidth() / 2,
+                startBounds.getMinY() + startBounds.getHeight() / 2
+        );
+
+        Bounds endBounds = endPane.localToScene(endPane.getBoundsInLocal());
+        Point2D endPoint = lineContainer.sceneToLocal(
+                endBounds.getMinX() + endBounds.getWidth() / 2,
+                endBounds.getMinY() + endBounds.getHeight() / 2
+        );
+
         winLine.setStartX(startPoint.getX());
         winLine.setStartY(startPoint.getY());
         winLine.setEndX(endPoint.getX());
         winLine.setEndY(endPoint.getY());
-    }
+        winLine.setVisible(true);
+    });
+}
 
     public void resetGame() {
         for (int r = 0; r < 3; r++) {

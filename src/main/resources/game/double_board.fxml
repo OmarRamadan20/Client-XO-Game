@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -20,7 +21,6 @@
            fx:controller="com.mycompany.clientxogame.DoubleBoardController">
 
     <BorderPane>
-
         <top>
             <VBox alignment="CENTER" prefHeight="80">
                 <Label text="TIC TAC TOE" textFill="#8e44ad">
@@ -34,7 +34,6 @@
         <center>
             <HBox alignment="CENTER" spacing="40">
 
-                <!-- Player X -->
                 <VBox alignment="CENTER" spacing="10"
                       style="-fx-background-color: rgba(255,255,255,0.3); -fx-background-radius: 20; -fx-padding: 15;">
                     <Label text="Player 1 (X)" style="-fx-font-weight: bold;" />
@@ -46,116 +45,86 @@
                 </VBox>
 
                 <GridPane alignment="CENTER" hgap="12" vgap="12">
-
-                    <!-- ROW 0 -->
                     <StackPane GridPane.rowIndex="0" GridPane.columnIndex="0"
-                               onMouseEntered="#handleCellHover"
-                               onMouseExited="#handleCellExit"
+                               onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit"
                                onMouseClicked="#handleCellClick">
                         <Rectangle width="110" height="110" arcWidth="25" arcHeight="25" fill="#2c003e"/>
                         <Text fx:id="cell00">
-                            <font>
-                                <Font name="System Bold" size="65"/>
-                            </font>
+                            <font><Font name="System Bold" size="65"/></font>
                         </Text>
                     </StackPane>
 
                     <StackPane GridPane.rowIndex="0" GridPane.columnIndex="1"
-                               onMouseEntered="#handleCellHover"
-                               onMouseExited="#handleCellExit"
+                               onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit"
                                onMouseClicked="#handleCellClick">
                         <Rectangle width="110" height="110" arcWidth="25" arcHeight="25" fill="#2c003e"/>
                         <Text fx:id="cell01">
-                            <font>
-                                <Font name="System Bold" size="65"/>
-                            </font>
+                            <font><Font name="System Bold" size="65"/></font>
                         </Text>
                     </StackPane>
 
                     <StackPane GridPane.rowIndex="0" GridPane.columnIndex="2"
-                               onMouseEntered="#handleCellHover"
-                               onMouseExited="#handleCellExit"
+                               onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit"
                                onMouseClicked="#handleCellClick">
                         <Rectangle width="110" height="110" arcWidth="25" arcHeight="25" fill="#2c003e"/>
                         <Text fx:id="cell02">
-                            <font>
-                                <Font name="System Bold" size="65"/>
-                            </font>
+                            <font><Font name="System Bold" size="65"/></font>
                         </Text>
                     </StackPane>
 
                     <StackPane GridPane.rowIndex="1" GridPane.columnIndex="0"
-                               onMouseEntered="#handleCellHover"
-                               onMouseExited="#handleCellExit"
+                               onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit"
                                onMouseClicked="#handleCellClick">
                         <Rectangle width="110" height="110" arcWidth="25" arcHeight="25" fill="#2c003e"/>
                         <Text fx:id="cell10">
-                            <font>
-                                <Font name="System Bold" size="65"/>
-                            </font>
+                            <font><Font name="System Bold" size="65"/></font>
                         </Text>
                     </StackPane>
 
                     <StackPane GridPane.rowIndex="1" GridPane.columnIndex="1"
-                               onMouseEntered="#handleCellHover"
-                               onMouseExited="#handleCellExit"
+                               onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit"
                                onMouseClicked="#handleCellClick">
                         <Rectangle width="110" height="110" arcWidth="25" arcHeight="25" fill="#2c003e"/>
                         <Text fx:id="cell11">
-                            <font>
-                                <Font name="System Bold" size="65"/>
-                            </font>
+                            <font><Font name="System Bold" size="65"/></font>
                         </Text>
                     </StackPane>
 
                     <StackPane GridPane.rowIndex="1" GridPane.columnIndex="2"
-                               onMouseEntered="#handleCellHover"
-                               onMouseExited="#handleCellExit"
+                               onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit"
                                onMouseClicked="#handleCellClick">
                         <Rectangle width="110" height="110" arcWidth="25" arcHeight="25" fill="#2c003e"/>
                         <Text fx:id="cell12">
-                            <font>
-                                <Font name="System Bold" size="65"/>
-                            </font>
+                            <font><Font name="System Bold" size="65"/></font>
                         </Text>
                     </StackPane>
 
                     <StackPane GridPane.rowIndex="2" GridPane.columnIndex="0"
-                               onMouseEntered="#handleCellHover"
-                               onMouseExited="#handleCellExit"
+                               onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit"
                                onMouseClicked="#handleCellClick">
                         <Rectangle width="110" height="110" arcWidth="25" arcHeight="25" fill="#2c003e"/>
                         <Text fx:id="cell20">
-                            <font>
-                                <Font name="System Bold" size="65"/>
-                            </font>
+                            <font><Font name="System Bold" size="65"/></font>
                         </Text>
                     </StackPane>
 
                     <StackPane GridPane.rowIndex="2" GridPane.columnIndex="1"
-                               onMouseEntered="#handleCellHover"
-                               onMouseExited="#handleCellExit"
+                               onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit"
                                onMouseClicked="#handleCellClick">
                         <Rectangle width="110" height="110" arcWidth="25" arcHeight="25" fill="#2c003e"/>
                         <Text fx:id="cell21">
-                            <font>
-                                <Font name="System Bold" size="65"/>
-                            </font>
+                            <font><Font name="System Bold" size="65"/></font>
                         </Text>
                     </StackPane>
 
                     <StackPane GridPane.rowIndex="2" GridPane.columnIndex="2"
-                               onMouseEntered="#handleCellHover"
-                               onMouseExited="#handleCellExit"
+                               onMouseEntered="#handleCellHover" onMouseExited="#handleCellExit"
                                onMouseClicked="#handleCellClick">
                         <Rectangle width="110" height="110" arcWidth="25" arcHeight="25" fill="#2c003e"/>
                         <Text fx:id="cell22">
-                            <font>
-                                <Font name="System Bold" size="65"/>
-                            </font>
+                            <font><Font name="System Bold" size="65"/></font>
                         </Text>
                     </StackPane>
-
                 </GridPane>
 
                 <VBox alignment="CENTER" spacing="10"
@@ -167,32 +136,33 @@
                         </font>
                     </Label>
                 </VBox>
-
             </HBox>
         </center>
 
         <bottom>
-    <HBox alignment="BOTTOM_LEFT" prefHeight="100.0">
-        <padding>
-            <Insets bottom="40.0" left="50.0" />
-        </padding>
-        <children>
-            <Button fx:id="BackButtonId" mnemonicParsing="false" 
-                    onAction="#onActionBack" 
-                    onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
-                    onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
-                    prefHeight="50.0" prefWidth="130.0" 
-                    style="-fx-background-color: linear-gradient(to bottom, #A569FF, #8e44ad); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 22px; -fx-font-style: italic; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 6);" 
-                    text="Back" />
-        </children>
-    </HBox>
-</bottom>
-
+            <HBox alignment="BOTTOM_LEFT" prefHeight="100.0">
+                <padding>
+                    <Insets bottom="40.0" left="50.0" />
+                </padding>
+                <children>
+                    <Button fx:id="BackButtonId" mnemonicParsing="false" 
+                            onAction="#onActionBack" 
+                            onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
+                            onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
+                            prefHeight="50.0" prefWidth="130.0" 
+                            style="-fx-background-color: linear-gradient(to bottom, #A569FF, #8e44ad); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 22px; -fx-font-style: italic; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 6);" 
+                            text="Back" />
+                </children>
+            </HBox>
+        </bottom>
     </BorderPane>
 
-    <Line fx:id="winLine"
-          stroke="#d81b60"
-          strokeWidth="12"
-          strokeLineCap="ROUND"
-          visible="false"/>
-</StackPane>  
+    <Pane mouseTransparent="true">
+        <Line fx:id="winLine"
+              stroke="#d81b60"
+              strokeWidth="12"
+              strokeLineCap="ROUND"
+              visible="false"/>
+    </Pane>
+
+</StackPane>

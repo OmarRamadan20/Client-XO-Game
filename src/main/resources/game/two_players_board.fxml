@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -101,16 +102,17 @@
                             <font><Font size="65.0" /></font>
                         </Text>
                     </StackPane>
-               <columnConstraints>
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-               </rowConstraints>
+                    
+                    <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                    </rowConstraints>
                 </GridPane>
 
                 <VBox alignment="CENTER" prefWidth="150.0" spacing="10" 
@@ -142,6 +144,8 @@
         </bottom>
     </BorderPane>
 
-    <Line fx:id="winLine" stroke="#d81b60" strokeLineCap="ROUND" strokeWidth="12" visible="false" />
+    <Pane mouseTransparent="true">
+        <Line fx:id="winLine" stroke="#d81b60" strokeLineCap="ROUND" strokeWidth="12" visible="false" />
+    </Pane>
 
 </StackPane>
