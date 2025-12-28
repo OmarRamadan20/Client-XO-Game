@@ -92,10 +92,5 @@ public class ProfileController implements Initializable {
         ((Button) event.getSource()).setTranslateY(0);
     }
 
-    @FXML
-    private void onHistory(ActionEvent event) {
-   NavigateBetweeenScreens.goToShowHistory(event);
-    
-    }
-
+   
 }
