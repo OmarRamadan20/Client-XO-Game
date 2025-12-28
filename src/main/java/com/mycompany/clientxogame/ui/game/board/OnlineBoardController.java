@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
@@ -387,7 +386,5 @@ public class OnlineBoardController implements Initializable {
     private void handleMouseReleased(MouseEvent event) {
         Button btn = (Button) event.getSource();
         btn.setTranslateY(0);
-    }
-
-    
+    }   
 }

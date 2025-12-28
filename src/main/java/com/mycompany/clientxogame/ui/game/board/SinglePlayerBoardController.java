@@ -48,10 +48,15 @@ public class SinglePlayerBoardController implements Initializable {
         {"", "", ""},
         {"", "", ""}
     };
+    
+    public static void resetScores() {
+    scoreX = 0;
+    scoreO = 0;
+}
 
     private boolean xTurn = true;
     private boolean gameOver = false;
-    private int scoreX = 0, scoreO = 0;
+    private static  int scoreX = 0, scoreO = 0;
     private SingleMode ai = new SingleMode();
     private String difficulty = "Easy";
 
@@ -69,6 +74,8 @@ public class SinglePlayerBoardController implements Initializable {
             {cell10, cell11, cell12},
             {cell20, cell21, cell22}
         };
+        playerOneScore.setText(String.valueOf(scoreX));
+    PlayerTwoScore.setText(String.valueOf(scoreO));
         setupCells();
         resetGame();
     }
@@ -111,10 +118,10 @@ public class SinglePlayerBoardController implements Initializable {
             playerOneScore.setText(String.valueOf(scoreX));
             drawWinLine(winCode);
 
-            handleEndGame("X");
+            handleEndGame("X");  
         } else if (isBoardFull()) {
             gameOver = true;
-            handleEndGame("");
+            handleEndGame(""); 
         } else {
             xTurn = false;
         }
@@ -141,10 +148,10 @@ public class SinglePlayerBoardController implements Initializable {
                 PlayerTwoScore.setText(String.valueOf(scoreO));
                 drawWinLine(winCode);
 
-                handleEndGame("O");
+                handleEndGame("O");  
             } else if (isBoardFull()) {
                 gameOver = true;
-                handleEndGame("");
+                handleEndGame(""); 
             } else {
                 xTurn = true;
             }
@@ -284,6 +291,7 @@ public class SinglePlayerBoardController implements Initializable {
 
         SoundManager.getInstance().playButton("back");
         NavigationManager.backToLevelSelection(event);
+        SinglePlayerBoardController.resetScores();  
     }
 
     @FXML

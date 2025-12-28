@@ -94,5 +94,4 @@ public class ProfileController implements Initializable {
     private void handleMouseReleased(MouseEvent event) {
         ((Button) event.getSource()).setTranslateY(0);
     }
-
 }

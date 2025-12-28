@@ -62,21 +62,30 @@ public class TwoPlayersBoardController implements Initializable {
     private Label playerOneName;
     @FXML
     private Label playerTwoName;
+    public static String player1 = "Player 1";
+    public static String player2 = "Player 2";
+    private static int scoreX = 0;
+    private static int scoreO = 0;
 
     private Text[][] cells;
     private String[][] board = new String[3][3];
     private boolean xTurn = true;
     private boolean gameOver = false;
-    private int scoreX = 0, scoreO = 0;
-    private String player1;
-    private String player2;
 
     public void setPlayersNames(String name1, String name2) {
-        this.player1 = name1;
-        this.player2 = name2;
+        player1 = name1;
+        player2 = name2;
+        if (playerOneName != null) {
+            playerOneName.setText(name1);
+        }
+        if (playerTwoName != null) {
+            playerTwoName.setText(name2);
+        }
+    }
 
-        playerOneName.setText(name1);
-        playerTwoName.setText(name2);
+    public static void resetScores() {
+        scoreX = 0;
+        scoreO = 0;
     }
 
     @Override
@@ -86,6 +95,12 @@ public class TwoPlayersBoardController implements Initializable {
             {cell10, cell11, cell12},
             {cell20, cell21, cell22}
         };
+
+        playerOneName.setText(player1);
+        playerTwoName.setText(player2);
+        playerOneScore.setText(String.valueOf(scoreX));
+        PlayerTwoScore.setText(String.valueOf(scoreO));
+
         setupCells();
         resetGame();
     }
@@ -103,7 +118,9 @@ public class TwoPlayersBoardController implements Initializable {
                     Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), ev -> parent.setTranslateY(0)));
                     timeline.play();
 
-                    if (gameOver || board[row][col] != null) return;
+                    if (gameOver || board[row][col] != null) {
+                        return;
+                    }
 
                     if (xTurn) {
                         cells[row][col].setText("X");
@@ -121,14 +138,14 @@ public class TwoPlayersBoardController implements Initializable {
                         updateScore();
                         drawWinLine(winCode);
 
-                         String winnerSymbol = xTurn ? "X" : "O";
+                        String winnerSymbol = xTurn ? "X" : "O";
                         Platform.runLater(() -> {
                             PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
                             pause.setOnFinished(ev -> {
                                 if (winnerSymbol.equals("X")) {
-                                    NavigationManager.winGame();
+                                    NavigationManager.winGameForTwo();
                                 } else {
-                                    NavigationManager.loseGame();
+                                    NavigationManager.loseGameForTwo();
                                 }
                             });
                             pause.play();
@@ -176,8 +193,12 @@ public class TwoPlayersBoardController implements Initializable {
             }
         }
 
-        if (board[0][0] != null && board[0][0].equals(board[1][1]) && board[1][1].equals(board[2][2])) return 6;
-        if (board[0][2] != null && board[0][2].equals(board[1][1]) && board[1][1].equals(board[2][0])) return 7;
+        if (board[0][0] != null && board[0][0].equals(board[1][1]) && board[1][1].equals(board[2][2])) {
+            return 6;
+        }
+        if (board[0][2] != null && board[0][2].equals(board[1][1]) && board[1][1].equals(board[2][0])) {
+            return 7;
+        }
 
         return -1;
     }
@@ -185,7 +206,9 @@ public class TwoPlayersBoardController implements Initializable {
     private boolean isBoardFull() {
         for (String[] row : board) {
             for (String cell : row) {
-                if (cell == null) return false;
+                if (cell == null) {
+                    return false;
+                }
             }
         }
         return true;
@@ -194,42 +217,58 @@ public class TwoPlayersBoardController implements Initializable {
     private void drawWinLine(int code) {
         winLine.setVisible(true);
         switch (code) {
-            case 0: setLineBounds(cells[0][0], cells[0][2]); break;
-            case 1: setLineBounds(cells[1][0], cells[1][2]); break;
-            case 2: setLineBounds(cells[2][0], cells[2][2]); break;
-            case 3: setLineBounds(cells[0][0], cells[2][0]); break;
-            case 4: setLineBounds(cells[0][1], cells[2][1]); break;
-            case 5: setLineBounds(cells[0][2], cells[2][2]); break;
-            case 6: setLineBounds(cells[0][0], cells[2][2]); break;
-            case 7: setLineBounds(cells[0][2], cells[2][0]); break;
+            case 0:
+                setLineBounds(cells[0][0], cells[0][2]);
+                break;
+            case 1:
+                setLineBounds(cells[1][0], cells[1][2]);
+                break;
+            case 2:
+                setLineBounds(cells[2][0], cells[2][2]);
+                break;
+            case 3:
+                setLineBounds(cells[0][0], cells[2][0]);
+                break;
+            case 4:
+                setLineBounds(cells[0][1], cells[2][1]);
+                break;
+            case 5:
+                setLineBounds(cells[0][2], cells[2][2]);
+                break;
+            case 6:
+                setLineBounds(cells[0][0], cells[2][2]);
+                break;
+            case 7:
+                setLineBounds(cells[0][2], cells[2][0]);
+                break;
         }
     }
 
     private void setLineBounds(Text startCell, Text endCell) {
-    StackPane startPane = (StackPane) startCell.getParent();
-    StackPane endPane = (StackPane) endCell.getParent();
-    Pane lineContainer = (Pane) winLine.getParent();
+        StackPane startPane = (StackPane) startCell.getParent();
+        StackPane endPane = (StackPane) endCell.getParent();
+        Pane lineContainer = (Pane) winLine.getParent();
 
-    Platform.runLater(() -> {
-        Bounds startBounds = startPane.localToScene(startPane.getBoundsInLocal());
-        Point2D startPoint = lineContainer.sceneToLocal(
-                startBounds.getMinX() + startBounds.getWidth() / 2,
-                startBounds.getMinY() + startBounds.getHeight() / 2
-        );
+        Platform.runLater(() -> {
+            Bounds startBounds = startPane.localToScene(startPane.getBoundsInLocal());
+            Point2D startPoint = lineContainer.sceneToLocal(
+                    startBounds.getMinX() + startBounds.getWidth() / 2,
+                    startBounds.getMinY() + startBounds.getHeight() / 2
+            );
 
-        Bounds endBounds = endPane.localToScene(endPane.getBoundsInLocal());
-        Point2D endPoint = lineContainer.sceneToLocal(
-                endBounds.getMinX() + endBounds.getWidth() / 2,
-                endBounds.getMinY() + endBounds.getHeight() / 2
-        );
+            Bounds endBounds = endPane.localToScene(endPane.getBoundsInLocal());
+            Point2D endPoint = lineContainer.sceneToLocal(
+                    endBounds.getMinX() + endBounds.getWidth() / 2,
+                    endBounds.getMinY() + endBounds.getHeight() / 2
+            );
 
-        winLine.setStartX(startPoint.getX());
-        winLine.setStartY(startPoint.getY());
-        winLine.setEndX(endPoint.getX());
-        winLine.setEndY(endPoint.getY());
-        winLine.setVisible(true);
-    });
-}
+            winLine.setStartX(startPoint.getX());
+            winLine.setStartY(startPoint.getY());
+            winLine.setEndX(endPoint.getX());
+            winLine.setEndY(endPoint.getY());
+            winLine.setVisible(true);
+        });
+    }
 
     public void resetGame() {
         for (int r = 0; r < 3; r++) {

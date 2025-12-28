@@ -63,6 +63,37 @@ public class NavigationManager {
         });
     }
 
+    private static void changeSceneWithDifficultyFOrWinOrLoss(String fxmlFile, String title, String difficulty) {
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationManager.class.getResource(fxmlFile));
+            Parent root = loader.load();
+
+            Object controller = loader.getController();
+
+            try {
+                if (controller != null) {
+                    controller.getClass()
+                            .getMethod("setDifficulty", String.class)
+                            .invoke(controller, difficulty);
+                }
+            } catch (NoSuchMethodException e) {
+            }
+
+            Stage stage = (Stage) Stage.getWindows().filtered(window -> window.isShowing()).stream().findFirst().orElse(null);
+
+            if (stage != null) {
+                stage.setScene(new Scene(root));
+                stage.setTitle(title);
+                stage.show();
+            } else {
+                System.err.println("CRITICAL: No Stage found even from Window list!");
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private static void changeSceneWithDifficulty(ActionEvent event, String fxmlFile, String title, String difficulty) {
         try {
             FXMLLoader loader = new FXMLLoader(NavigationManager.class.getResource(fxmlFile));
@@ -79,32 +110,28 @@ public class NavigationManager {
             ex.printStackTrace();
         }
     }
-    
- 
-private static void changeScenePlayRecords(ActionEvent event, String fxml, String file) {
-    try {
-        FXMLLoader loader = new FXMLLoader(NavigationManager.class.getResource(fxml));
-        Parent root = loader.load();
 
-         RecordController controller = loader.getController();
-        controller.setFile(file);
+    private static void changeScenePlayRecords(ActionEvent event, String fxml, String file) {
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationManager.class.getResource(fxml));
+            Parent root = loader.load();
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
+            RecordController controller = loader.getController();
+            controller.setFile(file);
 
-    } catch (IOException e) {
-        e.printStackTrace();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
-
-    
 
     public static void goToSingleMode(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/level-selection.fxml", "Level Selection");
     }
-    
-    
+
     public static void backToModeSelection(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/mode-selection.fxml", "Mode Selection");
     }
@@ -140,22 +167,19 @@ private static void changeScenePlayRecords(ActionEvent event, String fxml, Strin
 
     public static void goToShowProfile(ActionEvent event) {
 
- 
         changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
 
     }
-    
+
     public static void goToShowHistory(ActionEvent event) {
 
         changeScene(event, "/records/game-history.fxml", "Profile");
-     }
+    }
 
-     public static void backToShowHistory(ActionEvent event) {
+    public static void backToShowHistory(ActionEvent event) {
 
         changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
-     }
-    
-    
+    }
 
     public static void logOut(ActionEvent event) {
         changeScene(event, "/UI/Register/signUp.fxml", "Sign Up");
@@ -214,13 +238,68 @@ private static void changeScenePlayRecords(ActionEvent event, String fxml, Strin
 
     public static void goToShowRecords(ActionEvent event) {
         changeScene(event, "/records/game-records.fxml", "Game Records");
-     }
+    }
 
-  public static void  drawGame(){
-     changeScene(null,"/com/mycompany/clientxogame/draw.fxml","draw");
-      } 
+    public static void drawGame() {
+        changeScene(null, "/com/mycompany/clientxogame/draw.fxml", "draw");
+    }
+
     public static void winGame() {
         changeScene(null, "/com/mycompany/clientxogame/win.fxml", "Win");
+    }
+
+    public static void winGameForLevel(String difficulty) {
+        switch (difficulty) {
+            case "Easy":
+                changeSceneWithDifficultyFOrWinOrLoss("/fxml/WinForLevel.fxml", "You Win", "Easy");
+                break;
+            case "Medium":
+                changeSceneWithDifficultyFOrWinOrLoss("/fxml/WinForLevel.fxml", "You Win", "Medium");
+                break;
+            case "Hard":
+                changeSceneWithDifficultyFOrWinOrLoss("/fxml/WinForLevel.fxml", "You Win", "Hard");
+                break;
+        }
+    }
+
+    public static void loseGameForLevel(String difficulty) {
+        switch (difficulty) {
+            case "Easy":
+                changeSceneWithDifficultyFOrWinOrLoss("/fxml/loseForLevel.fxml", "You Win", "Easy");
+                break;
+            case "Medium":
+                changeSceneWithDifficultyFOrWinOrLoss("/fxml/loseForLevel.fxml", "You Win", "Medium");
+                break;
+            case "Hard":
+                changeSceneWithDifficultyFOrWinOrLoss("/fxml/loseForLevel.fxml", "You Win", "Hard");
+                break;
+        }
+    }
+
+    public static void drawGameForLevel(String difficulty) {
+        switch (difficulty) {
+            case "Easy":
+                changeSceneWithDifficultyFOrWinOrLoss("/fxml/drawForLevel.fxml", "You Win", "Easy");
+                break;
+            case "Medium":
+                changeSceneWithDifficultyFOrWinOrLoss("/fxml/drawForLevel.fxml", "You Win", "Medium");
+                break;
+            case "Hard":
+                changeSceneWithDifficultyFOrWinOrLoss("/fxml/drawForLevel.fxml", "You Win", "Hard");
+                break;
+        }
+    }
+
+    public static void drawGameForTwo() {
+        changeScene(null, "/fxml/drawForTwo.fxml", "draw");
+    }
+
+    public static void loseGameForTwo() {
+        changeScene(null, "/fxml/loseForTwo.fxml", "draw");
+    }
+
+    public static void winGameForTwo() {
+        changeScene(null, "/fxml/winForTwo.fxml", "draw");
     }
 
     public static void loseGame() {
@@ -251,8 +330,8 @@ private static void changeScenePlayRecords(ActionEvent event, String fxml, Strin
         changeScene(event, "/com/mycompany/clientxogame/profile.fxml", "Profile");
     }
 
-    public static void goToPlayRecords(ActionEvent event,String file) {
-        changeScenePlayRecords(event, "/records/record.fxml",file);
+    public static void goToPlayRecords(ActionEvent event, String file) {
+        changeScenePlayRecords(event, "/records/record.fxml", file);
     }
 
     public static void backToGameRecords(ActionEvent event) {
@@ -309,8 +388,8 @@ private static void changeScenePlayRecords(ActionEvent event, String fxml, Strin
             e.printStackTrace();
         }
     }
-    
-     public static void gotoModeSelection(ActionEvent event) {
+
+    public static void gotoModeSelection(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/mode-selection.fxml", "XO Game");
     }
 
