@@ -1,8 +1,8 @@
 package com.mycompany.clientxogame;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -108,16 +108,16 @@ public class DoubleBoardController implements Initializable {
             playerOneScore.setText(String.valueOf(scoreX));
             drawWinLine(winCode);
 
+            handleEndGame("X"); // استدعاء شاشة النهاية
         } else if (isBoardFull()) {
             gameOver = true;
-
+            handleEndGame(""); // تعادل
         } else {
             xTurn = false;
         }
     }
 
     private void makeAIMove() {
-
         if (difficulty == null || difficulty.isEmpty()) {
             difficulty = "Easy";
         }
@@ -138,9 +138,10 @@ public class DoubleBoardController implements Initializable {
                 PlayerTwoScore.setText(String.valueOf(scoreO));
                 drawWinLine(winCode);
 
+                handleEndGame("O"); // استدعاء شاشة النهاية
             } else if (isBoardFull()) {
                 gameOver = true;
-
+                handleEndGame(""); // تعادل
             } else {
                 xTurn = true;
             }
@@ -218,7 +219,6 @@ public class DoubleBoardController implements Initializable {
                 setLineBounds(cells[0][2], cells[2][0]);
                 break;
         }
-
     }
 
     private void setLineBounds(Text startCell, Text endCell) {
@@ -257,7 +257,23 @@ public class DoubleBoardController implements Initializable {
         xTurn = true;
         gameOver = false;
         winLine.setVisible(false);
+    }
 
+    private void handleEndGame(String winnerSymbol) {
+        Platform.runLater(() -> {
+            PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
+            pause.setOnFinished(e -> {
+                String mySymbol = "X";  
+                if (winnerSymbol.isEmpty()) {
+                    NavigateBetweeenScreens.drawGame();  
+                } else if (winnerSymbol.equals(mySymbol)) {
+                    NavigateBetweeenScreens.winGame();
+                } else {
+                    NavigateBetweeenScreens.loseGame();
+                }
+            });
+            pause.play();
+        });
     }
 
     @FXML
@@ -272,7 +288,7 @@ public class DoubleBoardController implements Initializable {
         StackPane pane = (StackPane) event.getSource();
         pane.setScaleX(1.05);
         pane.setScaleY(1.05);
-        ((Rectangle) pane.getChildren().get(0)).setFill(javafx.scene.paint.Color.web("#3d0158"));
+        ((Rectangle) pane.getChildren().get(0)).setFill(Color.web("#3d0158"));
     }
 
     @FXML
@@ -280,17 +296,15 @@ public class DoubleBoardController implements Initializable {
         StackPane pane = (StackPane) event.getSource();
         pane.setScaleX(1.0);
         pane.setScaleY(1.0);
-        ((Rectangle) pane.getChildren().get(0)).setFill(javafx.scene.paint.Color.web("#2c003e"));
+        ((Rectangle) pane.getChildren().get(0)).setFill(Color.web("#2c003e"));
     }
 
     @FXML
     private void handleCellClick(MouseEvent event) {
         StackPane pane = (StackPane) event.getSource();
-
         pane.setTranslateY(4);
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> pane.setTranslateY(0)));
         timeline.play();
-
     }
 
     @FXML

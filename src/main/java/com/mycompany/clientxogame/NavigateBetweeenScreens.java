@@ -308,8 +308,5 @@ private static void changeScenePlayRecords(ActionEvent event, String fxml, Strin
      public static void gotoModeSelection(ActionEvent event) {
         changeScene(event, "/com/mycompany/clientxogame/ModeSelection.fxml", "XO Game");
     }
-     
-  
 
 }
-
