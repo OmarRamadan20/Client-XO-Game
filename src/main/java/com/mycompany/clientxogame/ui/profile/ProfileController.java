@@ -7,6 +7,7 @@ package com.mycompany.clientxogame.ui.profile;
 import com.mycompany.clientxogame.navigation.NavigationManager;
 import com.mycompany.clientxogame.sound.SoundManager;
 import com.mycompany.clientxogame.model.LoggedUser;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
@@ -35,14 +37,29 @@ public class ProfileController implements Initializable {
     private Button BackButtonId;
     @FXML
     private Button RecordsButtonId;
- 
 
     @FXML
     private Button HistoryButtonId;
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            InputStream is = getClass().getResourceAsStream("/images/profile1.png");
+            if (is != null) {
+                Image profileImg = new Image(is);
+
+                ImageId.setImage(profileImg);
+
+                ImageId.setPreserveRatio(false);
+                ImageId.setFitWidth(120);
+                ImageId.setFitHeight(120);
+                ImageId.setPreserveRatio(true);
+            } else {
+                System.out.println("Image not found!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         LableId.setText(LoggedUser.name);
         ScoreId.setText(String.valueOf(LoggedUser.score));
 
@@ -50,17 +67,17 @@ public class ProfileController implements Initializable {
 
     @FXML
     private void onBack(ActionEvent event) {
- 
+
         SoundManager.getInstance().playButton("back");
         NavigationManager.backFromProfile(event);
-     }
+    }
 
     @FXML
     private void onRecord(ActionEvent event) {
- 
+
         SoundManager.getInstance().playButton("enter");
         NavigationManager.goToShowRecords(event);
-     }
+    }
 
     @FXML
     private void onHistory(ActionEvent event) {
