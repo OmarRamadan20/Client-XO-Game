@@ -1,5 +1,6 @@
 package com.mycompany.clientxogame.ui.game.result;
 
+import com.mycompany.clientxogame.ui.game.board.OnlineBoardController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -44,7 +45,9 @@ public class DrawController implements Initializable {
 
     @FXML
     private void newGame(ActionEvent event) {
+        
         stopVideo();
+          OnlineBoardController.resetScores();
      }
 
     @FXML
