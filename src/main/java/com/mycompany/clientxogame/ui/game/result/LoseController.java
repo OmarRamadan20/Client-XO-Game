@@ -62,11 +62,13 @@ public class LoseController implements Initializable {
     @FXML
     private void newGame(ActionEvent event) {
  
+                OnlineBoardController.resetScores();
+
         if (mediaView.getMediaPlayer() != null) {
             mediaView.getMediaPlayer().stop();
         }
-          OnlineBoardController.resetScores();
-        NavigationManager.goToAvailablePlayer(event);
+
+         NavigationManager.goToAvailablePlayer(event);
     }
 
     @FXML

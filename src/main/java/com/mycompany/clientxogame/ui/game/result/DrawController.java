@@ -47,7 +47,7 @@ public class DrawController implements Initializable {
     private void newGame(ActionEvent event) {
         
         stopVideo();
-          OnlineBoardController.resetScores();
+        OnlineBoardController.resetScores();
      }
 
     @FXML
