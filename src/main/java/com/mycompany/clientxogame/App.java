@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
@@ -13,19 +14,23 @@ public class App extends Application {
 
     private static Scene scene;
 
-    @Override
-    public void start(Stage stage) throws IOException {
+@Override
+public void start(Stage stage) throws IOException {
 
-        Parent root = loadFXML("splash/splashScreen"); 
-        
-        scene = new Scene(root, 450, 450);
-        
-        
-        stage.setScene(scene);
-        stage.centerOnScreen();
-        stage.show();
-    }
-    
+    Parent root = loadFXML("splash/splashScreen"); 
+     scene = new Scene(root, 450, 450);
+
+     stage.setTitle("Client XO Game");
+
+     stage.getIcons().add(
+        new Image(getClass().getResourceAsStream("/images/player_image.png"))
+    );
+ 
+    stage.setScene(scene);
+    stage.centerOnScreen();
+    stage.show();
+}
+
     
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
