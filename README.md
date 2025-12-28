@@ -49,7 +49,6 @@ Java, JavaFX, FXML, Maven, JSON, Multithreading, Git & GitHub
 Ahlam Gomaa Snosy  
 Omar Ramadan  
 Amr Abdulrahim Tayea
-
 Mahmoud Mahammed
 
 
