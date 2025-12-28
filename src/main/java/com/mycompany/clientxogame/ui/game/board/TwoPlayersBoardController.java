@@ -156,7 +156,7 @@ public class TwoPlayersBoardController implements Initializable {
                         System.out.println("Draw!");
                         Platform.runLater(() -> {
                             PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
-                            pause.setOnFinished(ev -> NavigationManager.drawGame());
+                            pause.setOnFinished(ev -> NavigationManager.drawGameForTwo());
                             pause.play();
                         });
                     }
@@ -285,6 +285,7 @@ public class TwoPlayersBoardController implements Initializable {
     @FXML
     private void onBack(ActionEvent event) {
         SoundManager.getInstance().playButton("back");
+        resetScores();
         NavigationManager.gotoModeSelection(event);
         System.out.println("Back button clicked!");
     }

@@ -1,4 +1,5 @@
-package com.mycompany.clientxogame.ui.game.board; 
+package com.mycompany.clientxogame.ui.game.board;
+
 import com.mycompany.clientxogame.ui.history.GameFileManager;
 import com.mycompany.clientxogame.ui.history.Move;
 import com.mycompany.clientxogame.navigation.NavigationManager;
@@ -39,21 +40,31 @@ import org.json.JSONObject;
 
 public class OnlineBoardController implements Initializable {
 
-     @FXML private Text cell00, cell01, cell02;
-    @FXML private Text cell10, cell11, cell12;
-    @FXML private Text cell20, cell21, cell22;
+    @FXML
+    private Text cell00, cell01, cell02;
+    @FXML
+    private Text cell10, cell11, cell12;
+    @FXML
+    private Text cell20, cell21, cell22;
 
-    @FXML private Line winLine;
-    @FXML private VBox endGameBox;
+    @FXML
+    private Line winLine;
+    @FXML
+    private VBox endGameBox;
 
-    @FXML private Label Playerone;
-    @FXML private Label Playertwo;
-    @FXML private Label playerOneScore;
-    @FXML private Label PlayerTwoScore;
+    @FXML
+    private Label Playerone;
+    @FXML
+    private Label Playertwo;
+    @FXML
+    private Label playerOneScore;
+    @FXML
+    private Label PlayerTwoScore;
 
-    @FXML private Button idRecords;
+    @FXML
+    private Button idRecords;
 
-     private Text[][] cells;
+    private Text[][] cells;
     private String[][] board;
     private boolean gameOver = false;
 
@@ -71,18 +82,18 @@ public class OnlineBoardController implements Initializable {
     private HBox recordingIndicator;
     @FXML
     private Circle redDot;
-    
+
     private FadeTransition dotAnimation;
     @FXML
     private Button BackButtonId;
 
-     @Override
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         cells = new Text[][]{
-                {cell00, cell01, cell02},
-                {cell10, cell11, cell12},
-                {cell20, cell21, cell22}
+            {cell00, cell01, cell02},
+            {cell10, cell11, cell12},
+            {cell20, cell21, cell22}
         };
 
         dotAnimation = new FadeTransition(Duration.seconds(0.5), redDot);
@@ -96,7 +107,7 @@ public class OnlineBoardController implements Initializable {
         endGameBox.setVisible(false);
     }
 
-     public void setOnlineMode(String opponent, String symbol, boolean turn) {
+    public void setOnlineMode(String opponent, String symbol, boolean turn) {
         this.opponentName = opponent;
         this.mySymbol = symbol;
         this.myTurn = turn;
@@ -127,11 +138,11 @@ public class OnlineBoardController implements Initializable {
         });
     }
 
-     private void resetBoard() {
+    private void resetBoard() {
         board = new String[][]{
-                {"", "", ""},
-                {"", "", ""},
-                {"", "", ""}
+            {"", "", ""},
+            {"", "", ""},
+            {"", "", ""}
         };
     }
 
@@ -145,7 +156,9 @@ public class OnlineBoardController implements Initializable {
 
                 parent.setOnMouseClicked(e -> {
 
-                    if (gameOver || !cell.getText().isEmpty() || !myTurn) return;
+                    if (gameOver || !cell.getText().isEmpty() || !myTurn) {
+                        return;
+                    }
 
                     SoundManager.getInstance().playButton("playClick");
                     parent.setTranslateY(4);
@@ -173,7 +186,7 @@ public class OnlineBoardController implements Initializable {
         }
     }
 
-     private void handleGameOver(int winCode) {
+    private void handleGameOver(int winCode) {
 
         gameOver = true;
         dotAnimation.stop();
@@ -182,13 +195,18 @@ public class OnlineBoardController implements Initializable {
         if (winCode != -1) {
             setLineBounds(winCode);
 
-            if (winCode <= 2) winnerSymbol = board[winCode][0];
-            else if (winCode <= 5) winnerSymbol = board[0][winCode - 3];
-            else if (winCode == 6) winnerSymbol = board[0][0];
-            else winnerSymbol = board[0][2];
+            if (winCode <= 2) {
+                winnerSymbol = board[winCode][0];
+            } else if (winCode <= 5) {
+                winnerSymbol = board[0][winCode - 3];
+            } else if (winCode == 6) {
+                winnerSymbol = board[0][0];
+            } else {
+                winnerSymbol = board[0][2];
+            }
 
         } else {
-            winnerSymbol = "";  
+            winnerSymbol = "";
         }
 
         endGameBox.setVisible(true);
@@ -204,7 +222,7 @@ public class OnlineBoardController implements Initializable {
             pause.setOnFinished(e -> {
 
                 if (winnerSymbol.isEmpty()) {
-                  NavigationManager.drawGame();  
+                    NavigationManager.drawGame();
                 } else if (winnerSymbol.equals(mySymbol)) {
                     NavigationManager.winGame();
                 } else {
@@ -219,59 +237,70 @@ public class OnlineBoardController implements Initializable {
     }
 
     private void updateScore() {
-       if(!winnerSymbol.isEmpty())
-       {         
-        if ("X".equals(winnerSymbol)) {
-            scoreX++;
-            playerOneScore.setText(String.valueOf(scoreX));
-        } else if ("O".equals(winnerSymbol)) {
-            scoreO++;
-            PlayerTwoScore.setText(String.valueOf(scoreO));
+        if (!winnerSymbol.isEmpty()) {
+            if ("X".equals(winnerSymbol)) {
+                scoreX++;
+                playerOneScore.setText(String.valueOf(scoreX));
+            } else if ("O".equals(winnerSymbol)) {
+                scoreO++;
+                PlayerTwoScore.setText(String.valueOf(scoreO));
+            }
+
         }
-     
-    }
     }
 
-     private void handleInsertGameResult() {
+    private void handleInsertGameResult() {
         JSONObject req = new JSONObject();
         req.put("type", "game_result");
         req.put("gmail1", LoggedUser.gmail);
         req.put("gmail2", Opponent.gmail);
-        req.put("gmailWin",winnerSymbol.isEmpty() ? "draw": winnerSymbol.equals(mySymbol) ? LoggedUser.gmail : Opponent.gmail);
+        req.put("gmailWin", winnerSymbol.isEmpty() ? "draw" : winnerSymbol.equals(mySymbol) ? LoggedUser.gmail : Opponent.gmail);
         ServerHandler.getInstance().send(req);
     }
 
-     private void makeMove(int row, int col, String symbol, Color color) {
+    private void makeMove(int row, int col, String symbol, Color color) {
         cells[row][col].setText(symbol);
         cells[row][col].setFill(color);
         board[row][col] = symbol;
         moves.add(new Move(symbol.equals("X") ? 0 : 1, row, col));
     }
 
-     private int checkWin() {
+    private int checkWin() {
         for (int i = 0; i < 3; i++) {
-            if (!board[i][0].isEmpty() &&
-                board[i][0].equals(board[i][1]) &&
-                board[i][1].equals(board[i][2])) return i;
+            if (!board[i][0].isEmpty()
+                    && board[i][0].equals(board[i][1])
+                    && board[i][1].equals(board[i][2])) {
+                return i;
+            }
 
-            if (!board[0][i].isEmpty() &&
-                board[0][i].equals(board[1][i]) &&
-                board[1][i].equals(board[2][i])) return i + 3;
+            if (!board[0][i].isEmpty()
+                    && board[0][i].equals(board[1][i])
+                    && board[1][i].equals(board[2][i])) {
+                return i + 3;
+            }
         }
 
-        if (!board[0][0].isEmpty() && board[0][0].equals(board[1][1]) &&
-            board[1][1].equals(board[2][2])) return 6;
+        if (!board[0][0].isEmpty() && board[0][0].equals(board[1][1])
+                && board[1][1].equals(board[2][2])) {
+            return 6;
+        }
 
-        if (!board[0][2].isEmpty() && board[0][2].equals(board[1][1]) &&
-            board[1][1].equals(board[2][0])) return 7;
+        if (!board[0][2].isEmpty() && board[0][2].equals(board[1][1])
+                && board[1][1].equals(board[2][0])) {
+            return 7;
+        }
 
         return -1;
     }
 
     private boolean isBoardFull() {
-        for (String[] r : board)
-            for (String c : r)
-                if (c.isEmpty()) return false;
+        for (String[] r : board) {
+            for (String c : r) {
+                if (c.isEmpty()) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
@@ -280,14 +309,38 @@ public class OnlineBoardController implements Initializable {
         StackPane endPane = null;
 
         switch (code) {
-            case 0: startPane = (StackPane) cells[0][0].getParent(); endPane = (StackPane) cells[0][2].getParent(); break;
-            case 1: startPane = (StackPane) cells[1][0].getParent(); endPane = (StackPane) cells[1][2].getParent(); break;
-            case 2: startPane = (StackPane) cells[2][0].getParent(); endPane = (StackPane) cells[2][2].getParent(); break;
-            case 3: startPane = (StackPane) cells[0][0].getParent(); endPane = (StackPane) cells[2][0].getParent(); break;
-            case 4: startPane = (StackPane) cells[0][1].getParent(); endPane = (StackPane) cells[2][1].getParent(); break;
-            case 5: startPane = (StackPane) cells[0][2].getParent(); endPane = (StackPane) cells[2][2].getParent(); break;
-            case 6: startPane = (StackPane) cells[0][0].getParent(); endPane = (StackPane) cells[2][2].getParent(); break;
-            case 7: startPane = (StackPane) cells[0][2].getParent(); endPane = (StackPane) cells[2][0].getParent(); break;
+            case 0:
+                startPane = (StackPane) cells[0][0].getParent();
+                endPane = (StackPane) cells[0][2].getParent();
+                break;
+            case 1:
+                startPane = (StackPane) cells[1][0].getParent();
+                endPane = (StackPane) cells[1][2].getParent();
+                break;
+            case 2:
+                startPane = (StackPane) cells[2][0].getParent();
+                endPane = (StackPane) cells[2][2].getParent();
+                break;
+            case 3:
+                startPane = (StackPane) cells[0][0].getParent();
+                endPane = (StackPane) cells[2][0].getParent();
+                break;
+            case 4:
+                startPane = (StackPane) cells[0][1].getParent();
+                endPane = (StackPane) cells[2][1].getParent();
+                break;
+            case 5:
+                startPane = (StackPane) cells[0][2].getParent();
+                endPane = (StackPane) cells[2][2].getParent();
+                break;
+            case 6:
+                startPane = (StackPane) cells[0][0].getParent();
+                endPane = (StackPane) cells[2][2].getParent();
+                break;
+            case 7:
+                startPane = (StackPane) cells[0][2].getParent();
+                endPane = (StackPane) cells[2][0].getParent();
+                break;
         }
 
         if (startPane != null && endPane != null) {
@@ -297,48 +350,40 @@ public class OnlineBoardController implements Initializable {
 
             Platform.runLater(() -> {
                 Bounds startBounds = finalStart.localToScene(finalStart.getBoundsInLocal());
-                Point2D startPt = lineContainer.sceneToLocal(startBounds.getMinX() + startBounds.getWidth()/2, 
-                                                              startBounds.getMinY() + startBounds.getHeight()/2);
+                Point2D startPt = lineContainer.sceneToLocal(startBounds.getMinX() + startBounds.getWidth() / 2,
+                        startBounds.getMinY() + startBounds.getHeight() / 2);
 
                 Bounds endBounds = finalEnd.localToScene(finalEnd.getBoundsInLocal());
-                Point2D endPt = lineContainer.sceneToLocal(endBounds.getMinX() + endBounds.getWidth()/2, 
-                                                            endBounds.getMinY() + endBounds.getHeight()/2);
+                Point2D endPt = lineContainer.sceneToLocal(endBounds.getMinX() + endBounds.getWidth() / 2,
+                        endBounds.getMinY() + endBounds.getHeight() / 2);
 
                 winLine.setStartX(startPt.getX());
                 winLine.setStartY(startPt.getY());
-                winLine.setEndX(startPt.getX()); 
+                winLine.setEndX(startPt.getX());
                 winLine.setEndY(startPt.getY());
                 winLine.setVisible(true);
 
                 Timeline timeline = new Timeline();
                 timeline.getKeyFrames().add(new KeyFrame(Duration.millis(600),
-                    new KeyValue(winLine.endXProperty(), endPt.getX()),
-                    new KeyValue(winLine.endYProperty(), endPt.getY())
+                        new KeyValue(winLine.endXProperty(), endPt.getX()),
+                        new KeyValue(winLine.endYProperty(), endPt.getY())
                 ));
                 timeline.play();
             });
         }
     }
 
-     @FXML
+    @FXML
     private void onActionRecode(ActionEvent event) {
         SoundManager.getInstance().playButton("enter");
-<<<<<<< HEAD:src/main/java/com/mycompany/clientxogame/XOController.java
- 
 
-     isRecord = true;
-            recordingIndicator.setVisible(true);
-=======
         isRecord = true;
         recordingIndicator.setVisible(true);
->>>>>>> refactor/package-structure:src/main/java/com/mycompany/clientxogame/ui/game/board/OnlineBoardController.java
-            dotAnimation.play();
-            idRecords.setDisable(true); 
-            idRecords.setOpacity(0.5);
+        dotAnimation.play();
+        idRecords.setDisable(true);
+        idRecords.setOpacity(0.5);
     }
-            
-    
-    
+
     @FXML
     private void handleCellHover(MouseEvent event) {
         StackPane pane = (StackPane) event.getSource();
@@ -393,5 +438,5 @@ public class OnlineBoardController implements Initializable {
     private void handleMouseReleased(MouseEvent event) {
         Button btn = (Button) event.getSource();
         btn.setTranslateY(0);
-}
+    }
 }

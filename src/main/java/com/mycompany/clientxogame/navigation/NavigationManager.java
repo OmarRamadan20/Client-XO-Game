@@ -295,11 +295,11 @@ public class NavigationManager {
     }
 
     public static void loseGameForTwo() {
-        changeScene(null, "/fxml/loseForTwo.fxml", "draw");
+        changeScene(null, "/fxml/loseForTwo.fxml", "lose");
     }
 
     public static void winGameForTwo() {
-        changeScene(null, "/fxml/winForTwo.fxml", "draw");
+        changeScene(null, "/fxml/winForTwo.fxml", "win");
     }
 
     public static void loseGame() {

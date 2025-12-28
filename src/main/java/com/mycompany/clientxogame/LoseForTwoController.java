@@ -5,6 +5,7 @@
 package com.mycompany.clientxogame;
 
 import com.mycompany.clientxogame.navigation.NavigationManager;
+import com.mycompany.clientxogame.ui.game.board.SinglePlayerBoardController;
 import com.mycompany.clientxogame.ui.game.board.TwoPlayersBoardController;
 import java.net.URL;
 import java.util.ResourceBundle;
