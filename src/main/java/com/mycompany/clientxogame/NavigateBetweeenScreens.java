@@ -57,7 +57,38 @@ public class NavigateBetweeenScreens {
             }
         });
     }
+private static void changeSceneWithDifficultyFOrWinOrLoss(String fxmlFile, String title, String difficulty) {
+    try {
+        FXMLLoader loader = new FXMLLoader(NavigateBetweeenScreens.class.getResource(fxmlFile));
+        Parent root = loader.load();
 
+        Object controller = loader.getController();
+
+         try {
+            if (controller != null) {
+                controller.getClass()
+                        .getMethod("setDifficulty", String.class)
+                        .invoke(controller, difficulty);
+            }
+        } catch (NoSuchMethodException e) {
+         }
+
+         Stage stage = (Stage) Stage.getWindows().filtered(window -> window.isShowing()).stream().findFirst().orElse(null);
+
+        if (stage != null) {
+            stage.setScene(new Scene(root));
+            stage.setTitle(title);
+            stage.show();
+        } else {
+            System.err.println("CRITICAL: No Stage found even from Window list!");
+        }
+
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+}
+    
+    
     private static void changeSceneWithDifficulty(ActionEvent event, String fxmlFile, String title, String difficulty) {
         try {
             FXMLLoader loader = new FXMLLoader(NavigateBetweeenScreens.class.getResource(fxmlFile));
@@ -217,7 +248,58 @@ private static void changeScenePlayRecords(ActionEvent event, String fxml, Strin
     public static void winGame() {
         changeScene(null, "/com/mycompany/clientxogame/win.fxml", "Win");
     }
+  public static void winGameForLevel(String difficulty) {
+    switch(difficulty) {
+        case "Easy":
+            changeSceneWithDifficultyFOrWinOrLoss("/fxml/WinForLevel.fxml", "You Win", "Easy");
+            break;
+        case "Medium":
+            changeSceneWithDifficultyFOrWinOrLoss("/fxml/WinForLevel.fxml", "You Win", "Medium");
+            break;
+        case "Hard":
+            changeSceneWithDifficultyFOrWinOrLoss("/fxml/WinForLevel.fxml", "You Win", "Hard");
+            break;
+    }
+}
+public static void loseGameForLevel(String difficulty) {
+    switch(difficulty) {
+        case "Easy":
+            changeSceneWithDifficultyFOrWinOrLoss("/fxml/loseForLevel.fxml", "You Win", "Easy");
+            break;
+        case "Medium":
+            changeSceneWithDifficultyFOrWinOrLoss("/fxml/loseForLevel.fxml", "You Win", "Medium");
+            break;
+        case "Hard":
+            changeSceneWithDifficultyFOrWinOrLoss("/fxml/loseForLevel.fxml", "You Win", "Hard");
+            break;
+    }
+}
 
+public static void drawGameForLevel(String difficulty) {
+    switch(difficulty) {
+        case "Easy":
+            changeSceneWithDifficultyFOrWinOrLoss("/fxml/drawForLevel.fxml", "You Win", "Easy");
+            break;
+        case "Medium":
+            changeSceneWithDifficultyFOrWinOrLoss("/fxml/drawForLevel.fxml", "You Win", "Medium");
+            break;
+        case "Hard":
+            changeSceneWithDifficultyFOrWinOrLoss("/fxml/drawForLevel.fxml", "You Win", "Hard");
+            break;
+    }
+}
+
+ public static void drawGameForTwo() {
+        changeScene(null, "/fxml/drawForTwo.fxml", "draw");
+    }  
+public static void loseGameForTwo() {
+        changeScene(null, "/fxml/loseForTwo.fxml", "draw");
+    }  
+
+public static void winGameForTwo() {
+        changeScene(null, "/fxml/winForTwo.fxml", "draw");
+    }  
+  
     public static void loseGame() {
         changeScene(null, "/com/mycompany/clientxogame/lose.fxml", "Lose");
     }
