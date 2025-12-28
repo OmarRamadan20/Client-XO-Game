@@ -49,7 +49,8 @@ public void initialize(URL url, ResourceBundle rb) {
 
     @FXML
     private void newGame(ActionEvent event) {
-    NavigateBetweeenScreens.goToNewGame(event);
+    
+        NavigateBetweeenScreens.goToNewGame(event);
     
     }
 

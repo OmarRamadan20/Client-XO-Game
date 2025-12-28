@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
@@ -13,9 +14,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -149,7 +152,7 @@ public class XOController implements Initializable {
         gameOver = true;
 
         if (winCode != -1) {
-            drawWinLine(winCode);
+            setLineBounds(winCode);
 
             if (winCode <= 2) winnerSymbol = board[winCode][0];
             else if (winCode <= 5) winnerSymbol = board[0][winCode - 3];
@@ -244,64 +247,50 @@ public class XOController implements Initializable {
         return true;
     }
 
-    private void drawWinLine(int code) {
-    winLine.setVisible(true);
+    private void setLineBounds(int code) {
+        StackPane startPane = null;
+        StackPane endPane = null;
 
-    StackPane start = null;
-    StackPane end = null;
+        switch (code) {
+            case 0: startPane = (StackPane) cells[0][0].getParent(); endPane = (StackPane) cells[0][2].getParent(); break;
+            case 1: startPane = (StackPane) cells[1][0].getParent(); endPane = (StackPane) cells[1][2].getParent(); break;
+            case 2: startPane = (StackPane) cells[2][0].getParent(); endPane = (StackPane) cells[2][2].getParent(); break;
+            case 3: startPane = (StackPane) cells[0][0].getParent(); endPane = (StackPane) cells[2][0].getParent(); break;
+            case 4: startPane = (StackPane) cells[0][1].getParent(); endPane = (StackPane) cells[2][1].getParent(); break;
+            case 5: startPane = (StackPane) cells[0][2].getParent(); endPane = (StackPane) cells[2][2].getParent(); break;
+            case 6: startPane = (StackPane) cells[0][0].getParent(); endPane = (StackPane) cells[2][2].getParent(); break;
+            case 7: startPane = (StackPane) cells[0][2].getParent(); endPane = (StackPane) cells[2][0].getParent(); break;
+        }
 
-    switch (code) {
-        case 0:
-            start = (StackPane) cells[0][0].getParent();
-            end   = (StackPane) cells[0][2].getParent();
-            break;
+        if (startPane != null && endPane != null) {
+            final StackPane finalStart = startPane;
+            final StackPane finalEnd = endPane;
+            Pane lineContainer = (Pane) winLine.getParent();
 
-        case 1:
-            start = (StackPane) cells[1][0].getParent();
-            end   = (StackPane) cells[1][2].getParent();
-            break;
+            Platform.runLater(() -> {
+                Bounds startBounds = finalStart.localToScene(finalStart.getBoundsInLocal());
+                Point2D startPt = lineContainer.sceneToLocal(startBounds.getMinX() + startBounds.getWidth()/2, 
+                                                              startBounds.getMinY() + startBounds.getHeight()/2);
 
-        case 2:
-            start = (StackPane) cells[2][0].getParent();
-            end   = (StackPane) cells[2][2].getParent();
-            break;
+                Bounds endBounds = finalEnd.localToScene(finalEnd.getBoundsInLocal());
+                Point2D endPt = lineContainer.sceneToLocal(endBounds.getMinX() + endBounds.getWidth()/2, 
+                                                            endBounds.getMinY() + endBounds.getHeight()/2);
 
-        case 3:
-            start = (StackPane) cells[0][0].getParent();
-            end   = (StackPane) cells[2][0].getParent();
-            break;
+                winLine.setStartX(startPt.getX());
+                winLine.setStartY(startPt.getY());
+                winLine.setEndX(startPt.getX()); 
+                winLine.setEndY(startPt.getY());
+                winLine.setVisible(true);
 
-        case 4:
-            start = (StackPane) cells[0][1].getParent();
-            end   = (StackPane) cells[2][1].getParent();
-            break;
-
-        case 5:
-            start = (StackPane) cells[0][2].getParent();
-            end   = (StackPane) cells[2][2].getParent();
-            break;
-
-        case 6:
-            start = (StackPane) cells[0][0].getParent();
-            end   = (StackPane) cells[2][2].getParent();
-            break;
-
-        case 7:
-            start = (StackPane) cells[0][2].getParent();
-            end   = (StackPane) cells[2][0].getParent();
-            break;
+                Timeline timeline = new Timeline();
+                timeline.getKeyFrames().add(new KeyFrame(Duration.millis(600),
+                    new KeyValue(winLine.endXProperty(), endPt.getX()),
+                    new KeyValue(winLine.endYProperty(), endPt.getY())
+                ));
+                timeline.play();
+            });
+        }
     }
-
-    if (start != null && end != null) {
-        Bounds sb = start.localToParent(start.getLayoutBounds());
-        Bounds eb = end.localToParent(end.getLayoutBounds());
-
-        winLine.setStartX(sb.getMinX() + sb.getWidth() / 2);
-        winLine.setStartY(sb.getMinY() + sb.getHeight() / 2);
-        winLine.setEndX(eb.getMinX() + eb.getWidth() / 2);
-        winLine.setEndY(eb.getMinY() + eb.getHeight() / 2);
-    }
-}
 
      @FXML
     private void onActionRecode(ActionEvent event) {
