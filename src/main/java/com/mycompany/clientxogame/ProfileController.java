@@ -92,5 +92,4 @@ public class ProfileController implements Initializable {
         ((Button) event.getSource()).setTranslateY(0);
     }
 
-   
-}
+

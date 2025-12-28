@@ -3,9 +3,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
@@ -58,6 +58,14 @@ public class XOController implements Initializable {
 
     private final List<Move> moves = new ArrayList<>();
     private boolean isRecord = false;
+    @FXML
+    private HBox recordingIndicator;
+    @FXML
+    private Circle redDot;
+    
+    private FadeTransition dotAnimation;
+    @FXML
+    private Button BackButtonId;
 
      @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -67,6 +75,12 @@ public class XOController implements Initializable {
                 {cell10, cell11, cell12},
                 {cell20, cell21, cell22}
         };
+
+        dotAnimation = new FadeTransition(Duration.seconds(0.5), redDot);
+        dotAnimation.setFromValue(1.0);
+        dotAnimation.setToValue(0.2);
+        dotAnimation.setCycleCount(Timeline.INDEFINITE);
+        dotAnimation.setAutoReverse(true);
 
         resetBoard();
         setupCells();
@@ -125,6 +139,9 @@ public class XOController implements Initializable {
                     if (gameOver || !cell.getText().isEmpty() || !myTurn) return;
 
                     SoundManager.getInstance().playButton("playClick");
+                    parent.setTranslateY(4);
+                    Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), ev -> parent.setTranslateY(0)));
+                    timeline.play();
 
                     makeMove(row, col, mySymbol,
                             mySymbol.equals("X") ? Color.LIME : Color.HOTPINK);
@@ -150,6 +167,8 @@ public class XOController implements Initializable {
      private void handleGameOver(int winCode) {
 
         gameOver = true;
+        dotAnimation.stop();
+        recordingIndicator.setVisible(false);
 
         if (winCode != -1) {
             setLineBounds(winCode);
@@ -297,4 +316,68 @@ public class XOController implements Initializable {
         SoundManager.getInstance().playButton("enter");
         isRecord = true;
     }
+            isRecord = true;
+            recordingIndicator.setVisible(true);
+            dotAnimation.play();
+            idRecords.setDisable(true); 
+            idRecords.setOpacity(0.5);
+    }
+    
+    @FXML
+    private void handleCellHover(MouseEvent event) {
+        StackPane pane = (StackPane) event.getSource();
+        pane.setScaleX(1.05);
+        pane.setScaleY(1.05);
+        ((Rectangle) pane.getChildren().get(0)).setFill(javafx.scene.paint.Color.web("#3d0158"));
+    }
+
+    @FXML
+    private void handleCellExit(MouseEvent event) {
+        StackPane pane = (StackPane) event.getSource();
+        pane.setScaleX(1.0);
+        pane.setScaleY(1.0);
+        ((Rectangle) pane.getChildren().get(0)).setFill(javafx.scene.paint.Color.web("#2c003e"));
+    }
+
+    @FXML
+    private void handleCellClick(MouseEvent event) {
+        StackPane pane = (StackPane) event.getSource();
+
+        pane.setTranslateY(4);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> pane.setTranslateY(0)));
+        timeline.play();
+
+    }
+
+    @FXML
+    private void handleMouseEnter(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+        st.setToX(1.07);
+        st.setToY(1.07);
+        st.play();
+    }
+
+    @FXML
+    private void handleMouseExit(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+        st.setToX(1.0);
+        st.setToY(1.0);
+        st.play();
+    }
+
+    @FXML
+    private void handleMousePressed(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(4);
+    }
+
+    @FXML
+    private void handleMouseReleased(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setTranslateY(0);
+    }
+
+    
 }
