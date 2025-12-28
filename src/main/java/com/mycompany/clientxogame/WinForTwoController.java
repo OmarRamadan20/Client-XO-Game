@@ -4,6 +4,8 @@
  */
 package com.mycompany.clientxogame;
 
+import com.mycompany.clientxogame.navigation.NavigationManager;
+import com.mycompany.clientxogame.ui.game.board.TwoPlayersBoardController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -46,15 +48,15 @@ public class WinForTwoController implements Initializable{
 
     @FXML
     private void newGame(ActionEvent event) {
-                Two_players_boardController.resetScores();
-                NavigateBetweeenScreens.backToModeSelection(event);
+                TwoPlayersBoardController.resetScores();
+                NavigationManager.backToModeSelection(event);
 
     }
 
     @FXML
     private void playAgain(ActionEvent event) {
 
-        NavigateBetweeenScreens.goToTwoPlayersMode(event, Two_players_boardController.player1,Two_players_boardController.player2);
+        NavigationManager.goToTwoPlayersMode(event, TwoPlayersBoardController.player1,TwoPlayersBoardController.player2);
              
                 
         }

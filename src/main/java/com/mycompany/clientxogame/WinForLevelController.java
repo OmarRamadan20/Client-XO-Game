@@ -4,7 +4,8 @@
  */
 package com.mycompany.clientxogame;
 
-import com.mycompany.clientxogame.NavigateBetweeenScreens;
+import com.mycompany.clientxogame.navigation.NavigationManager;
+import com.mycompany.clientxogame.ui.game.board.TwoPlayersBoardController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -54,8 +55,8 @@ public class WinForLevelController implements Initializable {
 
     @FXML
     private void newGame(ActionEvent event) {
-       DoubleBoardController.resetScores();
-        NavigateBetweeenScreens.backToLevelSelection(event);
+       TwoPlayersBoardController.resetScores();
+        NavigationManager.backToLevelSelection(event);
 
     }
 
@@ -64,13 +65,13 @@ public class WinForLevelController implements Initializable {
 
         switch (difficulty) {
             case "Easy":
-                NavigateBetweeenScreens.goToEasyLevel(event);
+                NavigationManager.goToEasyLevel(event);
                 break;
             case "Medium":
-                NavigateBetweeenScreens.goToMeduimLevel(event);
+                NavigationManager.goToMeduimLevel(event);
                 break;
             case "Hard":
-                NavigateBetweeenScreens.goToHardLevel(event);
+                NavigationManager.goToHardLevel(event);
                 break;
         }
     }
