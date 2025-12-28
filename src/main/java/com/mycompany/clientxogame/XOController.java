@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
@@ -18,10 +19,12 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -314,8 +317,7 @@ public class XOController implements Initializable {
      @FXML
     private void onActionRecode(ActionEvent event) {
         SoundManager.getInstance().playButton("enter");
-        isRecord = true;
-    }
+ 
             isRecord = true;
             recordingIndicator.setVisible(true);
             dotAnimation.play();
@@ -378,6 +380,4 @@ public class XOController implements Initializable {
         Button btn = (Button) event.getSource();
         btn.setTranslateY(0);
     }
-
-    
 }
