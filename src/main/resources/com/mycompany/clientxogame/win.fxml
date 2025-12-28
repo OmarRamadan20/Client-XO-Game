@@ -17,7 +17,7 @@
             prefHeight="700.0" prefWidth="700.0" 
             style="-fx-background-color: linear-gradient(to bottom right, #f1c40f, #e67e22, #9b59b6);" 
             xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="com.mycompany.clientxogame.WinController">
+            fx:controller="com.mycompany.clientxogame.ui.game.result.WinController">
    
    <top>
       <VBox alignment="CENTER" prefHeight="160.0" spacing="10.0" BorderPane.alignment="CENTER">
