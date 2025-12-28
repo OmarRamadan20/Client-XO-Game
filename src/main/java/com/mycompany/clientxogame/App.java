@@ -23,7 +23,7 @@ public void start(Stage stage) throws IOException {
      stage.setTitle("Client XO Game");
 
      stage.getIcons().add(
-        new Image(getClass().getResourceAsStream("/images/player_image.png"))
+        new Image(getClass().getResourceAsStream("/images/logo.png"))
     );
  
     stage.setScene(scene);
@@ -44,8 +44,7 @@ public void start(Stage stage) throws IOException {
         }
 
         if (fxmlLocation == null) {
-            throw new IOException("تعذر العثور على ملف: " + fxml);
-        }
+         }
 
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
         return fxmlLoader.load();
