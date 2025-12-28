@@ -60,9 +60,9 @@ public class DoubleBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
- 
+
         cells = new Text[][]{
-             {cell00, cell01, cell02},
+            {cell00, cell01, cell02},
             {cell10, cell11, cell12},
             {cell20, cell21, cell22}
         };
@@ -222,25 +222,29 @@ public class DoubleBoardController implements Initializable {
     }
 
     private void setLineBounds(Text startCell, Text endCell) {
-        Bounds startBounds = startCell.localToScene(startCell.getBoundsInLocal());
-        Bounds endBounds = endCell.localToScene(endCell.getBoundsInLocal());
+        StackPane startPane = (StackPane) startCell.getParent();
+        StackPane endPane = (StackPane) endCell.getParent();
+        Pane lineContainer = (Pane) winLine.getParent();
 
-        Pane parent = (Pane) winLine.getParent();
+        Platform.runLater(() -> {
+            Bounds startBounds = startPane.localToScene(startPane.getBoundsInLocal());
+            Point2D startPoint = lineContainer.sceneToLocal(
+                    startBounds.getMinX() + startBounds.getWidth() / 2,
+                    startBounds.getMinY() + startBounds.getHeight() / 2
+            );
 
-        Point2D startPoint = parent.sceneToLocal(
-                startBounds.getMinX() + startBounds.getWidth() / 2,
-                startBounds.getMinY() + startBounds.getHeight() / 2
-        );
+            Bounds endBounds = endPane.localToScene(endPane.getBoundsInLocal());
+            Point2D endPoint = lineContainer.sceneToLocal(
+                    endBounds.getMinX() + endBounds.getWidth() / 2,
+                    endBounds.getMinY() + endBounds.getHeight() / 2
+            );
 
-        Point2D endPoint = parent.sceneToLocal(
-                endBounds.getMinX() + endBounds.getWidth() / 2,
-                endBounds.getMinY() + endBounds.getHeight() / 2
-        );
-
-        winLine.setStartX(startPoint.getX());
-        winLine.setStartY(startPoint.getY());
-        winLine.setEndX(endPoint.getX());
-        winLine.setEndY(endPoint.getY());
+            winLine.setStartX(startPoint.getX());
+            winLine.setStartY(startPoint.getY());
+            winLine.setEndX(endPoint.getX());
+            winLine.setEndY(endPoint.getY());
+            winLine.setVisible(true);
+        });
     }
 
     public void resetGame() {
@@ -258,9 +262,9 @@ public class DoubleBoardController implements Initializable {
 
     @FXML
     private void onActionBack(ActionEvent event) {
- 
+
         SoundManager.getInstance().playButton("back");
-         NavigateBetweeenScreens.backToLevelSelection(event);
+        NavigateBetweeenScreens.backToLevelSelection(event);
     }
 
     @FXML
