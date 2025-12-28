@@ -12,7 +12,7 @@
            prefHeight="700.0" prefWidth="700.0" 
            style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" 
            xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" 
-           fx:controller="com.mycompany.clientxogame.AcceptController">
+           fx:controller="com.mycompany.clientxogame.ui.game.multiplayer.AcceptController">
    <children>
       <VBox alignment="CENTER" maxWidth="500.0" maxHeight="500.0" spacing="40.0" 
             style="-fx-background-color: white; -fx-background-radius: 30; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 20, 0, 0, 10);">

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="650.0" prefWidth="650.0" 
+            style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" 
+            xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.mycompany.clientxogame.ui.mode.ModeSelectionController">
+   <children>
+      <Button fx:id="btmSingle" layoutX="175.0" layoutY="160.0" mnemonicParsing="false" 
+              onAction="#onActionBtmSingle" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
+              onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
+              prefHeight="65.0" prefWidth="300.0" 
+              style="-fx-background-color: linear-gradient(to bottom, #8e44ad, #6c3483); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26px; -fx-font-style: italic; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 6); -fx-border-color: rgba(255,255,255,0.25); -fx-border-radius: 50; -fx-border-width: 1.5;" 
+              text="Single Player" />
+
+      <Button fx:id="btmPlayer" layoutX="175.0" layoutY="270.0" mnemonicParsing="false" 
+              onAction="#onActionBtmPlayer" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
+              onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
+              prefHeight="65.0" prefWidth="300.0" 
+              style="-fx-background-color: linear-gradient(to bottom, #d81b60, #ad1457); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26px; -fx-font-style: italic; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 6); -fx-border-color: rgba(255,255,255,0.25); -fx-border-radius: 50; -fx-border-width: 1.5;" 
+              text="Two Players" />
+
+      <Button fx:id="btmOline" layoutX="175.0" layoutY="380.0" mnemonicParsing="false" 
+              onAction="#onActionOnline" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" 
+              onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased"
+              prefHeight="65.0" prefWidth="300.0" 
+              style="-fx-background-color: linear-gradient(to bottom, #2980b9, #1f618d); -fx-background-radius: 50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 26px; -fx-font-style: italic; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 6); -fx-border-color: rgba(255,255,255,0.25); -fx-border-radius: 50; -fx-border-width: 1.5;" 
+              text="Online Mode" />
+   </children>
+</AnchorPane>

@@ -16,7 +16,7 @@
 <StackPane prefHeight="650.0" prefWidth="650.0" 
            style="-fx-background-color: linear-gradient(to bottom, #ffd1e8, #c8b3ff, #a0ffff);" 
            xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" 
-           fx:controller="com.mycompany.clientxogame.RecordController">
+           fx:controller="com.mycompany.clientxogame.ui.history.RecordController">
    <children>
       
       <VBox alignment="CENTER" maxHeight="580.0" maxWidth="500.0" spacing="25.0" 
